@@ -2,74 +2,116 @@
  "date": "12 October 2026",
  "sites": [
   {
-   "name": "Speedtest",
-   "without": 1933,
+   "name": "9GAG",
+   "without": 2501,
    "with": 1,
    "intact": true
   },
   {
-   "name": "Forbes",
-   "without": 1089,
+   "name": "Speedtest",
+   "without": 2015,
    "with": 1,
+   "intact": true
+  },
+  {
+   "name": "Kooora",
+   "without": 1779,
+   "with": 0,
+   "intact": true
+  },
+  {
+   "name": "Yahoo",
+   "without": 1763,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "Tom's Guide",
+   "without": 1675,
+   "with": 0,
+   "intact": true
+  },
+  {
+   "name": "Al Jazeera",
+   "without": 850,
+   "with": 0,
    "intact": true
   },
   {
    "name": "WordReference",
-   "without": 564,
+   "without": 795,
    "with": 0,
    "intact": true
   },
   {
    "name": "Weather.com",
-   "without": 542,
+   "without": 603,
    "with": 2,
    "intact": true
   },
   {
    "name": "CNN",
-   "without": 538,
+   "without": 553,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "CNET",
+   "without": 520,
    "with": 1,
    "intact": true
   },
   {
    "name": "Business Insider",
-   "without": 498,
+   "without": 502,
    "with": 2,
    "intact": true
   },
   {
-   "name": "Yahoo",
-   "without": 384,
+   "name": "timeanddate",
+   "without": 442,
    "with": 1,
    "intact": true
   },
   {
    "name": "Allrecipes",
-   "without": 305,
+   "without": 393,
    "with": 1,
    "intact": true
   },
   {
-   "name": "Goal",
-   "without": 95,
+   "name": "Forbes",
+   "without": 317,
    "with": 1,
    "intact": true
   },
   {
    "name": "Daily Mail",
-   "without": 85,
+   "without": 290,
    "with": 0,
    "intact": true
   },
   {
+   "name": "BBC",
+   "without": 155,
+   "with": 2,
+   "intact": true
+  },
+  {
+   "name": "Goal",
+   "without": 140,
+   "with": 1,
+   "intact": true
+  },
+  {
    "name": "Hespress",
-   "without": 68,
+   "without": 47,
    "with": 1,
    "intact": true
   },
   {
    "name": "Investing.com",
-   "without": 23,
+   "without": 24,
    "with": 1,
    "intact": true
   },

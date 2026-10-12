@@ -4,7 +4,8 @@
 
 - Faster per-site hiding lookups in the background worker.
 - Speed tests: load time, CPU and memory with and without the extension.
-- Tested on 39 ad-heavy sites.
+- Tested on 39 sites: 206 visible ads without the extension, 0 with it.
+- Security review fixes: stricter selector validation, no page-visible globals, CSS injected only into the requesting document.
 - Project docs: privacy policy, security policy, contributing guide, issue forms.
 
 ## 2.0.1

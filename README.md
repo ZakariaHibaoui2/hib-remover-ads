@@ -86,7 +86,7 @@ Each site was loaded twice in a fresh Chromium profile, without and with Hib Rem
 
 The last row is the extension's own cost on a page with nothing to block: about 20 ms, well under what anyone can notice.
 
-**Blocking** across ad-heavy sites, from [`tests/test_real_sites.py`](tests/test_real_sites.py): ad requests that loaded dropped from hundreds per page to 0–2, visible ad slots went to 0, and page text stayed the same. The full table is on the [website](https://zakariahibaoui2.github.io/hib-remover-ads/#proof). On [adblock-tester.com](https://adblock-tester.com/) it scores **100/100**.
+**Blocking** on 39 sites (news, video, sport, shopping, tech, French and Arabic), from [`tests/test_real_sites.py`](tests/test_real_sites.py): **206 visible ads without the extension, 0 with it.** Ad files downloaded dropped from up to 2,501 per page (9GAG) to 0–2, and page text stayed the same. The full table is on the [website](https://zakariahibaoui2.github.io/hib-remover-ads/#proof). On [adblock-tester.com](https://adblock-tester.com/) it scores **100/100**.
 
 Results vary by country and over time; these were measured from Morocco in October 2026.
 
