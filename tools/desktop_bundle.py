@@ -41,7 +41,11 @@ def copy(src, dst):
 
 def main():
     if DEST.exists():
-        shutil.rmtree(DEST)
+        # Git stores objects read-only; clear the flag so they can be removed.
+        def force(func, path, _):
+            os.chmod(path, 0o666)
+            func(path)
+        shutil.rmtree(DEST, onexc=force)
     DEST.mkdir(parents=True)
     version = json.loads((ROOT / "src" / "manifest.json").read_text())["version"]
 
@@ -74,9 +78,10 @@ def main():
 def guide(version):
     perf = json.loads((ROOT / "tests" / "performance_results.json").read_text())
     sites = json.loads((ROOT / "docs" / "results.json").read_text())
+    secs = lambda ms: f"{ms:.0f} ms" if ms < 1000 else f"{ms / 1000:.1f} s"
     pct = lambda a, b: f"{round((b - a) / a * 100):+d}%" if a else "-"
     perf_rows = "".join(
-        f"<tr><td>{html.escape(name)}</td><td>{r['load'][0] / 1000:.1f} s → <b>{r['load'][1] / 1000:.1f} s</b></td>"
+        f"<tr><td>{html.escape(name)}</td><td>{secs(r['load'][0])} → <b>{secs(r['load'][1])}</b></td>"
         f"<td>{pct(*r['cpu'])}</td><td>{pct(*r['heap'])}</td><td>{int(r['requests'][0]):,} → {int(r['requests'][1]):,}</td></tr>"
         for name, r in perf.items() if None not in r["load"])
     site_rows = "".join(
