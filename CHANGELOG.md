@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.6
+
+- Install in every browser at once: the installer and the one-command install now offer "All browsers on this PC" first.
+- Step-by-step Chrome Web Store, Edge Add-ons and Opera add-ons guide in `store/LISTING.md`.
+
 ## 2.0.5
 
 - One-command install for Windows that doesn't trigger the SmartScreen warning: `irm https://zakariahibaoui2.github.io/hib-remover-ads/install.ps1 | iex`.

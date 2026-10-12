@@ -58,17 +58,22 @@ Set-Clipboard -Value $target
 if ($found.Count -eq 0) {
   Write-Host '  No supported browser found. Open your browser''s extensions page yourself.' -ForegroundColor Yellow
 } else {
-  $pick = $found[0]
+  $picks = $found
   if ($found.Count -gt 1) {
     Write-Host ''
+    Write-Host ("  0. All {0} browsers (press Enter)" -f $found.Count)
     for ($i = 0; $i -lt $found.Count; $i++) { Write-Host ("  {0}. {1}" -f ($i + 1), $found[$i][0]) }
     $answer = Read-Host '  Install it in which browser? Type its number'
     $n = 0
-    if ([int]::TryParse($answer, [ref]$n) -and $n -ge 1 -and $n -le $found.Count) { $pick = $found[$n - 1] }
+    if ([int]::TryParse($answer, [ref]$n) -and $n -ge 1 -and $n -le $found.Count) { $picks = @(,$found[$n - 1]) }
   }
-  Start-Process -FilePath $pick[1] -ArgumentList $pick[2]
+  foreach ($pick in $picks) { Start-Process -FilePath $pick[1] -ArgumentList $pick[2] }
   Write-Host ''
-  Write-Host ("  {0} is open on its extensions page. There:" -f $pick[0])
+  if ($picks.Count -gt 1) {
+    Write-Host ("  {0} are open on their extensions pages. In each one:" -f (($picks | ForEach-Object { $_[0] }) -join ', '))
+  } else {
+    Write-Host ("  {0} is open on its extensions page. There:" -f $picks[0][0])
+  }
 }
 Write-Host '    1. Turn on Developer mode (top right).'
 Write-Host '    2. Click Load unpacked.'

@@ -94,6 +94,7 @@ namespace HibSetup
         float k = 1f;
         int S(int v) { return (int)Math.Round(v * k); }
         Browser chosen;
+        List<Browser> installed;
 
         public SetupForm()
         {
@@ -206,7 +207,7 @@ namespace HibSetup
             AddLabel("Free ad blocker for YouTube and every website. Blocks video ads, banners, popups and trackers.",
                 body, Theme.Kelp, 172, 50);
 
-            var list = FindBrowsers();
+            var list = installed = FindBrowsers();
             if (list.Count == 0)
             {
                 AddLabel("No supported browser found. Install Chrome, Edge, Brave, Opera, Vivaldi or another Chromium browser, then run this again.",
@@ -217,8 +218,9 @@ namespace HibSetup
             AddLabel("Install it in", bold, Theme.Foam, 250, 24);
             browsers = new ComboBox { Left = S(40), Top = S(278), Width = S(480), DropDownStyle = ComboBoxStyle.DropDownList,
                 FlatStyle = FlatStyle.Flat, BackColor = Theme.Tide, ForeColor = Theme.Foam, Font = bold };
+            if (list.Count > 1) browsers.Items.Add(new Browser("All " + list.Count + " browsers on this PC", null, null));
             foreach (var b in list) browsers.Items.Add(b);
-            browsers.SelectedIndex = DefaultIndex(list);
+            browsers.SelectedIndex = list.Count > 1 ? 0 : DefaultIndex(list);
             page.Controls.Add(browsers);
 
             AddLabel("Installs to " + target, new Font("Segoe UI", 9f), Theme.Kelp, 330, 36);
@@ -270,15 +272,19 @@ namespace HibSetup
 
         void OpenExtensionsPage()
         {
-            try { Process.Start(new ProcessStartInfo(chosen.Exe, chosen.Page) { UseShellExecute = false }); }
-            catch { }
+            foreach (var b in chosen.Exe == null ? installed : new List<Browser> { chosen })
+            {
+                try { Process.Start(new ProcessStartInfo(b.Exe, b.Page) { UseShellExecute = false }); }
+                catch { }
+            }
         }
 
         void ShowSteps()
         {
             page.Controls.Clear();
             AddLabel("Almost done", title, Theme.Foam, 36, 48);
-            AddLabel(chosen.Name + " is open on its extensions page. Do these three things there:", body, Theme.Kelp, 88, 44);
+            AddLabel(chosen.Exe == null ? "Each browser is open on its extensions page. Do these three things in each one:"
+                : chosen.Name + " is open on its extensions page. Do these three things there:", body, Theme.Kelp, 88, 44);
             string[] steps = {
                 "Turn on Developer mode (switch at the top right).",
                 "Click Load unpacked.",

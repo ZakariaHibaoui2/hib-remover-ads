@@ -10,6 +10,23 @@ Everything needed to publish Hib Remover Ads on the browser stores. Once it is l
 
 Review usually takes 1 to 7 days.
 
+## Chrome Web Store, step by step
+
+1. Open https://chrome.google.com/webstore/devconsole and sign in with your Google account.
+2. Accept the developer agreement and pay the one-time $5 registration fee with your card.
+3. In **Account**, set a publisher name (Hib Remover Ads) and verify your contact email.
+4. Click **New item** and upload `hib-remover-ads.zip` from the latest release.
+5. **Store listing** tab: paste the summary and description below, set the category and language, upload the icon, the 5 screenshots and the small promo tile, and add the website and support links.
+6. **Privacy** tab: paste the single purpose and each permission justification below, answer "No" to remote code, tick "I do not collect user data" and the three certification boxes, and paste the privacy policy link.
+7. **Distribution** tab: Public, all regions.
+8. Click **Submit for review**. Google emails you when it's approved, usually in 1 to 7 days.
+
+For later updates, upload the new zip in **Package** and submit again.
+
+## Edge Add-ons and Opera add-ons
+
+Both are free and use the same zip, text and images. For Edge, open https://partner.microsoft.com/dashboard/microsoftedge, enrol with your Microsoft account, then use **Create new extension**. For Opera, sign in at https://addons.opera.com/developer/ and use **Upload extension**.
+
 ## Files to upload
 
 - Package: `hib-remover-ads.zip` from the latest GitHub release
