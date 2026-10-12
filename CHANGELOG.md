@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.3
+
+- Blocks YieldPilot, a first-party ad system on streaming sites (myflixerz, soap2day, onlyflix and others) that serves popunders and fake "prove you are human" popups from the site's own domain.
+- Blocks the holdbitter.com ad CDN.
+
 ## 2.0.2
 
 - Faster per-site hiding lookups in the background worker.

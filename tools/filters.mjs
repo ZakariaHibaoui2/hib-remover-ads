@@ -34,6 +34,7 @@ export const AD_DOMAINS = [
   'trafficjunky.net', 'trafficstars.com', 'hilltopads.net', 'clickadu.com',
   'adcash.com', 'onclickads.net', 'popunder.net', 'admaven.com', 'ad-maven.com',
   'richpush.co', 'pushame.com', 'evadav.com', 'galaksion.com', 'monetag.com',
+  'holdbitter.com',
   'a-ads.com', 'coinzilla.com', 'bitmedia.io', 'adskeeper.com', 'adskeeper.co.uk',
 ];
 
@@ -51,12 +52,16 @@ export const URL_FILTERS = [
   '/prebid.js',
   '/pubads_impl',
   '/adsbygoogle.js',
+  // YieldPilot: popunders and fake "prove you are human" interstitials served
+  // from the site's own domain (myflixerz, soap2day, onlyflix and others).
+  '/__yield/',
+  '/yieldpilot',
 ];
 
 // Elements hidden on every page. Keep these specific: a loose selector here
 // hides real content across the whole web.
 export const GENERIC_SELECTORS = [
-  'ins.adsbygoogle', '.adsbygoogle',
+  'ins.adsbygoogle', '.adsbygoogle', '.yieldpilot-slot',
   '[id^="google_ads_iframe"]', '[id^="div-gpt-ad"]', '[data-google-query-id]',
   'iframe[src*="doubleclick.net"]', 'iframe[src*="googlesyndication.com"]',
   'iframe[src*="amazon-adsystem.com"]', 'iframe[id^="google_ads_"]',

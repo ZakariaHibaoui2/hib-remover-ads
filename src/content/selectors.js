@@ -3,6 +3,7 @@ globalThis.HUSH_SELECTORS = {
   "generic": [
     "ins.adsbygoogle",
     ".adsbygoogle",
+    ".yieldpilot-slot",
     "[id^=\"google_ads_iframe\"]",
     "[id^=\"div-gpt-ad\"]",
     "[data-google-query-id]",

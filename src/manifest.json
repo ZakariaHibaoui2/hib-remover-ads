@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Hib Remover Ads",
   "short_name": "Hib Remover Ads",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Ad remover and ad blocker for YouTube and every site. Blocks video ads, popups and trackers. Pause on any site in one click.",
   "minimum_chrome_version": "111",
   "permissions": [

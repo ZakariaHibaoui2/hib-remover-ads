@@ -70,6 +70,7 @@
         "googletagservices.com",
         "gumgum.com",
         "hilltopads.net",
+        "holdbitter.com",
         "improvedigital.com",
         "indexww.com",
         "inmobi.com",
@@ -452,6 +453,54 @@
     },
     "condition": {
       "urlFilter": "/adsbygoogle.js",
+      "resourceTypes": [
+        "sub_frame",
+        "stylesheet",
+        "script",
+        "image",
+        "font",
+        "object",
+        "xmlhttprequest",
+        "ping",
+        "csp_report",
+        "media",
+        "websocket",
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "/__yield/",
+      "resourceTypes": [
+        "sub_frame",
+        "stylesheet",
+        "script",
+        "image",
+        "font",
+        "object",
+        "xmlhttprequest",
+        "ping",
+        "csp_report",
+        "media",
+        "websocket",
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 15,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "/yieldpilot",
       "resourceTypes": [
         "sub_frame",
         "stylesheet",
