@@ -8,13 +8,14 @@ Stored with Chrome's extension storage, on your computer only:
 
 - whether blocking is on or off;
 - the sites you paused;
-- how many ads were blocked, per open tab and in total.
+- how many ads were blocked, per open tab, per day for the last 35 days, and in total (only numbers, never which sites);
+- for each site where you used "Remove something on this page", the CSS selectors of the elements you removed.
 
 Uninstalling the extension deletes all of it.
 
 ## Network
 
-The extension makes no network requests of its own. Filter lists are compiled into the extension when it is built, not downloaded while you browse. The only time it opens a web page is when you click **Report a site** in the popup, which opens a GitHub issue form in a new tab.
+The extension makes no network requests of its own. Filter lists are compiled into the extension when it is built, not downloaded while you browse. The only time it opens a web page is when you click **Report a site** in the popup, which opens a GitHub issue form in a new tab. The form is prefilled with the page's address (without anything after a `?`), the extension's version and your browser's name, and nothing is sent unless you submit it yourself.
 
 ## Permissions
 
@@ -22,7 +23,7 @@ The extension makes no network requests of its own. Filter lists are compiled in
 |---|---|
 | `declarativeNetRequest` | Lets Chrome block ad and tracker requests using the bundled rules. Chrome does the matching; requests never pass through extension code. |
 | `declarativeNetRequestFeedback` | Reads how many requests Chrome blocked, for the counter in the popup. |
-| `scripting` | Injects the hiding stylesheet and the YouTube and anti-adblock fixes, and skips them on sites you paused. |
+| `scripting` | Injects the hiding stylesheet and the YouTube and anti-adblock fixes, skips them on sites you paused, and starts the click-to-remove picker when you ask for it. |
 | `storage` | Remembers your settings and the counters listed above. |
 | `alarms` | Updates the blocked counter every two minutes. |
 | `favicon` | Shows the current site's icon in the popup, from Chrome's own cache. |

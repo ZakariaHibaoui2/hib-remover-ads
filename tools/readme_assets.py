@@ -4,9 +4,11 @@
   site.png       the website's hero
   demo.gif       the website's hero as ads are cleared on scroll
 
-Run: python tools/readme_assets.py   (needs network and Playwright)
+Run: python tools/readme_assets.py            (needs network and Playwright)
+     python tools/readme_assets.py popup      only the popup image
 """
 import io
+import sys
 import tempfile
 from pathlib import Path
 
@@ -24,7 +26,7 @@ def popup(p):
     with tempfile.TemporaryDirectory() as profile:
         ctx = p.chromium.launch_persistent_context(
             profile, channel="chromium", headless=True, device_scale_factor=2,
-            args=[f"--disable-extensions-except={EXT}", f"--load-extension={EXT}"])
+            args=[f"--disable-extensions-except={EXT}", f"--load-extension={EXT}", "--lang=en"])
         sw = ctx.service_workers[0] if ctx.service_workers else ctx.wait_for_event("serviceworker")
         ext_id = sw.url.split("/")[2]
         page = ctx.new_page()
@@ -73,6 +75,7 @@ def site_and_gif(p):
 
 with sync_playwright() as p:
     popup(p)
-    site_and_gif(p)
+    if sys.argv[1:] != ["popup"]:
+        site_and_gif(p)
 for f in sorted(OUT.iterdir()):
     print(f.name, f.stat().st_size // 1024, "KB")

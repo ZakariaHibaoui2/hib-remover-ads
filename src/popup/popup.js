@@ -1,5 +1,34 @@
 const $ = (id) => document.getElementById(id);
-const fmt = new Intl.NumberFormat();
+const t = (key, sub) => chrome.i18n.getMessage(key, sub) || key;
+const lang = chrome.i18n.getUILanguage();
+// Latin digits everywhere, as Moroccan and most Arabic sites use them.
+const fmt = new Intl.NumberFormat(lang, { numberingSystem: 'latn' });
+const fmt1 = new Intl.NumberFormat(lang, { numberingSystem: 'latn', maximumFractionDigits: 1 });
+
+document.documentElement.lang = lang;
+document.documentElement.dir = t('@@bidi_dir');
+for (const el of document.querySelectorAll('[data-i18n]')) el.textContent = t(el.dataset.i18n);
+for (const el of document.querySelectorAll('[data-i18n-label]')) el.setAttribute('aria-label', t(el.dataset.i18nLabel));
+
+// What one blocked request saves, as measured in our speed tests (median),
+// so the weekly numbers stay on the cautious side.
+const MS_PER_REQUEST = 5;
+const KB_PER_REQUEST = 10;
+const duration = (ms) => {
+  const s = ms / 1000;
+  return s < 60 ? `${fmt.format(Math.round(s))} ${t('unitSec')}` : `${fmt.format(Math.round(s / 60))} ${t('unitMin')}`;
+};
+const size = (kb) => (kb < 1024
+  ? `${fmt.format(Math.round(kb))} ${t('unitKB')}`
+  : `${(kb < 10240 ? fmt1 : fmt).format(kb / 1024)} ${t('unitMB')}`);
+
+const browserName = () => {
+  if (navigator.brave) return 'Brave';
+  const brands = (navigator.userAgentData?.brands || []).map((b) => b.brand).join(' ');
+  if (/Edge/.test(brands)) return 'Edge';
+  if (/Opera/.test(brands)) return 'Opera';
+  return /Chrome/.test(brands) ? 'Chrome' : 'Other';
+};
 
 const send = (msg) => chrome.runtime.sendMessage(msg);
 
@@ -47,36 +76,53 @@ if (!reduced) {
 }
 
 function render() {
-  const { enabled, host, paused, page, total, net = 0, cosmetic = 0 } = stats;
+  const { enabled, host, paused, page, total, net = 0, cosmetic = 0, zapped = 0, week = { net: 0, cosmetic: 0 } } = stats;
   const state = !host ? 'unsupported' : !enabled ? 'off' : paused ? 'paused' : 'on';
   document.body.dataset.state = state;
 
   $('power').setAttribute('aria-checked', String(enabled));
-  $('host').textContent = host || 'This page';
-  $('status').textContent = {
-    on: 'Blocking ads on this site',
-    paused: 'Paused on this site. Ads will load here.',
-    off: 'Hib Remover Ads is off on every site',
-    unsupported: 'Hib Remover Ads only runs on websites, not browser pages.',
-  }[state];
+  $('host').textContent = host || t('thisPage');
+  $('status').textContent = t({
+    on: 'statusOn', paused: 'statusPaused', off: 'statusOff', unsupported: 'statusUnsupported',
+  }[state]);
 
   countTo($('page'), page);
-  $('page-label').textContent = page === 1 ? 'ad blocked on this page' : 'ads blocked on this page';
+  $('page-label').textContent = t(page === 1 ? 'adsBlockedOne' : 'adsBlockedMany');
   countTo($('net'), net);
   countTo($('cosmetic'), cosmetic);
   $('total').textContent = fmt.format(total);
-  $('note').textContent = 'Open a website and Hib Remover Ads will start blocking its ads.';
+
+  $('week-ads').textContent = fmt.format(week.net + week.cosmetic);
+  const savedMs = week.net * MS_PER_REQUEST;
+  $('week-time').textContent = savedMs === 0 ? duration(0)
+    : savedMs < 1000 ? `< ${duration(1000)}` : `≈ ${duration(savedMs)}`;
+  $('week-data').textContent = `≈ ${size(week.net * KB_PER_REQUEST)}`;
+  document.querySelector('.week dl').title = t('weekHint');
+
+  $('zapped').hidden = !(host && zapped);
+  $('zapped-text').textContent = t('zappedHere', [fmt.format(zapped)]);
+  $('zap').disabled = state !== 'on';
   if (host && tab?.url) {
     const fav = new URL(chrome.runtime.getURL('/_favicon/'));
     fav.searchParams.set('pageUrl', tab.url);
     fav.searchParams.set('size', '32');
     $('fav').src = fav.href;
-    $('report').href = `https://github.com/ZakariaHibaoui2/hib-remover-ads/issues/new?title=${encodeURIComponent(`Ads on ${host}`)}`;
+    // Origin and path only: query strings can carry personal data.
+    const pageUrl = new URL(tab.url);
+    const report = new URL('https://github.com/ZakariaHibaoui2/hib-remover-ads/issues/new');
+    report.search = new URLSearchParams({
+      template: 'ad-got-through.yml',
+      title: `Ad on ${host}`,
+      url: pageUrl.origin + pageUrl.pathname,
+      version: chrome.runtime.getManifest().version,
+      browser: browserName(),
+    });
+    $('report').href = report.href;
   }
 
   const pause = $('pause');
   pause.disabled = !enabled;
-  $('pause-label').textContent = paused ? 'Resume blocking here' : 'Pause on this site';
+  $('pause-label').textContent = t(paused ? 'resumeSite' : 'pauseSite');
 }
 
 async function refresh() {
@@ -92,6 +138,11 @@ async function act(msg) {
   await refresh();
 }
 
+$('zap').addEventListener('click', async () => {
+  if (tab?.id == null) return;
+  if (await send({ type: 'zapStart', tabId: tab.id })) window.close();
+});
+$('restore').addEventListener('click', () => act({ type: 'zapClear', host: stats.host }));
 $('power').addEventListener('click', () => act({ type: 'setEnabled', enabled: !stats.enabled }));
 $('pause').addEventListener('click', () =>
   act({ type: 'setPaused', host: stats.host, paused: !stats.paused }));

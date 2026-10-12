@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0
+
+- Click-to-remove: "Remove something on this page" in the popup lets you click any box to hide it for good on that site. Undo (Ctrl+Z), Esc, and Restore in the popup.
+- "This week" in the popup: ads blocked, time saved and data saved, estimated from the requests blocked.
+- The popup and the blocked-ad page are now in English, French and Arabic (right to left), following the browser's language.
+- "Report a site" opens a GitHub issue already filled in with the page address, the version and the browser.
+- New test: `tests/test_features.py` (26 checks).
+
 ## 2.0.6
 
 - Install in every browser at once: the installer and the one-command install now offer "All browsers on this PC" first.

@@ -118,7 +118,7 @@ def main():
             const q = chrome.tabs.query.bind(chrome.tabs);
             chrome.tabs.query = () => q({{}}).then(ts => ts.filter(t => t.id === {tab_id}));
           }}""")
-        popup.set_viewport_size({"width": 320, "height": 330})
+        popup.set_viewport_size({"width": 340, "height": 600})
         popup.goto(f"chrome-extension://{ext_id}/popup/popup.html")
         popup.wait_for_timeout(1200)
         page_count = int(popup.inner_text("#page").replace(",", ""))

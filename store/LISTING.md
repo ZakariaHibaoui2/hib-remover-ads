@@ -68,9 +68,16 @@ Private by design
 - Nothing you browse ever leaves your browser
 - Open source under GPL-3.0: https://github.com/ZakariaHibaoui2/hib-remover-ads
 
+Remove anything
+- Click "Remove something on this page", then click any box you don't want: it stays gone on that site
+- Undo or Restore brings it back
+
+See what you save
+- Ads blocked, time saved and data saved this week, plus counts for each page
+
 Easy to control
-- See how many ads were blocked on each page and in total
 - Pause it on one site with one click, or turn it off everywhere
+- In English, French and Arabic
 
 ## Single purpose
 
@@ -80,8 +87,8 @@ Blocks and hides advertisements, popups and trackers on web pages, including You
 
 - declarativeNetRequest: block requests to ad and tracker servers before they download.
 - declarativeNetRequestFeedback: count the requests blocked on each page for the counter in the popup.
-- scripting: inject the element-hiding styles, the YouTube ad remover and the per-site fixes, and skip them on sites the user paused.
-- storage: remember paused sites, the on/off switch and the blocked counter.
+- scripting: inject the element-hiding styles, the YouTube ad remover and the per-site fixes, skip them on sites the user paused, and start the click-to-remove picker when the user asks for it.
+- storage: remember paused sites, the on/off switch, the blocked counters and the elements the user removed.
 - alarms: save the blocked counter periodically.
 - favicon: show the current site's icon in the popup.
 - Host permission <all_urls>: ads appear on every site, so blocking has to work on every site.

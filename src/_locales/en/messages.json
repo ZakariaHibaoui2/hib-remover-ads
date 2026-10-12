@@ -1,0 +1,123 @@
+{
+  "extName": {
+    "message": "Hib Remover Ads"
+  },
+  "extDescription": {
+    "message": "Free ad blocker for YouTube and every site. Blocks video ads, popups and trackers. Click to remove anything else."
+  },
+  "powerLabel": {
+    "message": "Block ads everywhere"
+  },
+  "thisPage": {
+    "message": "This page"
+  },
+  "statusOn": {
+    "message": "Blocking ads on this site"
+  },
+  "statusPaused": {
+    "message": "Paused on this site. Ads will load here."
+  },
+  "statusOff": {
+    "message": "Hib Remover Ads is off on every site"
+  },
+  "statusUnsupported": {
+    "message": "Hib Remover Ads only runs on websites, not browser pages."
+  },
+  "adsBlockedOne": {
+    "message": "ad blocked on this page"
+  },
+  "adsBlockedMany": {
+    "message": "ads blocked on this page"
+  },
+  "requestsStopped": {
+    "message": "Requests stopped"
+  },
+  "adBoxesHidden": {
+    "message": "Ad boxes hidden"
+  },
+  "noteOpenSite": {
+    "message": "Open a website and Hib Remover Ads will start blocking its ads."
+  },
+  "pauseSite": {
+    "message": "Pause on this site"
+  },
+  "resumeSite": {
+    "message": "Resume blocking here"
+  },
+  "zapButton": {
+    "message": "Remove something on this page"
+  },
+  "zappedHere": {
+    "message": "You removed $COUNT$ here",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "restore": {
+    "message": "Restore"
+  },
+  "weekTitle": {
+    "message": "This week"
+  },
+  "weekAds": {
+    "message": "ads blocked"
+  },
+  "weekTime": {
+    "message": "time saved"
+  },
+  "weekData": {
+    "message": "data saved"
+  },
+  "weekHint": {
+    "message": "Estimated from the requests blocked: about 10 KB and 5 ms each."
+  },
+  "unitMin": {
+    "message": "min"
+  },
+  "unitSec": {
+    "message": "s"
+  },
+  "unitMB": {
+    "message": "MB"
+  },
+  "unitKB": {
+    "message": "KB"
+  },
+  "totalBlocked": {
+    "message": "blocked in total"
+  },
+  "reportSite": {
+    "message": "Report a site"
+  },
+  "zapHint": {
+    "message": "Click anything to remove it"
+  },
+  "zapUndo": {
+    "message": "Undo"
+  },
+  "zapDone": {
+    "message": "Done"
+  },
+  "zapCount": {
+    "message": "Removed: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blockedTitle": {
+    "message": "Ad page blocked"
+  },
+  "blockedText": {
+    "message": "Hib Remover Ads stopped a page that tried to open an ad."
+  },
+  "goBack": {
+    "message": "Go back"
+  },
+  "closeTab": {
+    "message": "Close this tab"
+  }
+}

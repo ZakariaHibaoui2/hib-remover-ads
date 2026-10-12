@@ -1,7 +1,9 @@
 // Hib Remover Ads service worker: owns blocking state, per-site pauses and counters.
 //
 // Storage layout
-//   local:   { enabled, paused: [host], total, lastMatchTs }
+//   local:   { enabled, paused: [host], total, lastMatchTs,
+//              days: { 'YYYY-MM-DD': { net, cosmetic } },  last 35 days, for the weekly numbers
+//              zapped: { [host]: [selector] } }            elements the user removed by clicking
 //   session: { tabs: { [tabId]: { since, net, cosmetic } } }
 //
 // Counting: the toolbar badge is Chrome's own live count of blocked requests,
@@ -137,8 +139,48 @@ async function cosmeticFor(host) {
   return result;
 }
 
+// ---- Click-to-remove ------------------------------------------------------
+
+const ZAP_LIMIT = 100;
+// Selectors come from our own zapper, built with CSS.escape; still refuse
+// anything that could close the rule and smuggle in other CSS.
+const validZap = (sel) => typeof sel === 'string' && sel.length > 0 && sel.length <= 480
+  && !/[{}<;]|\/\*|\\$/.test(sel);
+
+async function getZapped() {
+  const { zapped = {} } = await chrome.storage.local.get('zapped');
+  return zapped;
+}
+
+async function saveZap(host, selector, add) {
+  const zapped = await getZapped();
+  const list = (zapped[host] || []).filter((s) => s !== selector);
+  if (add) list.push(selector);
+  if (list.length) zapped[host] = list.slice(-ZAP_LIMIT);
+  else delete zapped[host];
+  await chrome.storage.local.set({ zapped });
+}
+
+async function clearZaps(host) {
+  host = normalizeHost(host);
+  if (!VALID_HOST.test(host)) return false;
+  const zapped = await getZapped();
+  delete zapped[host];
+  await chrome.storage.local.set({ zapped });
+  return true;
+}
+
+async function startZapper(tabId) {
+  await chrome.scripting.executeScript({ target: { tabId }, files: ['content/zapper.js'] });
+  return true;
+}
+
 async function injectCosmetic(sender, host) {
-  const { css, selectors } = await cosmeticFor(host);
+  const own = await cosmeticFor(host);
+  const zapped = ((await getZapped())[host] || []).filter(validZap);
+  const css = [own.css, zapped.length ? `${zapped.join(',')}{display:none!important}` : '']
+    .filter(Boolean).join('\n');
+  const selectors = [...own.selectors, ...zapped];
   if (css) {
     try {
       await chrome.scripting.insertCSS({
@@ -224,6 +266,33 @@ async function applySettings() {
 
 // ---- Counting -------------------------------------------------------------
 
+const DAYS_KEPT = 35;
+const dayKey = (d = new Date()) => d.toLocaleDateString('sv'); // YYYY-MM-DD, local time
+
+// Adds to today's counts and drops days older than we need.
+function addToDays(days, net, cosmetic) {
+  const entry = (days[dayKey()] ??= { net: 0, cosmetic: 0 });
+  entry.net += net;
+  entry.cosmetic += cosmetic;
+  for (const key of Object.keys(days).sort().slice(0, -DAYS_KEPT)) delete days[key];
+  return days;
+}
+
+async function weekTotals() {
+  const { days = {} } = await chrome.storage.local.get('days');
+  const from = new Date();
+  from.setDate(from.getDate() - 6);
+  const start = dayKey(from);
+  let net = 0;
+  let cosmetic = 0;
+  for (const [key, d] of Object.entries(days)) {
+    if (key < start) continue;
+    net += d.net || 0;
+    cosmetic += d.cosmetic || 0;
+  }
+  return { net, cosmetic };
+}
+
 async function getTabs() {
   const { tabs = {} } = await chrome.storage.session.get('tabs');
   return tabs;
@@ -234,7 +303,7 @@ const tabEntry = (tabs, tabId) => (tabs[tabId] ??= { since: 0, net: 0, cosmetic:
 
 // Pull network matches since the last pull and credit them to open tabs and the total.
 async function flushMatches() {
-  const { lastMatchTs = 0, total = 0 } = await chrome.storage.local.get(['lastMatchTs', 'total']);
+  const { lastMatchTs = 0, total = 0, days = {} } = await chrome.storage.local.get(['lastMatchTs', 'total', 'days']);
   let info;
   try {
     info = await chrome.declarativeNetRequest.getMatchedRules({ minTimeStamp: lastMatchTs + 1 });
@@ -256,15 +325,19 @@ async function flushMatches() {
     if (hit.timeStamp >= entry.since) entry.net += 1;
   }
   await chrome.storage.session.set({ tabs });
-  await chrome.storage.local.set({ total: total + hits.length, lastMatchTs: newest });
+  await chrome.storage.local.set({
+    total: total + hits.length,
+    lastMatchTs: newest,
+    days: addToDays(days, hits.length, 0),
+  });
 }
 
 async function addCosmetic(tabId, count) {
   const tabs = await getTabs();
   tabEntry(tabs, tabId).cosmetic += count;
-  const { total = 0 } = await chrome.storage.local.get('total');
+  const { total = 0, days = {} } = await chrome.storage.local.get(['total', 'days']);
   await chrome.storage.session.set({ tabs });
-  await chrome.storage.local.set({ total: total + count });
+  await chrome.storage.local.set({ total: total + count, days: addToDays(days, 0, count) });
   try {
     await chrome.declarativeNetRequest.setExtensionActionOptions({
       tabUpdate: { tabId, increment: count },
@@ -296,8 +369,11 @@ async function getStats(tabId, url) {
   const { total = 0 } = await chrome.storage.local.get('total');
   const entry = (await getTabs())[tabId];
   const host = hostOf(url);
+  const zapped = host ? ((await getZapped())[host] || []).length : 0;
   return {
     enabled,
+    zapped,
+    week: await weekTotals(),
     host,
     paused: isPausedHost(host, paused),
     page: entry ? entry.net + entry.cosmetic : 0,
@@ -382,6 +458,22 @@ chrome.runtime.onMessage.addListener((msg, sender, reply) => {
       }
       return false;
     }
+    case 'zapSave':
+    case 'zapRemove': {
+      // From the zapper in a page's top frame.
+      const host = hostOf(sender.url);
+      if (tabId == null || sender.frameId !== 0 || !host || !validZap(msg.selector)) return false;
+      serial(() => saveZap(host, msg.selector, msg.type === 'zapSave'));
+      return false;
+    }
+    case 'zapStart':
+      if (!fromExtensionPage(sender) || !Number.isInteger(msg.tabId)) return false;
+      startZapper(msg.tabId).then(reply, () => reply(false));
+      return true;
+    case 'zapClear':
+      if (!fromExtensionPage(sender)) return false;
+      serial(() => clearZaps(msg.host)).then(reply, () => reply(false));
+      return true;
     case 'stats':
       if (!fromExtensionPage(sender)) return false;
       serial(() => getStats(msg.tabId, msg.url)).then(reply, () => reply(null));

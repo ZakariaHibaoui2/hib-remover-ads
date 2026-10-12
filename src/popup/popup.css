@@ -267,14 +267,14 @@ body[data-state="off"] .num { color: var(--kelp); }
   padding-top: 14px;
   border-top: 1px solid rgba(255, 255, 255, .07);
 }
-.split div + div { padding-left: 14px; border-left: 1px solid rgba(255, 255, 255, .07); }
+.split div + div { padding-inline-start: 14px; border-inline-start: 1px solid rgba(255, 255, 255, .07); }
 .split dt { color: var(--kelp); font-size: 12px; }
 .split dd { margin: 2px 0 0; font: 800 18px/1.1 var(--display); font-variant-numeric: tabular-nums; }
 
 .note { display: none; margin: 0; color: var(--kelp); }
 body[data-state="unsupported"] .hero,
 body[data-state="unsupported"] .split,
-body[data-state="unsupported"] .action,
+body[data-state="unsupported"] .actions,
 body[data-state="unsupported"] .fav { display: none; }
 body[data-state="unsupported"] .note { display: block; }
 
@@ -286,7 +286,6 @@ body[data-state="unsupported"] .note { display: block; }
   gap: 9px;
   width: 100%;
   height: 46px;
-  margin-top: 12px;
   border: 0;
   border-radius: 14px;
   background: rgba(255, 255, 255, .06);
@@ -303,6 +302,33 @@ body[data-state="paused"] .action { background: var(--coral); box-shadow: none; 
 body[data-state="paused"] .action:hover { background: #f5807d; }
 body[data-state="paused"] .action .i-pause { display: none; }
 body[data-state="paused"] .action .i-play { display: block; }
+
+.actions { display: grid; gap: 8px; margin-top: 12px; }
+.action.ghost { height: 40px; background: transparent; color: var(--kelp); font-weight: 600; font-size: 13.5px; }
+.action.ghost:hover:not(:disabled) { color: var(--foam); }
+.action.ghost svg { width: 15px; height: 15px; }
+body[data-state="paused"] .action.ghost { background: transparent; box-shadow: inset 0 0 0 1px var(--line); color: var(--kelp); }
+.zapped {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+  padding: 0 4px;
+  color: var(--kelp);
+  font-size: 12.5px;
+}
+.zapped[hidden] { display: none; }
+.link { padding: 0; border: 0; background: none; color: var(--amber); font-weight: 700; font-size: 12.5px; }
+.link:hover { text-decoration: underline; }
+
+/* ---- This week ---- */
+.week { margin-top: 14px; }
+.week h2 { margin: 0 0 8px; font: 800 13px/1 var(--display); color: var(--kelp); letter-spacing: .01em; }
+.week dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; cursor: help; }
+.week dl div { display: flex; flex-direction: column; padding: 10px 10px 9px; border-radius: 12px; background: rgba(255, 255, 255, .04); box-shadow: inset 0 0 0 1px var(--line); }
+.week dd { order: 0; margin: 0; font: 800 16px/1.15 var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.week dt { order: 1; margin-top: 2px; color: var(--kelp); font-size: 11.5px; line-height: 1.25; }
 
 /* ---- Footer ---- */
 .foot {
@@ -326,6 +352,12 @@ body.intro .coin { animation: spin-in 1100ms var(--out) both 80ms; }
   from { transform: rotateY(calc(var(--flip) - 540deg)) scale(.4); }
   to { transform: rotateY(var(--flip)) scale(1); }
 }
+
+/* Arabic: right to left. The brand fonts have no Arabic letters, so text falls back to Segoe UI. */
+[dir="rtl"] .num { transform-origin: right bottom; }
+[dir="rtl"] .switch[aria-checked="true"] .knob { transform: translateX(-20px); }
+[dir="rtl"] .switch[aria-checked="true"]:active:not(:disabled) .knob { transform: translateX(-14px); }
+[dir="rtl"] .switch .knob { left: auto; right: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }

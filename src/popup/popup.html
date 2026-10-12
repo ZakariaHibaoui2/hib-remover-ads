@@ -9,7 +9,7 @@
 <body data-state="loading">
   <header class="bar">
     <span class="brand"><img src="../icons/on-32.png" alt="" width="22" height="22">Hib Remover Ads</span>
-    <button id="power" class="switch" role="switch" aria-checked="true" aria-label="Block ads everywhere">
+    <button id="power" class="switch" role="switch" aria-checked="true" data-i18n-label="powerLabel">
       <span class="knob"></span>
     </button>
   </header>
@@ -42,22 +42,41 @@
         </p>
       </div>
       <dl class="split">
-        <div><dt>Requests stopped</dt><dd id="net">0</dd></div>
-        <div><dt>Ad boxes hidden</dt><dd id="cosmetic">0</dd></div>
+        <div><dt data-i18n="requestsStopped">Requests stopped</dt><dd id="net">0</dd></div>
+        <div><dt data-i18n="adBoxesHidden">Ad boxes hidden</dt><dd id="cosmetic">0</dd></div>
       </dl>
-      <p class="note" id="note"></p>
+      <p class="note" id="note" data-i18n="noteOpenSite"></p>
     </section>
 
-    <button id="pause" class="action rise" style="--i:2" type="button">
-      <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx="1.2"/><rect x="11.8" y="4" width="3.2" height="12" rx="1.2"/></svg>
-      <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.2v11.6a1 1 0 0 0 1.5.86l9.3-5.8a1 1 0 0 0 0-1.72L7.5 3.34A1 1 0 0 0 6 4.2Z"/></svg>
-      <span id="pause-label">Pause on this site</span>
-    </button>
+    <div class="actions rise" style="--i:2">
+      <button id="pause" class="action" type="button">
+        <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx="1.2"/><rect x="11.8" y="4" width="3.2" height="12" rx="1.2"/></svg>
+        <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.2v11.6a1 1 0 0 0 1.5.86l9.3-5.8a1 1 0 0 0 0-1.72L7.5 3.34A1 1 0 0 0 6 4.2Z"/></svg>
+        <span id="pause-label">Pause on this site</span>
+      </button>
+      <button id="zap" class="action ghost" type="button">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 3.3 15.8 8a.6.6 0 0 1 0 1.1l-4.6 1.6a.8.8 0 0 0-.5.5l-1.6 4.6a.6.6 0 0 1-1.1 0L3.3 4.5a.9.9 0 0 1 1.2-1.2Z"/></svg>
+        <span data-i18n="zapButton">Remove something on this page</span>
+      </button>
+      <p id="zapped" class="zapped" hidden>
+        <span id="zapped-text"></span>
+        <button id="restore" class="link" type="button" data-i18n="restore">Restore</button>
+      </p>
+    </div>
+
+    <section class="week rise" style="--i:3" aria-labelledby="week-title">
+      <h2 id="week-title" data-i18n="weekTitle">This week</h2>
+      <dl>
+        <div><dd id="week-ads">0</dd><dt data-i18n="weekAds">ads blocked</dt></div>
+        <div><dd id="week-time">0</dd><dt data-i18n="weekTime">time saved</dt></div>
+        <div><dd id="week-data">0</dd><dt data-i18n="weekData">data saved</dt></div>
+      </dl>
+    </section>
   </main>
 
   <footer class="foot">
-    <span><b id="total">0</b> blocked in total</span>
-    <a id="report" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/issues/new" target="_blank" rel="noopener">Report a site</a>
+    <span><b id="total">0</b> <span data-i18n="totalBlocked">blocked in total</span></span>
+    <a id="report" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/issues/new?template=ad-got-through.yml" target="_blank" rel="noopener" data-i18n="reportSite">Report a site</a>
   </footer>
 
   <script src="popup.js" type="module"></script>

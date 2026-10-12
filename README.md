@@ -34,6 +34,9 @@ Removes YouTube video ads, banners, popups, trackers and "turn off your ad block
 
 - **Blocks what the big blockers block.** It compiles EasyList, EasyPrivacy, uBlock Origin's lists, Liste FR and Liste AR into about 17,000 blocking rules and 15,700 hiding rules.
 - **YouTube without ads.** It removes the ad instructions from YouTube's player data, so most video ads never start. If one slips through, it gets muted and skipped.
+- **Remove anything with one click.** Click "Remove something on this page", then click any box you don't want. It stays gone on that site, and Undo or Restore brings it back.
+- **Shows what you save.** The popup shows this week's ads blocked, time saved and data saved.
+- **In English, French and Arabic.** The popup follows your browser's language, right to left in Arabic.
 - **Closes popup ad tabs.** Ad tabs that a page opens to one of 3,333 ad networks close themselves before they load.
 - **Gets past anti-adblock walls.** About 4,600 site-specific fixes switch off "please disable your ad blocker" checks and popunders.
 - **Makes pages faster.** Ads never download, so CNN loaded in 4.3 s instead of 35.9 s in our test.
@@ -111,7 +114,9 @@ Results vary by country and over time; these were measured from Morocco in Octob
 | Element hiding | A stylesheet hides leftover ad boxes on every site; per-site rules are injected for the site you're on. | [`src/content/generic.css`](src/content/generic.css), [`src/rules/cosmetic.json`](src/rules/cosmetic.json) |
 | Scriptlets | Small per-site patches, ported from uBlock Origin, that defuse anti-adblock checks, popunders and ad timers. Only injected on the ~3,100 sites that need one. | [`src/scriptlets/`](src/scriptlets) |
 | YouTube | Strips ad placements from player data before the player reads it; a fallback mutes and skips any ad that still plays. | [`src/content/yt-main.js`](src/content/yt-main.js), [`src/content/youtube.js`](src/content/youtube.js) |
-| Popup | Per-page and all-time counts, pause per site, global switch. | [`src/popup/`](src/popup) |
+| Popup | Per-page, weekly and all-time counts, pause per site, global switch, prefilled "report a site" link. | [`src/popup/`](src/popup) |
+| Click-to-remove | A picker you start from the popup. Hides what you click and saves a selector for that site only. | [`src/content/zapper.js`](src/content/zapper.js) |
+| Languages | English, French and Arabic. | [`src/_locales/`](src/_locales) |
 
 Permissions and why each is needed are listed in [PRIVACY.md](PRIVACY.md#permissions).
 
@@ -129,6 +134,7 @@ Tests:
 python -m playwright install chromium
 python tests/test_extension.py     # 20 end-to-end checks: blocking, hiding, popup, pause, YouTube
 python tests/test_popups.py        # popunder tabs close, real tabs don't
+python tests/test_features.py      # click-to-remove, weekly savings, report link, French and Arabic
 python tests/test_real_sites.py    # ad-heavy sites with and without the extension
 python tests/test_performance.py   # load time, CPU and memory with and without the extension
 ```

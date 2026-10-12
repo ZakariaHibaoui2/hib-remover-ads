@@ -1,0 +1,123 @@
+{
+  "extName": {
+    "message": "Hib Remover Ads"
+  },
+  "extDescription": {
+    "message": "مانع إعلانات مجاني لليوتيوب وكل المواقع. يحظر إعلانات الفيديو والنوافذ المنبثقة والمتتبعات."
+  },
+  "powerLabel": {
+    "message": "حظر الإعلانات في كل مكان"
+  },
+  "thisPage": {
+    "message": "هذه الصفحة"
+  },
+  "statusOn": {
+    "message": "يتم حظر الإعلانات في هذا الموقع"
+  },
+  "statusPaused": {
+    "message": "متوقف مؤقتًا في هذا الموقع. ستظهر الإعلانات هنا."
+  },
+  "statusOff": {
+    "message": "Hib Remover Ads متوقف في كل المواقع"
+  },
+  "statusUnsupported": {
+    "message": "يعمل Hib Remover Ads على المواقع فقط، وليس على صفحات المتصفح."
+  },
+  "adsBlockedOne": {
+    "message": "إعلان محظور في هذه الصفحة"
+  },
+  "adsBlockedMany": {
+    "message": "إعلانات محظورة في هذه الصفحة"
+  },
+  "requestsStopped": {
+    "message": "طلبات موقوفة"
+  },
+  "adBoxesHidden": {
+    "message": "مساحات إعلانية مخفية"
+  },
+  "noteOpenSite": {
+    "message": "افتح موقعًا وسيبدأ Hib Remover Ads في حظر إعلاناته."
+  },
+  "pauseSite": {
+    "message": "إيقاف مؤقت في هذا الموقع"
+  },
+  "resumeSite": {
+    "message": "استئناف الحظر هنا"
+  },
+  "zapButton": {
+    "message": "إزالة عنصر من هذه الصفحة"
+  },
+  "zappedHere": {
+    "message": "أزلت $COUNT$ هنا",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "restore": {
+    "message": "استعادة"
+  },
+  "weekTitle": {
+    "message": "هذا الأسبوع"
+  },
+  "weekAds": {
+    "message": "إعلانات محظورة"
+  },
+  "weekTime": {
+    "message": "وقت موفَّر"
+  },
+  "weekData": {
+    "message": "بيانات موفَّرة"
+  },
+  "weekHint": {
+    "message": "تقدير بحسب الطلبات المحظورة: حوالي 10 كيلوبايت و5 ملّي ثانية لكل طلب."
+  },
+  "unitMin": {
+    "message": "د"
+  },
+  "unitSec": {
+    "message": "ث"
+  },
+  "unitMB": {
+    "message": "م.ب"
+  },
+  "unitKB": {
+    "message": "ك.ب"
+  },
+  "totalBlocked": {
+    "message": "محظورة إجمالًا"
+  },
+  "reportSite": {
+    "message": "الإبلاغ عن موقع"
+  },
+  "zapHint": {
+    "message": "انقر على أي عنصر لإزالته"
+  },
+  "zapUndo": {
+    "message": "تراجع"
+  },
+  "zapDone": {
+    "message": "تم"
+  },
+  "zapCount": {
+    "message": "تمت الإزالة: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blockedTitle": {
+    "message": "تم حظر صفحة إعلانية"
+  },
+  "blockedText": {
+    "message": "أوقف Hib Remover Ads صفحة حاولت فتح إعلان."
+  },
+  "goBack": {
+    "message": "رجوع"
+  },
+  "closeTab": {
+    "message": "إغلاق علامة التبويب"
+  }
+}

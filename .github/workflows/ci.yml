@@ -45,7 +45,13 @@ jobs:
           assert total <= 30000, f"{total} rules exceeds Chrome's 30,000 guaranteed limit"
           for f in ["content/generic.css", "rules/cosmetic.json", "scriptlets/config.js", "scriptlets/hosts.json"]:
               assert (src / f).stat().st_size > 0, f
-          print(f"ok: {total} static rules")
+          en = json.loads((src / "_locales/en/messages.json").read_text(encoding="utf-8"))
+          for loc in (src / "_locales").iterdir():
+              msgs = json.loads((loc / "messages.json").read_text(encoding="utf-8"))
+              assert msgs.keys() == en.keys(), f"{loc.name}: keys differ from en"
+              for k, v in msgs.items():
+                  assert ("$COUNT$" in v["message"]) == ("$COUNT$" in en[k]["message"]), f"{loc.name}: {k} placeholder"
+          print(f"ok: {total} static rules, {len(list((src / '_locales').iterdir()))} languages")
           PY
 
       - name: No remote code

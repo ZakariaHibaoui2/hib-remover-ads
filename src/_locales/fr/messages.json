@@ -1,0 +1,123 @@
+{
+  "extName": {
+    "message": "Hib Remover Ads"
+  },
+  "extDescription": {
+    "message": "Bloqueur de pub gratuit pour YouTube et tous les sites. Bloque les pubs vidéo, les pop-ups et les traqueurs."
+  },
+  "powerLabel": {
+    "message": "Bloquer les pubs partout"
+  },
+  "thisPage": {
+    "message": "Cette page"
+  },
+  "statusOn": {
+    "message": "Pubs bloquées sur ce site"
+  },
+  "statusPaused": {
+    "message": "En pause sur ce site. Les pubs s'afficheront ici."
+  },
+  "statusOff": {
+    "message": "Hib Remover Ads est désactivé partout"
+  },
+  "statusUnsupported": {
+    "message": "Hib Remover Ads fonctionne sur les sites web, pas sur les pages du navigateur."
+  },
+  "adsBlockedOne": {
+    "message": "pub bloquée sur cette page"
+  },
+  "adsBlockedMany": {
+    "message": "pubs bloquées sur cette page"
+  },
+  "requestsStopped": {
+    "message": "Requêtes stoppées"
+  },
+  "adBoxesHidden": {
+    "message": "Encarts masqués"
+  },
+  "noteOpenSite": {
+    "message": "Ouvrez un site web et Hib Remover Ads bloquera ses pubs."
+  },
+  "pauseSite": {
+    "message": "Mettre en pause sur ce site"
+  },
+  "resumeSite": {
+    "message": "Reprendre le blocage ici"
+  },
+  "zapButton": {
+    "message": "Retirer un élément de la page"
+  },
+  "zappedHere": {
+    "message": "Vous avez retiré $COUNT$ élément(s) ici",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "restore": {
+    "message": "Rétablir"
+  },
+  "weekTitle": {
+    "message": "Cette semaine"
+  },
+  "weekAds": {
+    "message": "pubs bloquées"
+  },
+  "weekTime": {
+    "message": "temps gagné"
+  },
+  "weekData": {
+    "message": "données économisées"
+  },
+  "weekHint": {
+    "message": "Estimation d'après les requêtes bloquées : environ 10 Ko et 5 ms chacune."
+  },
+  "unitMin": {
+    "message": "min"
+  },
+  "unitSec": {
+    "message": "s"
+  },
+  "unitMB": {
+    "message": "Mo"
+  },
+  "unitKB": {
+    "message": "Ko"
+  },
+  "totalBlocked": {
+    "message": "bloquées au total"
+  },
+  "reportSite": {
+    "message": "Signaler un site"
+  },
+  "zapHint": {
+    "message": "Cliquez sur un élément pour le retirer"
+  },
+  "zapUndo": {
+    "message": "Annuler"
+  },
+  "zapDone": {
+    "message": "Terminé"
+  },
+  "zapCount": {
+    "message": "Retirés : $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blockedTitle": {
+    "message": "Page de pub bloquée"
+  },
+  "blockedText": {
+    "message": "Hib Remover Ads a bloqué une page qui essayait d'ouvrir une pub."
+  },
+  "goBack": {
+    "message": "Retour"
+  },
+  "closeTab": {
+    "message": "Fermer cet onglet"
+  }
+}
