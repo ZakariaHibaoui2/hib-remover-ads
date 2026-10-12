@@ -34,6 +34,7 @@ Removes YouTube video ads, banners, popups, trackers and "turn off your ad block
 
 - **Blocks what the big blockers block.** It compiles EasyList, EasyPrivacy, uBlock Origin's lists, Liste FR and Liste AR into about 17,000 blocking rules and 15,700 hiding rules.
 - **YouTube without ads.** It removes the ad instructions from YouTube's player data, so most video ads never start. If one slips through, it gets muted and skipped.
+- **Closes popup ad tabs.** Ad tabs that a page opens to one of 3,333 ad networks close themselves before they load.
 - **Gets past anti-adblock walls.** About 4,600 site-specific fixes switch off "please disable your ad blocker" checks and popunders.
 - **Makes pages faster.** Ads never download, so CNN loaded in 4.3 s instead of 35.9 s in our test.
 - **Private by design.** No account, no analytics, no servers. Nothing leaves your browser. See [PRIVACY.md](PRIVACY.md).
@@ -115,6 +116,7 @@ Tests:
 ```sh
 python -m playwright install chromium
 python tests/test_extension.py     # 20 end-to-end checks: blocking, hiding, popup, pause, YouTube
+python tests/test_popups.py        # popunder tabs close, real tabs don't
 python tests/test_real_sites.py    # ad-heavy sites with and without the extension
 python tests/test_performance.py   # load time, CPU and memory with and without the extension
 ```

@@ -32,6 +32,13 @@ const rules = [
       action: { type: 'redirect', redirect: { extensionPath: '/redirects/gpt.js' } },
       condition: { urlFilter, resourceTypes: ['script'] },
     })),
+  // Ad tabs opened by a page to one of these networks close themselves.
+  {
+    id: 200,
+    priority: 1,
+    action: { type: 'redirect', redirect: { extensionPath: '/blocked/popup.html' } },
+    condition: { requestDomains: domains, domainType: 'thirdParty', resourceTypes: ['main_frame'] },
+  },
   ...unique(URL_FILTERS).map((urlFilter, i) => ({
     id: i + 2,
     priority: 1,

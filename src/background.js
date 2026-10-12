@@ -375,6 +375,13 @@ chrome.runtime.onMessage.addListener((msg, sender, reply) => {
       if (tabId != null && count) serial(() => addCosmetic(tabId, count));
       return false;
     }
+    case 'adTab': {
+      // From our blocked-ad page: close it if another tab opened it (a popunder).
+      if (fromExtensionPage(sender) && tabId != null && sender.tab.openerTabId != null) {
+        chrome.tabs.remove(tabId).catch(() => {});
+      }
+      return false;
+    }
     case 'stats':
       if (!fromExtensionPage(sender)) return false;
       serial(() => getStats(msg.tabId, msg.url)).then(reply, () => reply(null));

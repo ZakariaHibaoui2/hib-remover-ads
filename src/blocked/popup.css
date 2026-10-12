@@ -1,0 +1,17 @@
+@font-face { font-family: "Bricolage"; src: url("../fonts/BricolageGrotesque.woff2") format("woff2"); font-weight: 800; }
+@font-face { font-family: "Figtree"; src: url("../fonts/Figtree.woff2") format("woff2"); font-weight: 400 700; }
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  display: grid; place-items: center; padding: 24px;
+  background: #0e2427 radial-gradient(420px 300px at 50% 30%, rgba(243, 178, 60, .12), transparent 70%);
+  color: #e8f3ef; font: 16px/1.5 "Figtree", system-ui, sans-serif; text-align: center;
+}
+h1 { font: 800 32px/1.1 "Bricolage", system-ui, sans-serif; letter-spacing: -.02em; margin: 18px 0 8px; }
+p { color: #94b3ab; margin: 0 0 24px; }
+button {
+  font: 700 15px "Figtree", system-ui, sans-serif; color: #10272b; background: #f3b23c;
+  border: 0; border-radius: 999px; padding: 12px 24px; cursor: pointer;
+}
+button:hover { background: #ffc860; }
+button:focus-visible { outline: 2px solid #e8f3ef; outline-offset: 3px; }

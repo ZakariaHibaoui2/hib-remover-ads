@@ -47,6 +47,8 @@ TYPES = {
     "media": "media", "font": "font", "websocket": "websocket", "other": "other",
 }
 ALL_SUB = sorted(set(TYPES.values()))
+# Ad tabs are sent to a page that closes itself (or explains, if it can't close).
+POPUP_ACTION = {"type": "redirect", "redirect": {"extensionPath": "/blocked/popup.html"}}
 HOST_RE = re.compile(r"^[a-z0-9-]+(\.[a-z0-9-]+)+$")
 PLAIN_DOMAIN = re.compile(r"^\|\|([a-z0-9.-]+\.[a-z0-9-]+)\^?\|?$")
 COSMETIC = re.compile(r"^([^#/|\"]*?)(#@?#|#@?\?#|#@?\$#|#@?%#)(.*)$")
@@ -134,6 +136,7 @@ class Net:
         cond = {}
         priority = 2 if exception else 1
         document = hide_kind = None
+        popup = False
         for opt in filter(None, opts.split(",")):
             neg = opt.startswith("~")
             key, _, val = opt.lstrip("~").partition("=")
@@ -167,6 +170,8 @@ class Net:
                 hide_kind = key
             elif key == "all":
                 types.update(ALL_SUB)
+            elif key == "popup" and not neg:
+                popup = True
             elif key in ("badfilter",):
                 return
             else:
@@ -196,6 +201,20 @@ class Net:
             self.skipped += 1
             return
 
+        if popup:
+            # Ad tabs opened by a page. Only domain-anchored rules: a loose pattern
+            # like ".com/ads?" applied to every navigation would block real pages.
+            if pattern.startswith("||"):
+                pc = {k: v for k, v in cond.items() if k not in ("resourceTypes", "excludedResourceTypes")}
+                pc["resourceTypes"] = ["main_frame"]
+                pc.setdefault("domainType", "thirdParty")
+                pa = {"type": "allow"} if exception else POPUP_ACTION
+                self.emit(exception, pa, priority, pc, pattern)
+            else:
+                self.skipped += 1
+            if not types:
+                return
+
         if document:
             action = {"type": "allowAllRequests"}
             cond["resourceTypes"] = ["main_frame", "sub_frame"]
@@ -204,11 +223,15 @@ class Net:
             if types:
                 cond["resourceTypes"] = sorted(types)
 
+        self.emit(exception, action, priority, cond, pattern)
+
+    def emit(self, exception, action, priority, cond, pattern):
         m = PLAIN_DOMAIN.match(pattern.lower())
         if m and not cond.get("isUrlFilterCaseSensitive"):
             key = json.dumps([action, priority, cond], sort_keys=True)
             (self.allow_domains if exception else self.block_domains)[key].add(m.group(1))
             return
+        cond = dict(cond)
         if pattern:
             cond["urlFilter"] = pattern
         (self.allow if exception else self.block).append({"priority": priority, "action": action, "condition": cond})

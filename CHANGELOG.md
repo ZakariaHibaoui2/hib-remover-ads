@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.4
+
+- Popunder protection: ad tabs that a page opens to one of 3,333 ad networks close themselves, including ones that hide their opener. On myflixerz, six clicks opened 4 ad tabs without the extension and none with it.
+- A tab you navigate to an ad network yourself stays open and shows a "blocked" page instead.
+- New test: `tests/test_popups.py`.
+
 ## 2.0.3
 
 - Blocks YieldPilot, a first-party ad system on streaming sites (myflixerz, soap2day, onlyflix and others) that serves popunders and fake "prove you are human" popups from the site's own domain.
