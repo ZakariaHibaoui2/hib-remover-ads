@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hib Remover Ads</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body data-state="loading">
+  <header class="bar">
+    <span class="brand"><img src="../icons/on-32.png" alt="" width="20" height="20">Hib Remover Ads</span>
+    <button id="power" class="switch" role="switch" aria-checked="true" aria-label="Block ads everywhere">
+      <span class="knob"></span>
+    </button>
+  </header>
+
+  <main class="site">
+    <h1 id="host" class="host">&nbsp;</h1>
+    <p id="status" class="status" aria-live="polite">&nbsp;</p>
+
+    <p class="count">
+      <span id="page" class="num">0</span>
+      <span id="page-label">blocked on this page</span>
+    </p>
+
+    <button id="pause" class="action" type="button">Pause on this site</button>
+  </main>
+
+  <footer class="foot">
+    <span id="total">0</span> ads blocked since you installed Hib Remover Ads
+  </footer>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

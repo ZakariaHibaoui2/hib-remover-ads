@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hib Remover Ads: free ad blocker for Chrome and YouTube</title>
+<meta name="description" content="Hib Remover Ads is a free ad remover for Chrome, Edge and Brave. It blocks YouTube video ads, banners, popups and trackers. Download it and install in one minute.">
+<meta name="keywords" content="hib remover ads, ad remover, ads remover, ad blocker, adblock, youtube ad blocker, chrome extension, free">
+<link rel="canonical" href="https://zakariahibaoui2.github.io/hib-remover-ads/">
+<meta property="og:title" content="Hib Remover Ads: free ad blocker">
+<meta property="og:description" content="Blocks YouTube video ads, banners, popups and trackers. Free and open source.">
+<meta property="og:image" content="https://zakariahibaoui2.github.io/hib-remover-ads/og.png">
+<meta property="og:url" content="https://zakariahibaoui2.github.io/hib-remover-ads/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Hib Remover Ads","applicationCategory":"BrowserApplication","operatingSystem":"Chrome, Edge, Brave, Opera","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free ad blocker that removes YouTube video ads, banners, popups and trackers."}
+</script>
+<style>
+:root {
+  --deep: #10272b;
+  --tide: #183a3f;
+  --line: #2a5057;
+  --foam: #e4f0ec;
+  --kelp: #9dbbb3;
+  --amber: #f3b23c;
+  --coral: #ef6f6c;
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --body: "Figtree", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--deep);
+  color: var(--foam);
+  font: 400 1.0625rem/1.6 var(--body);
+}
+a { color: var(--amber); }
+:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* header */
+.top { display: flex; align-items: center; justify-content: space-between; padding-block: 22px; }
+.brand { display: flex; align-items: center; gap: 10px; font: 800 1.125rem var(--display); color: var(--foam); text-decoration: none; }
+.brand img { width: 30px; height: 30px; border-radius: 7px; }
+.top nav { display: flex; gap: 22px; }
+.top nav a { color: var(--kelp); text-decoration: none; font-weight: 600; font-size: .95rem; }
+.top nav a:hover { color: var(--foam); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; padding-block: 56px 96px; }
+h1 {
+  font: 800 clamp(3rem, 7.4vw, 5.75rem)/.92 var(--display);
+  letter-spacing: -.035em;
+  margin: 0 0 24px;
+}
+.lede { font-size: 1.25rem; color: var(--kelp); max-width: 30ch; margin: 0 0 36px; }
+.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--amber); color: var(--deep);
+  font: 800 1.125rem var(--display);
+  padding: 17px 28px; border-radius: 999px; text-decoration: none;
+  transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn svg { width: 20px; height: 20px; }
+.cta small { color: var(--kelp); font-size: .9rem; }
+
+/* demo: a page whose ads fold away */
+.demo {
+  background: var(--foam); color: var(--deep);
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 40px 90px -30px #000;
+}
+.demo-bar { display: flex; align-items: center; gap: 10px; padding: 11px 14px; background: #d3e3de; }
+.dots { display: flex; gap: 6px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; background: #a9c2bb; }
+.url { flex: 1; background: var(--foam); border-radius: 6px; font-size: .78rem; padding: 4px 10px; color: #4d6c66; }
+.badge {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--deep); color: var(--amber);
+  font: 800 .78rem var(--display); padding: 4px 9px 4px 5px; border-radius: 6px;
+}
+.badge img { width: 16px; height: 16px; }
+.page { padding: 22px 24px 26px; }
+.page h3 { font: 800 1.35rem/1.15 var(--display); margin: 0 0 14px; }
+.txt { height: 9px; background: #c4d6d1; border-radius: 3px; margin: 0 0 9px; }
+.txt.s { width: 62%; }
+.ad {
+  display: grid; place-items: center;
+  background: repeating-linear-gradient(-45deg, #ffe3a3 0 12px, #ffd779 12px 24px);
+  color: #7a4b00; font: 800 .8rem var(--display);
+  border-radius: 6px; height: 74px; margin: 14px 0;
+  overflow: hidden;
+}
+.ad.tall { height: 110px; }
+.ad span { background: #fff6dd; padding: 3px 8px; border-radius: 4px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ad { animation: fold .55s cubic-bezier(.6, 0, .3, 1) forwards; }
+  .a1 { animation-delay: 1.1s; }
+  .a2 { animation-delay: 1.5s; }
+  .a3 { animation-delay: 1.9s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ad { display: none; }
+}
+@keyframes fold {
+  40% { opacity: 0; transform: scaleX(.96); }
+  100% { opacity: 0; height: 0; margin: 0; transform: scaleX(.96); }
+}
+
+/* sections */
+section { padding: 88px 0; border-top: 1px solid var(--line); }
+h2 { font: 800 clamp(2rem, 4.2vw, 3rem)/1 var(--display); letter-spacing: -.025em; margin: 0 0 14px; }
+.intro { color: var(--kelp); max-width: 56ch; margin: 0 0 48px; }
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; counter-reset: s; }
+.steps li { counter-increment: s; }
+.steps li::before {
+  content: counter(s);
+  display: grid; place-items: center;
+  width: 46px; height: 46px; border-radius: 50%;
+  border: 2px solid var(--amber); color: var(--amber);
+  font: 800 1.25rem var(--display); margin-bottom: 18px;
+}
+.steps h3 { font: 800 1.2rem var(--display); margin: 0 0 6px; }
+.steps p { margin: 0; color: var(--kelp); font-size: .98rem; }
+code {
+  font: 600 .9em ui-monospace, Consolas, monospace;
+  background: var(--tide); color: var(--foam);
+  padding: 2px 7px; border-radius: 5px;
+}
+.copy { all: unset; cursor: pointer; }
+.copy:focus-visible { outline: 3px solid var(--amber); border-radius: 5px; }
+.copied { color: var(--amber); font-size: .85rem; margin-left: 6px; }
+
+.blocks { display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; margin: 0; }
+.blocks div { padding: 22px 0; border-bottom: 1px solid var(--line); }
+.blocks dt { font: 800 1.2rem var(--display); margin-bottom: 4px; }
+.blocks dd { margin: 0; color: var(--kelp); }
+
+details { border-bottom: 1px solid var(--line); max-width: 760px; }
+summary {
+  cursor: pointer; list-style: none;
+  font: 800 1.2rem var(--display); padding: 22px 0;
+  display: flex; justify-content: space-between; gap: 16px;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--amber); font-size: 1.5rem; line-height: 1; transition: transform .2s; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { margin: 0 0 22px; color: var(--kelp); max-width: 64ch; }
+
+footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--kelp); font-size: .92rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+@media (max-width: 880px) {
+  .hero { grid-template-columns: 1fr; padding-block: 32px 72px; gap: 48px; }
+  .steps { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 16px; }
+  .top nav a:not(:last-child) { display: none; }
+  .steps, .blocks { grid-template-columns: 1fr; }
+  section { padding: 64px 0; }
+  .btn { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand" href="./"><img src="icon.png" alt="">Hib Remover Ads</a>
+  <nav>
+    <a href="#install">Install</a>
+    <a href="#questions">Questions</a>
+    <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <h1>Hib Remover Ads</h1>
+      <p class="lede">A free ad blocker for YouTube and every other site. No account, no tracking, nothing to pay.</p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/hib-remover-ads.zip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+          Download for Chrome
+        </a>
+        <small>Version 1.0.0 · 33 KB · Also works in Edge, Brave and Opera</small>
+      </div>
+    </div>
+
+    <div class="demo" aria-label="Example: a news page with its ads removed" role="img">
+      <div class="demo-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">dailynews.example/world</span>
+        <span class="badge"><img src="icon.png" alt="">3</span>
+      </div>
+      <div class="page">
+        <h3>City council approves the new riverside park</h3>
+        <div class="ad a1"><span>Advertisement</span></div>
+        <div class="txt"></div><div class="txt"></div><div class="txt s"></div>
+        <div class="ad tall a2"><span>Sponsored video</span></div>
+        <div class="txt"></div><div class="txt"></div><div class="txt"></div><div class="txt s"></div>
+        <div class="ad a3"><span>You won't believe these deals</span></div>
+        <div class="txt"></div><div class="txt s"></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="install">
+    <div class="wrap">
+      <h2>Install in one minute</h2>
+      <p class="intro">Hib Remover Ads isn't on the Chrome Web Store yet, so you add it yourself. You only do this once.</p>
+      <ol class="steps">
+        <li>
+          <h3>Download</h3>
+          <p>Get <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/hib-remover-ads.zip">hib-remover-ads.zip</a>.</p>
+        </li>
+        <li>
+          <h3>Unzip it</h3>
+          <p>Right-click the file and choose <b>Extract All</b>. Keep the folder somewhere you won't delete it, like Documents.</p>
+        </li>
+        <li>
+          <h3>Open extensions</h3>
+          <p>Paste <button class="copy" data-copy="chrome://extensions" aria-label="Copy chrome://extensions"><code>chrome://extensions</code></button> into the address bar and turn on <b>Developer mode</b> at the top right.</p>
+        </li>
+        <li>
+          <h3>Load it</h3>
+          <p>Click <b>Load unpacked</b> and pick the folder you extracted. Pin it from the puzzle-piece menu to see the counter.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>What it removes</h2>
+      <p class="intro">Ads are stopped before they download, so pages also load faster.</p>
+      <dl class="blocks">
+        <div><dt>YouTube ads</dt><dd>Pre-roll and mid-roll video ads, overlays, sponsored cards and Shorts ads. If one slips through, it gets muted and skipped.</dd></div>
+        <div><dt>Banners and popups</dt><dd>Around 130 ad networks are blocked, including Google ads, Taboola and Outbrain.</dd></div>
+        <div><dt>Trackers</dt><dd>Ad trackers that follow you from site to site are blocked too.</dd></div>
+        <div><dt>Empty ad boxes</dt><dd>The gaps ads leave behind are hidden, so pages look clean.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="wrap">
+      <h2>Questions</h2>
+      <p class="intro">Something not working? Open an issue on <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads/issues">GitHub</a>.</p>
+      <details>
+        <summary>Is it really free?</summary>
+        <p>Yes. There is no paid version and no account. The code is open on GitHub for anyone to read.</p>
+      </details>
+      <details>
+        <summary>Does it collect my data?</summary>
+        <p>No. Everything runs inside your browser. The only thing it stores is your settings and the number of ads it blocked.</p>
+      </details>
+      <details>
+        <summary>Chrome says "Disable developer mode extensions". What do I do?</summary>
+        <p>Chrome shows this for any extension that isn't from the Web Store. Click the X to close it. Hib Remover Ads keeps working.</p>
+      </details>
+      <details>
+        <summary>A site stopped working or asks me to turn off my ad blocker</summary>
+        <p>Click the Hib Remover Ads icon and choose <b>Pause on this site</b>. Ads come back only on that site.</p>
+      </details>
+      <details>
+        <summary>How do I update it?</summary>
+        <p>Download the new zip, replace the files in your folder, then click the reload arrow on the extension in <code>chrome://extensions</code>.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Hib Remover Ads, made by Zakaria Hibaoui</span>
+    <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads">Source code on GitHub</a>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach((b) => {
+  b.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(b.dataset.copy);
+      if (!b.nextElementSibling?.classList.contains('copied')) {
+        b.insertAdjacentHTML('afterend', '<span class="copied" role="status">Copied</span>');
+      }
+    } catch {}
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+.claude/
+src/_metadata/
+store/_*.png
+__pycache__/
+tests/screenshots/sites/
+tests/real_sites_results.json
+store/*.zip
