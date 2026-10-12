@@ -16,6 +16,7 @@
         "adbutler.com",
         "adcash.com",
         "adcolony.com",
+        "adeqmedia.com",
         "adform.net",
         "adhese.com",
         "adition.com",
@@ -91,7 +92,10 @@
         "openx.net",
         "outbrain.com",
         "outbrainimg.com",
+        "paerlib.tech",
         "pagead2.googlesyndication.com",
+        "pahtag.tech",
+        "pahter.tech",
         "plista.com",
         "popads.net",
         "popcash.net",
@@ -201,6 +205,7 @@
         "adbutler.com",
         "adcash.com",
         "adcolony.com",
+        "adeqmedia.com",
         "adform.net",
         "adhese.com",
         "adition.com",
@@ -276,7 +281,10 @@
         "openx.net",
         "outbrain.com",
         "outbrainimg.com",
+        "paerlib.tech",
         "pagead2.googlesyndication.com",
+        "pahtag.tech",
+        "pahter.tech",
         "plista.com",
         "popads.net",
         "popcash.net",
@@ -643,6 +651,30 @@
     },
     "condition": {
       "urlFilter": "/yieldpilot",
+      "resourceTypes": [
+        "sub_frame",
+        "stylesheet",
+        "script",
+        "image",
+        "font",
+        "object",
+        "xmlhttprequest",
+        "ping",
+        "csp_report",
+        "media",
+        "websocket",
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||asadcdn.com/adlib/",
       "resourceTypes": [
         "sub_frame",
         "stylesheet",

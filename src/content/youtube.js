@@ -31,7 +31,14 @@
   // so reading the rate when the ad starts would lose a chosen 1.5x or 2x.
   let contentRate = 1;
 
-  const report = () => chrome.runtime.sendMessage({ type: 'hidden', count: 1 }).catch(() => {});
+  const report = () => {
+    // Throws, rather than rejects, once the extension has been updated under this tab.
+    try {
+      if (chrome.runtime?.id) chrome.runtime.sendMessage({ type: 'hidden', count: 1 }).catch(() => {});
+    } catch {
+      // Extension context gone; the page keeps working without the counter.
+    }
+  };
 
   const handleAd = (player, video) => {
     if (!inAd) {

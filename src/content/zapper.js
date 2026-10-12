@@ -9,6 +9,13 @@
   }
 
   const t = (key, sub) => chrome.i18n.getMessage(key, sub) || key;
+  const send = (msg) => {
+    try {
+      chrome.runtime.sendMessage(msg).catch(() => {});
+    } catch {
+      // The extension was updated while the picker was open; hiding still works for now.
+    }
+  };
   const rtl = chrome.i18n.getMessage('@@bidi_dir') === 'rtl';
 
   // ---- UI, isolated from the page's styles ---------------------------------
@@ -150,7 +157,7 @@
     const prev = el.getAttribute('style');
     el.style.setProperty('display', 'none', 'important');
     removed.push({ el, prev, selector });
-    if (selector) chrome.runtime.sendMessage({ type: 'zapSave', selector }).catch(() => {});
+    if (selector) send({ type: 'zapSave', selector });
     show(null);
     updateCount();
   }
@@ -160,7 +167,7 @@
     if (!last) return;
     if (last.prev == null) last.el.removeAttribute('style');
     else last.el.setAttribute('style', last.prev);
-    if (last.selector) chrome.runtime.sendMessage({ type: 'zapRemove', selector: last.selector }).catch(() => {});
+    if (last.selector) send({ type: 'zapRemove', selector: last.selector });
     updateCount();
   }
 

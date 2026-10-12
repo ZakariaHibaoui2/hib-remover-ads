@@ -104,6 +104,8 @@ The last row is the extension's own cost on a page with nothing to block: about 
 
 **Blocking** on 39 sites (news, video, sport, shopping, tech, French and Arabic), from [`tests/test_real_sites.py`](tests/test_real_sites.py): **206 visible ads without the extension, 0 with it.** Ad files downloaded dropped from up to 2,501 per page (9GAG) to 0–2, and page text stayed the same. The full table is on the [website](https://zakariahibaoui2.github.io/hib-remover-ads/#proof). On [adblock-tester.com](https://adblock-tester.com/) it scores **100/100**.
 
+**Arabic, Moroccan and French sites**, from [`tests/test_arabic_sites.py`](tests/test_arabic_sites.py): on 45 sites including Hespress, Le360, Kooora, Al Jazeera, Youm7 and FilGoal, **81 visible ads without the extension, 0 with it**, and ad-server requests dropped from 22,979 to 36.
+
 Results vary by country and over time; these were measured from Morocco in October 2026.
 
 ## How it works
@@ -135,6 +137,7 @@ python -m playwright install chromium
 python tests/test_extension.py     # 20 end-to-end checks: blocking, hiding, popup, pause, YouTube
 python tests/test_popups.py        # popunder tabs close, real tabs don't
 python tests/test_features.py      # click-to-remove, weekly savings, report link, French and Arabic
+python tests/test_arabic_sites.py  # 45 Arabic, Moroccan and French sites with and without the extension
 python tests/test_real_sites.py    # ad-heavy sites with and without the extension
 python tests/test_performance.py   # load time, CPU and memory with and without the extension
 ```

@@ -36,6 +36,9 @@ export const AD_DOMAINS = [
   'richpush.co', 'pushame.com', 'evadav.com', 'galaksion.com', 'monetag.com',
   'holdbitter.com',
   'a-ads.com', 'coinzilla.com', 'bitmedia.io', 'adskeeper.com', 'adskeeper.co.uk',
+  // Arabic and North-African publishers (hespress, goud, alyaoum24 and others)
+  'pahter.tech', 'pahtag.tech', 'paerlib.tech', // Project Agora in-article ad tags
+  'adeqmedia.com', // Adeq Media, MENA ad network
 ];
 
 // Path-level rules for first-party ad endpoints that cannot be blocked by domain.
@@ -56,6 +59,8 @@ export const URL_FILTERS = [
   // from the site's own domain (myflixerz, soap2day, onlyflix and others).
   '/__yield/',
   '/yieldpilot',
+  // Axel Springer ad library used by Sky News Arabia; the rest of asadcdn.com is left alone.
+  '||asadcdn.com/adlib/',
 ];
 
 // Elements hidden on every page. Keep these specific: a loose selector here
@@ -76,6 +81,23 @@ export const GENERIC_SELECTORS = [
   '.ad-slot-header', '.ad-slot-header__wrapper', '.ad-slot-rail', '.ad-slot__wrapper',
   '.ad-feedback-link', 'div[class*="cls-ad-"]', '[id^="sda-"]', '.gemini-ad',
   '[data-content="Advertisement"]', '.ad-wrapper--header', '.top-ad-container',
+  // Arabic, Moroccan and French publishers: empty ad boxes left once the ad is blocked.
+  // The :has() guards keep a container visible if it ever wraps real headlines.
+  '.ad-container:not(:has(h1, h2, h3, article))', // alyaoum24, marmiton
+  '.ad-host:not(:has(h1, h2, h3, article))', // egybest-style React ad hosts
+  '.ads.mediumrectangle', '.m_adv', // filgoal
+  '.hp_ad_comp_ad_cont', // skynewsarabia
+  '.sport-fresh-v2__ad', '[class^="hero-sec-adds"]', '.col-4:has(> [class^="hero-sec-adds"])', // akhbarona
+  '.home-main-body > .left-add', '.home-main-body > .right-add', // akhbarona skyscrapers
+  '.sponser-cont', // elbalad sticky side skyscrapers
+  '.under-header-ad-section', // hibapress
+  '[class^="devoAd"]', '.box:has(> div > [class^="devoAd"])', // btolat "إعلان" boxes
+  '.bloc-banner-qotab', // telquel partner banner
+  'div[id^="dfp_pave"]', 'div[id^="dfp_native"]', // 20minutes
+  '.anchorMiddleOne--bannerXL', // jeuxvideo sponsored banner
+  '.su-sponsored-articles', // ouest-france sponsored promo-code block
+  // Sponsor tiles that link straight to a Google Ad Manager click URL (kooora scoreboard).
+  'a[href*="pubads.g.doubleclick.net/gampad/clk"]', '.fco-scoreboard__sponsorship',
 ];
 
 // YouTube-only elements (custom elements, so they never match elsewhere).

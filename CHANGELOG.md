@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.1
+
+- Better blocking on Arabic, Moroccan and French sites: tested on 45 sites (Hespress, Le360, Hibapress, Kooora, Al Jazeera, Youm7, FilGoal, 20 Minutes and others), 81 visible ads without the extension and 0 with it.
+- Blocks Project Agora and Adeq Media ad tags, the Axel Springer ad library on Sky News Arabia, and hides the empty ad boxes left on Akhbarona, FilGoal, Elbalad, Btolat, Alyaoum24, Telquel, 20 Minutes and others.
+- No more "Extension context invalidated" errors in tabs that were open while the extension updated.
+- New test: `tests/test_arabic_sites.py`.
+
 ## 2.1.0
 
 - Click-to-remove: "Remove something on this page" in the popup lets you click any box to hide it for good on that site. Undo (Ctrl+Z), Esc, and Restore in the popup.

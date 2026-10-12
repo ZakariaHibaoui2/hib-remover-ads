@@ -4,9 +4,22 @@
   if (window.__hushCosmetic) return;
   window.__hushCosmetic = true;
 
+  // After the extension updates or reloads, scripts left in open tabs lose their
+  // connection and sendMessage throws instead of rejecting. Stop quietly then.
+  let observer;
+  const send = (msg) => {
+    try {
+      if (chrome.runtime?.id) return chrome.runtime.sendMessage(msg).catch(() => {});
+    } catch {
+      // Fall through: the extension context is gone.
+    }
+    observer?.disconnect();
+    return Promise.resolve();
+  };
+
   // Start this tab's per-page counter from the moment navigation began.
   if (window.top === window) {
-    chrome.runtime.sendMessage({ type: 'pageStart', at: Math.floor(performance.timeOrigin) }).catch(() => {});
+    send({ type: 'pageStart', at: Math.floor(performance.timeOrigin) });
   }
 
   const { generic, youtube } = globalThis.HUSH_SELECTORS;
@@ -34,7 +47,7 @@
       // Count each ad once, not once per nested match inside it.
       if (!el.parentElement?.closest(selector)) n++;
     }
-    if (n) chrome.runtime.sendMessage({ type: 'hidden', count: n }).catch(() => {});
+    if (n) send({ type: 'hidden', count: n });
   };
 
   let timer;
@@ -45,7 +58,7 @@
 
   // Site-specific hiding from the filter lists. The background injects it as a
   // user stylesheet and sends back the selectors so those ads get counted too.
-  chrome.runtime.sendMessage({ type: 'cosmetic' }).then((own) => {
+  send({ type: 'cosmetic' }).then((own) => {
     const extra = (Array.isArray(own) ? own : []).filter((s) => CSS.supports(`selector(${s})`));
     if (extra.length) {
       selector = [selector, ...extra].filter(Boolean).join(',');
@@ -55,7 +68,8 @@
 
   const start = () => {
     count();
-    new MutationObserver(schedule).observe(document.documentElement, { childList: true, subtree: true });
+    observer = new MutationObserver(schedule);
+    observer.observe(document.documentElement, { childList: true, subtree: true });
   };
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', start, { once: true });
