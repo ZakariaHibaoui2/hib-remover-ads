@@ -67,7 +67,7 @@ def main():
 
     img = DEST / "4 - Images"
     copy(ROOT / "docs" / "assets", img / "README and website")
-    for f in (ROOT / "store").glob("*.png"):
+    for f in (ROOT / "store").rglob("*.png"):
         copy(f, img / "Store listing" / f.name)
 
     (DEST / "START HERE.html").write_text(guide(version), encoding="utf-8")
@@ -147,7 +147,7 @@ td {{ border-bottom:1px solid var(--line); padding:9px 8px 9px 0; }}
 <pre><code>python tools/filterlists.py --fetch     # newest filter lists
 python tests/test_extension.py          # 20 checks must pass
 # bump "version" in src/manifest.json and add it to CHANGELOG.md
-git commit -am "Release X.Y.Z" && git tag vX.Y.Z && git push --follow-tags</code></pre>
+git commit -am "Release X.Y.Z" && git tag vX.Y.Z && git push && git push origin vX.Y.Z</code></pre>
 <p>Pushing the tag makes GitHub build the installer and zip on its own servers and publish them with checksums. Every Monday GitHub also opens a pull request with refreshed filter lists; merge it, then tag a release.</p>
 
 <h2>One thing to do by hand</h2>

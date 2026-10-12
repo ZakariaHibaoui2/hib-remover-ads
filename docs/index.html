@@ -208,6 +208,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .track { height: auto; }
   .stage { position: relative; }
 }
+.copy.cmd { display:block; width:100%; text-align:left; margin-top:12px; white-space:normal; word-break:break-all; }
 </style>
 </head>
 <body>
@@ -274,18 +275,23 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="wrap install-grid">
       <div>
         <h2>Install in one minute</h2>
-        <p class="intro">It isn't on the Chrome Web Store yet, so the installer sets it up and walks you through the last three clicks.</p>
+        <p class="intro">It isn't on the Chrome Web Store yet, so one command or the installer sets it up and walks you through the last clicks.</p>
         <ol class="steps">
-          <li><div><h3>Run the installer</h3><p>Open <b>HibRemoverAds-Setup.exe</b>, pick your browser and click <b>Install</b>. If Windows shows "Windows protected your PC", click <b>More info</b>, then <b>Run anyway</b>.</p></div></li>
+          <li><div><h3>Set it up</h3><p>Paste the one-line command into PowerShell, or open <b>HibRemoverAds-Setup.exe</b> and click <b>Install</b>. Both pick your browser and copy the folder path.</p></div></li>
           <li><div><h3>Turn on Developer mode</h3><p>Your browser opens its extensions page. Switch on <b>Developer mode</b> at the top right.</p></div></li>
-          <li><div><h3>Load it</h3><p>Click <b>Load unpacked</b>, press <b>Ctrl+V</b> in the folder box and click <b>Select Folder</b>. The installer already copied the folder path for you.</p></div></li>
+          <li><div><h3>Load it</h3><p>Click <b>Load unpacked</b>, press <b>Ctrl+V</b> in the folder box and click <b>Select Folder</b>. The folder path is already copied.</p></div></li>
         </ol>
       </div>
       <div>
         <div class="card">
+          <h3>Windows, one command</h3>
+          <p>Recommended: no Windows warning. Open PowerShell, paste this and press Enter. Run it again any time to update.</p>
+          <button class="copy cmd" data-copy="irm https://zakariahibaoui2.github.io/hib-remover-ads/install.ps1 | iex" aria-label="Copy the install command"><code>irm https://zakariahibaoui2.github.io/hib-remover-ads/install.ps1 | iex</code></button>
+        </div>
+        <div class="card alt">
           <h3>Windows installer</h3>
-          <p>Recommended. 1.6 MB. Run it again any time to update.</p>
-          <a class="btn" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe">Download HibRemoverAds-Setup.exe</a>
+          <p>1.6 MB. Windows may warn you first: click More info, then Run anyway.</p>
+          <a class="btn ghost" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe">Download HibRemoverAds-Setup.exe</a>
         </div>
         <div class="card alt">
           <h3>Mac, Linux or manual install</h3>
@@ -310,7 +316,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </details>
       <details>
         <summary>Windows says the installer is from an unknown publisher</summary>
-        <p>Windows shows this for any program that isn't signed with a paid certificate. Click <b>More info</b>, then <b>Run anyway</b>. The installer's source code is in the repository if you want to check it.</p>
+        <p>Windows shows this for any program that isn't signed with a paid certificate. Use the one-command install above to avoid it, or click <b>More info</b>, then <b>Run anyway</b>. The installer's source code is in the repository if you want to check it.</p>
       </details>
       <details>
         <summary>Chrome says "Disable developer mode extensions"</summary>

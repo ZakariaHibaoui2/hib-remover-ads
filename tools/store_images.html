@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Store images</title>
+<style>
+@font-face { font-family: Bricolage; src: url(../src/fonts/BricolageGrotesque.woff2); font-weight: 200 800; }
+@font-face { font-family: Figtree; src: url(../src/fonts/Figtree.woff2); font-weight: 300 900; }
+:root { --deep:#10272b; --tide:#183a3f; --line:#2a5057; --foam:#e4f0ec; --kelp:#9dbbb3; --amber:#f3b23c; --red:#e5484d; --paper:#f5f8f6; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1280px; height: 800px; overflow: hidden; }
+body { background: var(--paper); font-family: Figtree, sans-serif; color: var(--deep); position: relative; }
+.slide { display: none; position: absolute; inset: 0; }
+.slide.on { display: block; }
+/* backdrop shapes */
+.slab { position: absolute; right: -120px; top: -160px; width: 620px; height: 1120px; background: var(--deep); transform: rotate(18deg); border-radius: 60px; }
+.slab2 { position: absolute; right: 300px; bottom: -260px; width: 320px; height: 420px; background: var(--amber); transform: rotate(18deg); border-radius: 40px; opacity: .9; }
+.brand { position: absolute; left: 72px; top: 60px; display: flex; align-items: center; gap: 14px; font: 700 30px Bricolage; }
+.brand img { width: 48px; height: 48px; }
+.copy { position: absolute; left: 72px; top: 160px; width: 500px; }
+h1 { font: 800 62px/1.02 Bricolage; letter-spacing: -1.5px; }
+h1 span { display: block; color: #b37a0f; }
+h2 { font: 700 30px Bricolage; margin: 34px 0 16px; }
+ul { list-style: none; padding: 0; display: grid; gap: 12px; }
+li { font: 500 24px Figtree; display: flex; align-items: center; gap: 14px; }
+li::before { content: ""; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--deep) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%23f3b23c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat; }
+/* laptop */
+.laptop { position: absolute; left: 600px; top: 190px; width: 640px; }
+.screen { background: #0d1f22; border-radius: 22px 22px 0 0; padding: 18px; box-shadow: 0 40px 80px rgba(16,39,43,.35); }
+.base { height: 26px; background: linear-gradient(#cfd8d5, #9fb0ab); border-radius: 0 0 26px 26px; margin: 0 -40px; }
+.panes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.pane { background: #fff; border-radius: 10px; height: 340px; overflow: hidden; position: relative; }
+.tag { font: 700 18px Bricolage; color: var(--foam); text-align: center; margin-bottom: 10px; }
+.chrome { height: 22px; background: #e9efed; display: flex; gap: 5px; align-items: center; padding-left: 9px; }
+.chrome i { width: 8px; height: 8px; border-radius: 50%; background: #c9d4d1; }
+.body { padding: 12px; display: grid; gap: 8px; }
+.bar { height: 10px; border-radius: 5px; background: #dbe4e1; }
+.img { height: 70px; border-radius: 6px; background: linear-gradient(135deg, #cfe1dc, #a9c6bf); }
+.ad { background: var(--red); color: #fff; font: 800 16px Bricolage; display: grid; place-items: center; border-radius: 6px; letter-spacing: 1px; }
+.arrow { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); width: 54px; height: 54px; border-radius: 50%; background: var(--amber); display: grid; place-items: center; box-shadow: 0 8px 20px rgba(0,0,0,.35); z-index: 2; }
+.arrow svg { width: 26px; }
+/* video */
+.video { margin: 12px; height: 170px; border-radius: 8px; background: linear-gradient(160deg, #3b6b73, #10272b); position: relative; color: #fff; }
+.video .badge { position: absolute; right: 10px; top: 10px; background: var(--red); font: 800 13px Bricolage; padding: 3px 8px; border-radius: 4px; }
+.video .note { position: absolute; left: 10px; bottom: 26px; font: 600 12px Figtree; }
+.video .prog { position: absolute; left: 10px; right: 10px; bottom: 12px; height: 4px; background: rgba(255,255,255,.3); border-radius: 2px; }
+.video .prog b { display: block; height: 100%; border-radius: 2px; background: #f3d23c; }
+.video .play { position: absolute; inset: 0; display: grid; place-items: center; font: 800 46px Bricolage; }
+/* speed */
+.speed { position: absolute; left: 640px; top: 170px; width: 560px; background: var(--tide); border-radius: 28px; padding: 40px 44px; color: var(--foam); box-shadow: 0 40px 80px rgba(16,39,43,.35); }
+.speed h3 { font: 700 24px Bricolage; margin-bottom: 26px; color: var(--kelp); }
+.row { margin-bottom: 22px; }
+.row .name { font: 700 20px Figtree; margin-bottom: 8px; display: flex; justify-content: space-between; }
+.track { height: 30px; border-radius: 15px; background: var(--line); position: relative; }
+.track b { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 15px; }
+.slow { background: #6f8c86; }
+.fast { background: var(--amber); }
+.legend { display: flex; gap: 24px; font: 600 16px Figtree; color: var(--kelp); margin-top: 6px; }
+.legend span::before { content: ""; display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-right: 8px; vertical-align: -2px; background: var(--c); }
+/* tabs */
+.tabs { position: absolute; left: 620px; top: 200px; width: 600px; }
+.win { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 30px 70px rgba(16,39,43,.35); }
+.strip { background: #dfe7e4; display: flex; gap: 6px; padding: 10px 10px 0; }
+.t { background: #eef3f1; border-radius: 10px 10px 0 0; padding: 10px 14px; font: 600 15px Figtree; display: flex; gap: 8px; align-items: center; white-space: nowrap; }
+.t.cur { background: #fff; }
+.t.gone { opacity: .45; text-decoration: line-through; color: var(--red); }
+.t .x { color: var(--red); font-weight: 800; }
+.blocked { padding: 40px; text-align: center; }
+.blocked .shield { width: 84px; height: 84px; margin: 0 auto 18px; border-radius: 50%; background: var(--deep); display: grid; place-items: center; }
+.blocked h4 { font: 800 30px Bricolage; margin-bottom: 8px; }
+.blocked p { font: 500 18px Figtree; color: #4b6661; }
+.closed { margin-top: 22px; background: var(--deep); color: var(--foam); border-radius: 16px; padding: 18px 22px; font: 600 19px Figtree; display: flex; justify-content: space-between; }
+.closed b { color: var(--amber); font: 800 24px Bricolage; }
+/* popup */
+.pop { position: absolute; left: 720px; top: 110px; width: 380px; border-radius: 24px; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
+</style></head><body>
+
+<!-- 1: everything it blocks -->
+<section class="slide" data-n="1">
+  <div class="slab"></div><div class="slab2"></div>
+  <div class="brand"><img src="../src/icons/on-128.png" alt="">Hib Remover Ads</div>
+  <div class="copy">
+    <h1>The web, <span>without the ads</span></h1>
+    <h2>Hib Remover Ads blocks</h2>
+    <ul><li>Popup and popunder ads</li><li>Video ads</li><li>Banner ads</li><li>Fake "verify you're human" boxes</li><li>Trackers</li><li>Malicious ads</li></ul>
+  </div>
+  <div class="laptop">
+    <div class="screen">
+      <div class="panes"><div class="tag">Before</div><div class="tag">After</div></div>
+      <div class="panes" style="position:relative">
+        <div class="pane"><div class="chrome"><i></i><i></i><i></i></div><div class="body">
+          <div class="ad" style="height:56px">ADS ✕</div><div class="bar" style="width:80%"></div><div class="bar"></div>
+          <div style="display:grid;grid-template-columns:1fr 70px;gap:8px"><div class="img"></div><div class="ad" style="font-size:12px">ADS</div></div>
+          <div class="bar"></div><div class="bar" style="width:60%"></div><div class="ad" style="height:46px">ADS</div><div class="bar" style="width:70%"></div></div></div>
+        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h13m-5-6 6 6-6 6" fill="none" stroke="#10272b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="pane"><div class="chrome"><i></i><i></i><i></i></div><div class="body">
+          <div class="bar" style="width:80%;margin-top:6px"></div><div class="bar"></div><div class="img" style="height:96px"></div>
+          <div class="bar"></div><div class="bar" style="width:60%"></div><div class="bar"></div><div class="img"></div><div class="bar" style="width:70%"></div></div></div>
+      </div>
+    </div><div class="base"></div>
+  </div>
+</section>
+
+<!-- 2: YouTube -->
+<section class="slide" data-n="2">
+  <div class="slab"></div><div class="slab2"></div>
+  <div class="brand"><img src="../src/icons/on-128.png" alt="">Hib Remover Ads</div>
+  <div class="copy">
+    <h1>YouTube with <span>no ad breaks</span></h1>
+    <h2>Hib Remover Ads</h2>
+    <ul><li>Removes video ads before they start</li><li>Skips any ad that slips through</li><li>Hides sponsored cards and banners</li><li>No waiting, no "Skip in 5"</li><li>Works on every video</li></ul>
+  </div>
+  <div class="laptop">
+    <div class="screen">
+      <div class="panes"><div class="tag">Before</div><div class="tag">After</div></div>
+      <div class="panes" style="position:relative">
+        <div class="pane"><div class="chrome"><i></i><i></i><i></i></div>
+          <div class="video"><span class="badge">AD</span><span class="note">Video ad 1 of 2 · 0:30</span><div class="prog"><b style="width:18%"></b></div></div>
+          <div class="body"><div class="bar"></div><div class="bar" style="width:70%"></div><div class="ad" style="height:44px">SPONSORED</div></div></div>
+        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h13m-5-6 6 6-6 6" fill="none" stroke="#10272b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="pane"><div class="chrome"><i></i><i></i><i></i></div>
+          <div class="video"><span class="play">▶</span><div class="prog"><b style="width:4%;background:#fff"></b></div></div>
+          <div class="body"><div class="bar"></div><div class="bar" style="width:70%"></div><div class="bar" style="width:85%"></div><div class="bar" style="width:50%"></div></div></div>
+      </div>
+    </div><div class="base"></div>
+  </div>
+</section>
+
+<!-- 3: speed -->
+<section class="slide" data-n="3">
+  <div class="slab"></div><div class="slab2"></div>
+  <div class="brand"><img src="../src/icons/on-128.png" alt="">Hib Remover Ads</div>
+  <div class="copy">
+    <h1>Pages load <span>much faster</span></h1>
+    <h2>Because ads never download</h2>
+    <ul><li>Less data used</li><li>Less CPU and battery</li><li>Less memory</li><li>No lag: about 20 ms per page</li></ul>
+  </div>
+  <div class="speed">
+    <h3>Page load time, measured</h3>
+    <div class="row"><div class="name"><span>cnn.com</span><span>35.9 s → 4.3 s</span></div><div class="track"><b class="slow" style="width:100%"></b></div><div class="track" style="margin-top:6px"><b class="fast" style="width:12%"></b></div></div>
+    <div class="row"><div class="name"><span>weather.com</span><span>5.2 s → 1.0 s</span></div><div class="track"><b class="slow" style="width:14.5%"></b></div><div class="track" style="margin-top:6px"><b class="fast" style="width:2.8%"></b></div></div>
+    <div class="row"><div class="name"><span>forbes.com</span><span>3.3 s → 1.9 s</span></div><div class="track"><b class="slow" style="width:9.2%"></b></div><div class="track" style="margin-top:6px"><b class="fast" style="width:5.3%"></b></div></div>
+    <div class="legend"><span style="--c:#6f8c86">Without</span><span style="--c:#f3b23c">With Hib Remover Ads</span></div>
+  </div>
+</section>
+
+<!-- 4: popups -->
+<section class="slide" data-n="4">
+  <div class="slab"></div><div class="slab2"></div>
+  <div class="brand"><img src="../src/icons/on-128.png" alt="">Hib Remover Ads</div>
+  <div class="copy">
+    <h1>No more <span>popup tabs</span></h1>
+    <h2>On streaming and download sites</h2>
+    <ul><li>Ad tabs close themselves</li><li>Popunder windows are stopped</li><li>Fake "you won" pages blocked</li><li>Real links still open normally</li></ul>
+  </div>
+  <div class="tabs">
+    <div class="win">
+      <div class="strip"><div class="t">▶ Watch movie</div><div class="t gone"><span class="x">✕</span> casino-bonus…</div><div class="t gone"><span class="x">✕</span> you-won-prize…</div><div class="t cur">Ad page blocked</div></div>
+      <div class="blocked">
+        <div class="shield"><img src="../src/icons/on-128.png" width="58" alt=""></div>
+        <h4>Ad page blocked</h4>
+        <p>A site tried to open an ad in a new tab.<br>Hib Remover Ads closed it.</p>
+      </div>
+    </div>
+    <div class="closed"><span>Ad tabs opened in 6 clicks on a streaming site</span><span><b>4 → 0</b></span></div>
+  </div>
+</section>
+
+<!-- 5: private + popup -->
+<section class="slide" data-n="5">
+  <div class="slab"></div><div class="slab2"></div>
+  <div class="brand"><img src="../src/icons/on-128.png" alt="">Hib Remover Ads</div>
+  <div class="copy">
+    <h1>Free, private, <span>open source</span></h1>
+    <h2>Start blocking ads today</h2>
+    <ul><li>No account, no tracking</li><li>Nothing leaves your browser</li><li>Pause it on any site in one click</li><li>Lists updated every week</li><li>Free forever</li></ul>
+  </div>
+  <img class="pop" src="../docs/assets/popup.png" alt="">
+</section>
+
+<script>
+  const n = new URLSearchParams(location.search).get('s') || '1';
+  document.querySelector(`.slide[data-n="${n}"]`).classList.add('on');
+</script>
+</body></html>

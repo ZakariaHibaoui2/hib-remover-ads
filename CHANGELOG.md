@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.5
+
+- One-command install for Windows that doesn't trigger the SmartScreen warning: `irm https://zakariahibaoui2.github.io/hib-remover-ads/install.ps1 | iex`.
+- The installer now finds 22 Chromium browsers, including Opera Air, Yandex, Chromium, Thorium, Cent, Cốc Cốc, Comodo Dragon, Epic, and the Beta, Dev and Canary channels of Chrome, Edge and Brave.
+- New store listing images and text for the Chrome Web Store, Edge Add-ons and Opera add-ons (`store/`).
+
 ## 2.0.4
 
 - Popunder protection: ad tabs that a page opens to one of 3,333 ad networks close themselves, including ones that hide their opener. On myflixerz, six clicks opened 4 ad tabs without the extension and none with it.

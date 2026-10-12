@@ -53,7 +53,19 @@ Removes YouTube video ads, banners, popups, trackers and "turn off your ad block
 
 Hib Remover Ads isn't on the Chrome Web Store yet, so you load it yourself. You only do this once.
 
-### Windows (recommended)
+### Windows, one command (no warning)
+
+Open **PowerShell** (press the Windows key, type `powershell`, press Enter) and paste:
+
+```powershell
+irm https://zakariahibaoui2.github.io/hib-remover-ads/install.ps1 | iex
+```
+
+It downloads the latest version from this repository, unpacks it to `%LOCALAPPDATA%\Hib Remover Ads\extension`, copies that path and opens your browser's extensions page. You can [read the script](docs/install.ps1) first. Then turn on **Developer mode**, click **Load unpacked**, press **Ctrl+V** and click **Select Folder**.
+
+Supported: Chrome, Edge, Brave, Opera, Opera GX, Opera Air, Vivaldi, Yandex, Chromium, Thorium, Cent, Cốc Cốc, Comodo Dragon and Epic.
+
+### Windows installer
 
 1. Download **[HibRemoverAds-Setup.exe](https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe)** and run it. If Windows says *"Windows protected your PC"*, click **More info**, then **Run anyway**. The installer isn't signed with a paid certificate; its full source is in [`installer/Setup.cs`](installer/Setup.cs).
 2. Pick your browser and click **Install**. The extension is unpacked to `%LOCALAPPDATA%\Hib Remover Ads\extension`, the folder path is copied, and your browser opens its extensions page.

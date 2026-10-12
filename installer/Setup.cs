@@ -148,6 +148,21 @@ namespace HibSetup
                 new Browser("Opera", @"Programs\Opera\opera.exe", "opera://extensions"),
                 new Browser("Opera GX", @"Programs\Opera GX\opera.exe", "opera://extensions"),
                 new Browser("Vivaldi", @"Vivaldi\Application\vivaldi.exe", "vivaldi://extensions"),
+                new Browser("Opera Air", @"Programs\Opera Air\opera.exe", "opera://extensions"),
+                new Browser("Yandex Browser", @"Yandex\YandexBrowser\Application\browser.exe", "browser://extensions"),
+                new Browser("Chromium", @"Chromium\Application\chrome.exe", "chrome://extensions"),
+                new Browser("Thorium", @"Thorium\Application\thorium.exe", "chrome://extensions"),
+                new Browser("Cent Browser", @"CentBrowser\Application\chrome.exe", "chrome://extensions"),
+                new Browser("Coc Coc", @"CocCoc\Browser\Application\browser.exe", "coccoc://extensions"),
+                new Browser("Comodo Dragon", @"Comodo\Dragon\dragon.exe", "chrome://extensions"),
+                new Browser("Epic Privacy Browser", @"Epic Privacy Browser\Application\epic.exe", "chrome://extensions"),
+                new Browser("SRWare Iron", @"Chromium\Application\iron.exe", "chrome://extensions"),
+                new Browser("Google Chrome Beta", @"Google\Chrome Beta\Application\chrome.exe", "chrome://extensions"),
+                new Browser("Google Chrome Dev", @"Google\Chrome Dev\Application\chrome.exe", "chrome://extensions"),
+                new Browser("Google Chrome Canary", @"Google\Chrome SxS\Application\chrome.exe", "chrome://extensions"),
+                new Browser("Microsoft Edge Beta", @"Microsoft\Edge Beta\Application\msedge.exe", "edge://extensions"),
+                new Browser("Microsoft Edge Dev", @"Microsoft\Edge Dev\Application\msedge.exe", "edge://extensions"),
+                new Browser("Brave Beta", @"BraveSoftware\Brave-Browser-Beta\Application\brave.exe", "brave://extensions"),
             };
             var found = new List<Browser>();
             foreach (var c in candidates)
@@ -173,7 +188,7 @@ namespace HibSetup
                         string n = list[i].Name.ToLowerInvariant();
                         if ((id.StartsWith("chrome") && n.Contains("chrome")) || (id.StartsWith("msedge") && n.Contains("edge"))
                             || (id.StartsWith("brave") && n.Contains("brave")) || (id.StartsWith("opera") && n.Contains("opera"))
-                            || (id.StartsWith("vivaldi") && n.Contains("vivaldi"))) return i;
+                            || (id.StartsWith("vivaldi") && n.Contains("vivaldi")) || (id.StartsWith("yandex") && n.Contains("yandex"))) return i;
                     }
                 }
             }
@@ -194,7 +209,7 @@ namespace HibSetup
             var list = FindBrowsers();
             if (list.Count == 0)
             {
-                AddLabel("No supported browser found. Install Google Chrome, Edge, Brave or Opera, then run this again.",
+                AddLabel("No supported browser found. Install Chrome, Edge, Brave, Opera, Vivaldi or another Chromium browser, then run this again.",
                     bold, Theme.Amber, 250, 50);
                 AddButton("Close", false, 40, 420, 140, delegate { Close(); });
                 return;
