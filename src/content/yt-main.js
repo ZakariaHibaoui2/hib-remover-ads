@@ -1,8 +1,7 @@
 // Runs in YouTube's own page context before its scripts load, and removes ad
 // instructions from player data so most ads are never scheduled at all.
 (() => {
-  if (window.__hushPrune) return;
-  window.__hushPrune = true;
+  // Registered once per document; no marker on window, which pages could detect.
 
   const AD_KEYS = ['adPlacements', 'adSlots', 'playerAds', 'adBreakHeartbeatParams'];
 

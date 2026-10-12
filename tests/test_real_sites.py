@@ -39,6 +39,25 @@ SITES = [
     "https://www.wordreference.com/enfr/hello",
     "https://www.investing.com",
     "https://www.livescore.com",
+    # video, social, tech, sport, shopping, Arabic and French news
+    "https://www.dailymotion.com",
+    "https://www.reddit.com/r/all/",
+    "https://9gag.com",
+    "https://www.msn.com",
+    "https://www.cnet.com",
+    "https://www.ign.com",
+    "https://www.tomsguide.com",
+    "https://www.bbc.com",
+    "https://www.aljazeera.net",
+    "https://www.kooora.com",
+    "https://www.hibapress.com",
+    "https://www.avito.ma",
+    "https://www.20minutes.fr",
+    "https://www.ouest-france.fr",
+    "https://www.lequipe.fr",
+    "https://www.marca.com",
+    "https://www.timeanddate.com",
+    "https://www.accuweather.com/en/ma/casablanca/243353/weather-forecast/243353",
 ]
 
 rules = json.loads((EXT / "rules" / "ads.json").read_text())

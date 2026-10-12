@@ -1,0 +1,62 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: JavaScript parses
+        run: |
+          for f in src/content/*.js src/scriptlets/*.js src/redirects/*.js; do node --check "$f"; done
+          # Module scripts need an .mjs name for node --check.
+          for f in src/background.js src/popup/popup.js; do cp "$f" "/tmp/$(basename "$f" .js).mjs"; node --check "/tmp/$(basename "$f" .js).mjs"; done
+
+      - name: Python compiles
+        run: python -m py_compile tools/*.py tests/*.py installer/build.py
+
+      - name: Manifest and rules are valid
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          src = pathlib.Path("src")
+          m = json.loads((src / "manifest.json").read_text())
+          assert m["manifest_version"] == 3
+          total = 0
+          for rs in m["declarative_net_request"]["rule_resources"]:
+              rules = json.loads((src / rs["path"]).read_text(encoding="utf-8"))
+              ids = [r["id"] for r in rules]
+              assert len(ids) == len(set(ids)), f"duplicate rule ids in {rs['path']}"
+              total += len(rules)
+          assert total <= 30000, f"{total} rules exceeds Chrome's 30,000 guaranteed limit"
+          for f in ["content/generic.css", "rules/cosmetic.json", "scriptlets/config.js", "scriptlets/hosts.json"]:
+              assert (src / f).stat().st_size > 0, f
+          print(f"ok: {total} static rules")
+          PY
+
+      - name: No remote code
+        run: |
+          ! grep -rnE "\beval\(|new Function\(|https?://[^\"' ]+\.js" src --include=*.js --include=*.html \
+            | grep -v "scriptlets/config.js" | grep -v "window.eval = new Proxy"
+
+      - name: Package
+        run: cd src && zip -qr ../hib-remover-ads.zip . -x "_metadata/*"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hib-remover-ads
+          path: hib-remover-ads.zip

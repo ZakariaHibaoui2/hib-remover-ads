@@ -5,8 +5,9 @@
 (() => {
   const all = globalThis.HIB_SCRIPTLETS;
   try { delete globalThis.HIB_SCRIPTLETS; } catch {}
-  if (!all || window.__hibScriptlets) return;
-  Object.defineProperty(window, '__hibScriptlets', { value: true });
+  // No marker on window: anti-adblock scripts look for exactly that kind of trace.
+  // The engine is registered once per document, so it can't run twice.
+  if (!all) return;
 
   // ---- Which calls apply to this page --------------------------------------
 
@@ -358,6 +359,6 @@
   }, true);
 
   for (const [name, ...args] of calls) {
-    try { S[name]?.(...args); } catch {}
+    try { if (Object.hasOwn(S, name)) S[name](...args); } catch {}
   }
 })();

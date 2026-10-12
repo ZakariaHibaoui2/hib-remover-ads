@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem privately
+    url: https://github.com/ZakariaHibaoui2/hib-remover-ads/security/advisories/new
+    about: Please don't post security issues publicly.
+  - name: Install help
+    url: https://github.com/ZakariaHibaoui2/hib-remover-ads#install-in-one-minute
+    about: Step-by-step install instructions.

@@ -1,0 +1,40 @@
+name: Release
+
+# Builds the installer and zip on GitHub's servers from the tagged source and
+# publishes them with SHA-256 checksums, so anyone can verify a download.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - name: Build
+        run: python installer/build.py
+      - name: Checksums
+        shell: pwsh
+        run: |
+          Get-FileHash store/HibRemoverAds-Setup.exe, store/hib-remover-ads.zip -Algorithm SHA256 |
+            ForEach-Object { "$($_.Hash.ToLower())  $(Split-Path $_.Path -Leaf)" } |
+            Set-Content -Encoding ascii store/SHA256SUMS.txt
+          Get-Content store/SHA256SUMS.txt
+      - name: Publish
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart("v")
+          $notes = (Get-Content CHANGELOG.md -Raw) -split "(?m)^## " | Where-Object { $_ -like "$version*" } | Select-Object -First 1
+          $notes = ($notes -replace "^\S+\s*", "").Trim()
+          $sums = Get-Content store/SHA256SUMS.txt -Raw
+          $body = "$notes`n`n**Install:** download **HibRemoverAds-Setup.exe** (Windows) or **hib-remover-ads.zip** (any OS). Steps: https://github.com/${{ github.repository }}#install-in-one-minute`n`n**SHA-256**`n``````n$sums``````"
+          gh release create "${{ github.ref_name }}" store/HibRemoverAds-Setup.exe store/hib-remover-ads.zip store/SHA256SUMS.txt --title "Hib Remover Ads $version" --notes "$body"

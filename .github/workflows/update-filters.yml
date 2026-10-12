@@ -1,0 +1,38 @@
+name: Update filter lists
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # every Monday
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Download and compile lists
+        run: python tools/filterlists.py --fetch
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          branch: update-filter-lists
+          title: Update filter lists
+          commit-message: Update filter lists
+          body: Weekly refresh of EasyList, EasyPrivacy, uBlock Origin, Liste FR and Liste AR. Merge, then tag a release.
+          add-paths: |
+            src/rules/block.json
+            src/rules/allow.json
+            src/rules/cosmetic.json
+            src/content/generic.css
+            src/scriptlets/config.js
+            src/scriptlets/hosts.json

@@ -1,0 +1,45 @@
+name: An ad got through
+description: You still see an ad, popup or "disable your ad blocker" message.
+title: "Ad on "
+labels: [missed-ad]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Page address
+      description: The full address of the page where you saw the ad.
+      placeholder: https://example.com/article/123
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What did you see?
+      options:
+        - A banner or ad box
+        - A video ad (YouTube or another site)
+        - A popup or a new tab opened by itself
+        - A message asking me to turn off my ad blocker
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Hib Remover Ads version
+      description: Shown on its card in chrome://extensions.
+      placeholder: "2.0.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options: [Chrome, Edge, Brave, Opera, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details or screenshot
+      description: Where on the page was it? Paste a screenshot if you can.

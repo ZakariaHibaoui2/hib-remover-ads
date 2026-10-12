@@ -175,7 +175,7 @@ class Net:
 
         if hide_kind:
             m = re.match(r"^\|\|([a-z0-9.-]+)\^?$", pattern)
-            if m:
+            if m and HOST_RE.match(m.group(1)):
                 (self.no_cosmetic if hide_kind in ("elemhide", "ehide") else self.no_generic).add(m.group(1))
             return
         if types and not_types:
@@ -317,14 +317,20 @@ class Cosmetic:
 
 
 def validate(selectors):
-    """Keeps only selectors Chromium can parse."""
+    """Keeps only selectors Chromium parses as exactly one rule.
+
+    Comments and braces are rejected outright: joined into a stylesheet, they
+    could close a rule early and smuggle in CSS of their own.
+    """
     from playwright.sync_api import sync_playwright
-    sels = sorted(selectors)
+    sels = sorted(s for s in selectors if not re.search(r"/\*|\*/|[{}]|\\$", s))
     with sync_playwright() as p:
         b = p.chromium.launch()
         page = b.new_page()
         ok = page.evaluate(
-            "(l) => l.map((s) => { try { document.createDocumentFragment().querySelector(s); return true; }"
+            "(l) => l.map((s) => { try { document.createDocumentFragment().querySelector(s);"
+            " const sh = new CSSStyleSheet(); sh.replaceSync(s + '{display:none}');"
+            " return sh.cssRules.length === 1 && sh.cssRules[0].style.display === 'none'; }"
             " catch { return false; } })", sels)
         b.close()
     return {s for s, good in zip(sels, ok) if good}

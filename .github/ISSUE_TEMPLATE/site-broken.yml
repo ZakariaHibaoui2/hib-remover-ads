@@ -1,0 +1,40 @@
+name: A site doesn't work
+description: A page breaks, loads wrongly or a button stops working while Hib Remover Ads is on.
+title: "Broken: "
+labels: [site-broken]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Page address
+      placeholder: https://example.com/
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What goes wrong?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: dropdown
+    id: pause
+    attributes:
+      label: Does it work after "Pause on this site"?
+      options: ["Yes", "No", "Didn't try"]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Hib Remover Ads version
+      placeholder: "2.0.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options: [Chrome, Edge, Brave, Opera, Other]
+    validations:
+      required: true

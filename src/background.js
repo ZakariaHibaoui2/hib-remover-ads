@@ -84,7 +84,13 @@ async function getSettings() {
 
 const loadJson = (path) => fetch(chrome.runtime.getURL(path)).then((r) => r.json());
 let cosmeticData;
-const getCosmetic = () => (cosmeticData ??= loadJson('rules/cosmetic.json'));
+// Site lists become Sets so the per-frame lookup is constant time.
+const getCosmetic = () => (cosmeticData ??= loadJson('rules/cosmetic.json').then((d) => ({
+  ...d,
+  noCosmeticSet: new Set(d.noCosmetic),
+  noGenericSet: new Set(d.noGeneric),
+  partialGenericSet: new Set(d.partialGeneric),
+})));
 
 // Entity rules ("example.*") can't be match patterns, so expand common suffixes.
 const ENTITY_TLDS = ['com', 'net', 'org', 'io', 'co', 'to', 'tv', 'me', 'cc', 'ws', 'info', 'biz',
@@ -112,12 +118,12 @@ async function cosmeticFor(host) {
   if (cssCache.has(host)) return cssCache.get(host);
   const data = await getCosmetic();
   const keys = hostKeys(host);
-  const has = (list) => keys.some((k) => list.includes(k));
+  const has = (set) => keys.some((k) => set.has(k));
   let result = { css: '', selectors: [] };
-  if (!has(data.noCosmetic)) {
+  if (!has(data.noCosmeticSet)) {
     const except = new Set(keys.flatMap((k) => data.exceptions[k] || []));
     const own = keys.flatMap((k) => data.specific[k] || []).filter((s) => !except.has(s));
-    const generic = !has(data.noGeneric) && has(data.partialGeneric)
+    const generic = !has(data.noGenericSet) && has(data.partialGenericSet)
       ? data.generic.filter((s) => !except.has(s))
       : [];
     const all = [...new Set([...own, ...generic])];
@@ -136,7 +142,10 @@ async function injectCosmetic(sender, host) {
   if (css) {
     try {
       await chrome.scripting.insertCSS({
-        target: { tabId: sender.tab.id, frameIds: [sender.frameId] },
+        // The exact document that asked, so a frame that navigated meanwhile gets nothing.
+        target: sender.documentId
+          ? { tabId: sender.tab.id, documentIds: [sender.documentId] }
+          : { tabId: sender.tab.id, frameIds: [sender.frameId] },
         css,
         origin: 'USER',
       });
@@ -171,9 +180,12 @@ async function registerScripts(paused) {
   } catch (err) {
     // Never leave the web unprotected because of one bad pause entry.
     console.error('[hib] register with exclusions failed, registering without', err);
+    // Fall back to the core scripts, still honouring the user's paused sites.
     const registered = await chrome.scripting.getRegisteredContentScripts();
     if (registered.length) await chrome.scripting.unregisterContentScripts({ ids: registered.map((s) => s.id) });
-    await chrome.scripting.registerContentScripts(SCRIPTS);
+    await chrome.scripting.registerContentScripts(
+      SCRIPTS.map((s) => (pausedMatches.length ? { ...s, excludeMatches: pausedMatches } : s)),
+    );
   }
 }
 
