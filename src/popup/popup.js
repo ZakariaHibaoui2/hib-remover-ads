@@ -5,6 +5,46 @@ const send = (msg) => chrome.runtime.sendMessage(msg);
 
 let tab;
 let stats;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Counts a number up from where it was, then gives it a small bump.
+function countTo(el, to) {
+  const from = Number(el.dataset.value || 0);
+  el.dataset.value = to;
+  if (reduced || from === to) {
+    el.textContent = fmt.format(to);
+    return;
+  }
+  const start = performance.now();
+  const dur = Math.min(900, 300 + Math.abs(to - from) * 40);
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / dur);
+    el.textContent = fmt.format(Math.round(from + (to - from) * (1 - (1 - t) ** 3)));
+    if (t < 1) return requestAnimationFrame(step);
+    el.classList.remove('bump');
+    void el.offsetWidth; // restart the animation
+    el.classList.add('bump');
+  };
+  requestAnimationFrame(step);
+}
+
+// The coin leans toward the pointer and spins in when the popup opens.
+const coin = document.querySelector('.coin');
+if (!reduced) {
+  document.addEventListener('pointermove', (e) => {
+    const r = coin.getBoundingClientRect();
+    const x = (e.clientX - (r.left + r.width / 2)) / innerWidth;
+    const y = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+    coin.style.setProperty('--ry', `${(x * 50).toFixed(1)}deg`);
+    coin.style.setProperty('--rx', `${(-y * 40).toFixed(1)}deg`);
+  });
+  document.documentElement.addEventListener('pointerleave', () => {
+    coin.style.setProperty('--ry', '0deg');
+    coin.style.setProperty('--rx', '0deg');
+  });
+  document.body.classList.add('intro');
+  coin.addEventListener('animationend', () => document.body.classList.remove('intro'), { once: true });
+}
 
 function render() {
   const { enabled, host, paused, page, total } = stats;
@@ -20,7 +60,7 @@ function render() {
     unsupported: 'Hib Remover Ads only runs on websites, not browser pages.',
   }[state];
 
-  $('page').textContent = fmt.format(page);
+  countTo($('page'), page);
   $('page-label').textContent = page === 1 ? 'ad blocked on this page' : 'ads blocked on this page';
   $('total').textContent = fmt.format(total);
 

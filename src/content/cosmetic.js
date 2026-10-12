@@ -14,7 +14,7 @@
   // Drop selectors this browser can't parse; one bad selector would void the whole list.
   const list = (isYouTube ? generic.concat(youtube) : generic)
     .filter((s) => CSS.supports(`selector(${s})`));
-  const selector = list.join(',');
+  let selector = list.join(',');
 
   const style = document.createElement('style');
   style.dataset.hush = '';
@@ -42,6 +42,16 @@
     clearTimeout(timer);
     timer = setTimeout(count, 700);
   };
+
+  // Site-specific hiding from the filter lists. The background injects it as a
+  // user stylesheet and sends back the selectors so those ads get counted too.
+  chrome.runtime.sendMessage({ type: 'cosmetic' }).then((own) => {
+    const extra = (Array.isArray(own) ? own : []).filter((s) => CSS.supports(`selector(${s})`));
+    if (extra.length) {
+      selector = [selector, ...extra].filter(Boolean).join(',');
+      schedule();
+    }
+  }).catch(() => {});
 
   const start = () => {
     count();

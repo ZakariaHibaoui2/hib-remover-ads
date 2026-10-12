@@ -67,6 +67,10 @@ export const GENERIC_SELECTORS = [
   '.trc_related_container', '[id^="taboola-"]', '.OUTBRAIN', '.ob-widget',
   '#carbonads', '[aria-label="Advertisement"]', '[aria-label="advertisement"]',
   '[id^="mgid_"]', '.mgbox', '[data-revcontent-widget]',
+  // Empty containers that big publishers leave behind once the ad itself is gone.
+  '.ad-slot-header', '.ad-slot-header__wrapper', '.ad-slot-rail', '.ad-slot__wrapper',
+  '.ad-feedback-link', 'div[class*="cls-ad-"]', '[id^="sda-"]', '.gemini-ad',
+  '[data-content="Advertisement"]', '.ad-wrapper--header', '.top-ad-container',
 ];
 
 // YouTube-only elements (custom elements, so they never match elsewhere).

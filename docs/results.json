@@ -1,0 +1,83 @@
+{
+ "date": "12 October 2026",
+ "sites": [
+  {
+   "name": "Speedtest",
+   "without": 1933,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "Forbes",
+   "without": 1089,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "WordReference",
+   "without": 564,
+   "with": 0,
+   "intact": true
+  },
+  {
+   "name": "Weather.com",
+   "without": 542,
+   "with": 2,
+   "intact": true
+  },
+  {
+   "name": "CNN",
+   "without": 538,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "Business Insider",
+   "without": 498,
+   "with": 2,
+   "intact": true
+  },
+  {
+   "name": "Yahoo",
+   "without": 384,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "Allrecipes",
+   "without": 305,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "Goal",
+   "without": 95,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "Daily Mail",
+   "without": 85,
+   "with": 0,
+   "intact": true
+  },
+  {
+   "name": "Hespress",
+   "without": 68,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "Investing.com",
+   "without": 23,
+   "with": 1,
+   "intact": true
+  },
+  {
+   "name": "Fandom",
+   "without": 21,
+   "with": 1,
+   "intact": true
+  }
+ ]
+}

@@ -18,10 +18,23 @@
     <h1 id="host" class="host">&nbsp;</h1>
     <p id="status" class="status" aria-live="polite">&nbsp;</p>
 
-    <p class="count">
-      <span id="page" class="num">0</span>
-      <span id="page-label">blocked on this page</span>
-    </p>
+    <div class="stage">
+      <div class="coin-wrap" aria-hidden="true">
+        <div class="coin">
+          <span class="face front"><i></i></span>
+          <span class="rim" style="--z:-1px"></span><span class="rim" style="--z:-2px"></span>
+          <span class="rim" style="--z:-3px"></span><span class="rim" style="--z:-4px"></span>
+          <span class="rim" style="--z:-5px"></span><span class="rim" style="--z:-6px"></span>
+          <span class="rim" style="--z:-7px"></span>
+          <span class="face back"><i></i><i></i></span>
+        </div>
+        <span class="glow"></span>
+      </div>
+      <p class="count">
+        <span id="page" class="num">0</span>
+        <span id="page-label">blocked on this page</span>
+      </p>
+    </div>
 
     <button id="pause" class="action" type="button">Pause on this site</button>
   </main>

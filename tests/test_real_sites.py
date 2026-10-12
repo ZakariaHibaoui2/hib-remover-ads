@@ -30,6 +30,15 @@ SITES = [
     "https://www.hespress.com",
     "https://www.allrecipes.com",
     "https://www.wikihow.com/Main-Page",
+    "https://www.lemonde.fr",
+    "https://www.marmiton.org",
+    "https://le360.ma",
+    "https://www.goal.com/en",
+    "https://www.weather.com",
+    "https://www.businessinsider.com",
+    "https://www.wordreference.com/enfr/hello",
+    "https://www.investing.com",
+    "https://www.livescore.com",
 ]
 
 rules = json.loads((EXT / "rules" / "ads.json").read_text())
@@ -63,7 +72,7 @@ def run(p, url, with_ext, tag):
         if with_ext:
             sw = ctx.service_workers[0] if ctx.service_workers else ctx.wait_for_event("serviceworker")
             for _ in range(40):
-                if sw.evaluate("chrome.scripting.getRegisteredContentScripts().then(s => s.length)") == 3:
+                if sw.evaluate("chrome.scripting.getRegisteredContentScripts().then(s => s.length)") == 5:
                     break
                 ctx.pages[0].wait_for_timeout(250) if ctx.pages else None
         page = ctx.new_page()
@@ -90,6 +99,8 @@ def run(p, url, with_ext, tag):
             page.mouse.wheel(0, 2500)  # trigger lazy-loaded ads
             page.wait_for_timeout(4000)
             stats["visible_ads"] = page.evaluate(VISIBLE_ADS_JS)
+            # Breakage check: how much readable text the page shows.
+            stats["text"] = page.evaluate("document.body ? document.body.innerText.length : 0")
             page.evaluate("window.scrollTo(0, 0)")
             page.wait_for_timeout(500)
             page.screenshot(path=str(SHOTS / f"{tag}-{'hush' if with_ext else 'plain'}.png"))
@@ -110,10 +121,10 @@ def main():
             hush = run(p, url, True, tag)
             rows.append((tag, plain, hush))
             print(f"{tag:12} plain: {plain.get('loaded_ad', '-'):>4} ad loads, {plain.get('visible_ads', '-'):>3} visible ads"
-                  f" | hush: {hush.get('loaded_ad', '-'):>4} ad loads, {hush.get('visible_ads', '-'):>3} visible ads,"
-                  f" {hush.get('blocked', '-'):>4} blocked  {hush.get('error', '') or plain.get('error', '')}", flush=True)
+                  f" | hib: {hush.get('loaded_ad', '-'):>4} ad loads, {hush.get('visible_ads', '-'):>3} visible ads,"
+                  f" {hush.get('blocked', '-'):>4} blocked, text {hush.get('text', 0)}/{plain.get('text', 0)}  {hush.get('error', '') or plain.get('error', '')}", flush=True)
 
-        # Independent scorer: d3ward's ad-block test page.
+        # Independent scorer: adblock-tester.com
         with tempfile.TemporaryDirectory() as profile:
             ctx = p.chromium.launch_persistent_context(
                 profile, channel="chromium", headless=True,
@@ -122,16 +133,14 @@ def main():
             page = ctx.new_page()
             page.wait_for_timeout(2000)
             try:
-                page.goto("https://d3ward.github.io/toolz/adblock", timeout=45000)
-                page.wait_for_timeout(15000)
-                score = page.evaluate("""() => {
-                  const t = document.body.innerText;
-                  const m = t.match(/(\\d{1,3})\\s*%/);
-                  return m ? m[1] + '%' : null; }""")
-                page.screenshot(path=str(SHOTS / "d3ward-score.png"), full_page=False)
-                print(f"\nd3ward ad-block test score with Hush: {score}")
+                page.goto("https://adblock-tester.com/", timeout=45000)
+                page.wait_for_timeout(20000)
+                score = page.evaluate(r"""() => { const m = document.body.innerText.match(/(\d{1,3})\s*points? out of\s*(\d+)/i)
+                  || document.body.innerText.match(/score[^\d]{0,20}(\d{1,3})/i); return m ? m[0] : null; }""")
+                page.screenshot(path=str(SHOTS / "adblock-tester-score.png"), full_page=True)
+                print(f"adblock-tester.com score: {score}")
             except Exception as e:
-                print("d3ward test failed:", str(e)[:120])
+                print("adblock-tester failed:", str(e)[:120])
             ctx.close()
 
     (ROOT / "tests" / "real_sites_results.json").write_text(json.dumps(rows, indent=2))

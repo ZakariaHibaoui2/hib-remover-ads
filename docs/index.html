@@ -4,276 +4,325 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hib Remover Ads: free ad blocker for Chrome and YouTube</title>
-<meta name="description" content="Hib Remover Ads is a free ad remover for Chrome, Edge and Brave. It blocks YouTube video ads, banners, popups and trackers. Download it and install in one minute.">
-<meta name="keywords" content="hib remover ads, ad remover, ads remover, ad blocker, adblock, youtube ad blocker, chrome extension, free">
+<meta name="description" content="Hib Remover Ads is a free ad remover for Chrome, Edge, Brave and Opera. It blocks YouTube video ads, banners, popups, trackers and anti-adblock walls using EasyList and uBlock Origin filters.">
+<meta name="keywords" content="hib remover ads, ad remover, ads remover, ad blocker, adblock, youtube ad blocker, chrome extension, free ad blocker">
 <link rel="canonical" href="https://zakariahibaoui2.github.io/hib-remover-ads/">
 <meta property="og:title" content="Hib Remover Ads: free ad blocker">
 <meta property="og:description" content="Blocks YouTube video ads, banners, popups and trackers. Free and open source.">
 <meta property="og:image" content="https://zakariahibaoui2.github.io/hib-remover-ads/og.png">
 <meta property="og:url" content="https://zakariahibaoui2.github.io/hib-remover-ads/">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#10272b">
 <link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Hib Remover Ads","applicationCategory":"BrowserApplication","operatingSystem":"Chrome, Edge, Brave, Opera","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free ad blocker that removes YouTube video ads, banners, popups and trackers."}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Hib Remover Ads","applicationCategory":"BrowserApplication","operatingSystem":"Windows; Chrome, Edge, Brave, Opera","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free ad blocker that removes YouTube video ads, banners, popups and trackers."}
+</script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}
 </script>
 <style>
 :root {
   --deep: #10272b;
+  --deeper: #0b1d20;
   --tide: #183a3f;
   --line: #2a5057;
   --foam: #e4f0ec;
   --kelp: #9dbbb3;
   --amber: #f3b23c;
+  --amber-hot: #ffc45c;
   --coral: #ef6f6c;
   --display: "Bricolage Grotesque", system-ui, sans-serif;
   --body: "Figtree", system-ui, sans-serif;
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  background: var(--deep);
+  background-color: var(--deep);
   color: var(--foam);
   font: 400 1.0625rem/1.6 var(--body);
+  overflow-x: clip;
 }
 a { color: var(--amber); }
 :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
-.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-inline: 24px; }
 
 /* header */
-.top { display: flex; align-items: center; justify-content: space-between; padding-block: 22px; }
+.top {
+  position: fixed; inset: 0 0 auto; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px max(24px, calc((100vw - 1160px) / 2 + 24px));
+  background: linear-gradient(var(--deep) 40%, transparent);
+}
 .brand { display: flex; align-items: center; gap: 10px; font: 800 1.125rem var(--display); color: var(--foam); text-decoration: none; }
-.brand img { width: 30px; height: 30px; border-radius: 7px; }
-.top nav { display: flex; gap: 22px; }
+.brand img { width: 30px; height: 30px; }
+.top nav { display: flex; align-items: center; gap: 24px; }
 .top nav a { color: var(--kelp); text-decoration: none; font-weight: 600; font-size: .95rem; }
 .top nav a:hover { color: var(--foam); }
+.top nav .get { color: var(--deep); background: var(--amber); padding: 8px 16px; border-radius: 999px; }
+.top nav .get:hover { color: var(--deep); background: var(--amber-hot); }
 
-/* hero */
-.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; padding-block: 56px 96px; }
+/* hero: a sticky stage the scroll plays through */
+.track { height: 300vh; position: relative; }
+.stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+.hero-copy {
+  position: relative; z-index: 2; height: 100%;
+  display: flex; flex-direction: column; justify-content: center;
+  max-width: 1160px; margin: 0 auto; padding: 96px 24px 48px;
+  pointer-events: none;
+}
+.hero-copy > * { pointer-events: auto; max-width: 520px; }
 h1 {
-  font: 800 clamp(3rem, 7.4vw, 5.75rem)/.92 var(--display);
-  letter-spacing: -.035em;
+  font: 800 clamp(3.2rem, 8vw, 6.6rem)/.9 var(--display);
+  letter-spacing: -.04em;
   margin: 0 0 24px;
 }
-.lede { font-size: 1.25rem; color: var(--kelp); max-width: 30ch; margin: 0 0 36px; }
-.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+h1 span { display: block; }
+.lede { font-size: 1.25rem; color: var(--kelp); margin: 0 0 32px; max-width: 30ch; }
+.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; }
 .btn {
   display: inline-flex; align-items: center; gap: 12px;
   background: var(--amber); color: var(--deep);
   font: 800 1.125rem var(--display);
   padding: 17px 28px; border-radius: 999px; text-decoration: none;
-  transition: transform .15s ease;
+  transition: transform .4s var(--ease-out), background-color .2s;
 }
-.btn:hover { transform: translateY(-2px); }
+.btn:hover { background: var(--amber-hot); transform: translateY(-2px); }
+.btn:active { transform: translateY(1px); }
 .btn svg { width: 20px; height: 20px; }
-.cta small { color: var(--kelp); font-size: .9rem; }
+.btn.ghost { background: transparent; color: var(--foam); box-shadow: inset 0 0 0 2px var(--line); }
+.btn.ghost:hover { box-shadow: inset 0 0 0 2px var(--kelp); }
+.meta { color: var(--kelp); font-size: .9rem; margin-top: 14px; }
 
-/* demo: a page whose ads fold away */
-.demo {
-  background: var(--foam); color: var(--deep);
-  border-radius: 14px; overflow: hidden;
-  box-shadow: 0 40px 90px -30px #000;
+.readout {
+  position: absolute; z-index: 2; right: max(24px, calc((100vw - 1160px) / 2 + 24px)); bottom: 36px;
+  display: flex; align-items: center; gap: 14px; margin: 0;
+  font: 600 .95rem var(--body); color: var(--kelp);
 }
-.demo-bar { display: flex; align-items: center; gap: 10px; padding: 11px 14px; background: #d3e3de; }
-.dots { display: flex; gap: 6px; }
-.dots i { width: 10px; height: 10px; border-radius: 50%; background: #a9c2bb; }
-.url { flex: 1; background: var(--foam); border-radius: 6px; font-size: .78rem; padding: 4px 10px; color: #4d6c66; }
-.badge {
-  display: flex; align-items: center; gap: 6px;
-  background: var(--deep); color: var(--amber);
-  font: 800 .78rem var(--display); padding: 4px 9px 4px 5px; border-radius: 6px;
-}
-.badge img { width: 16px; height: 16px; }
-.page { padding: 22px 24px 26px; }
-.page h3 { font: 800 1.35rem/1.15 var(--display); margin: 0 0 14px; }
-.txt { height: 9px; background: #c4d6d1; border-radius: 3px; margin: 0 0 9px; }
-.txt.s { width: 62%; }
-.ad {
-  display: grid; place-items: center;
-  background: repeating-linear-gradient(-45deg, #ffe3a3 0 12px, #ffd779 12px 24px);
-  color: #7a4b00; font: 800 .8rem var(--display);
-  border-radius: 6px; height: 74px; margin: 14px 0;
-  overflow: hidden;
-}
-.ad.tall { height: 110px; }
-.ad span { background: #fff6dd; padding: 3px 8px; border-radius: 4px; }
+.readout b { font: 800 2.4rem/1 var(--display); color: var(--amber); min-width: 1.4ch; text-align: right; font-variant-numeric: tabular-nums; }
+.readout.clean b { color: var(--foam); }
+.hint { position: absolute; z-index: 2; left: 50%; bottom: 36px; translate: -50% 0; margin: 0; color: var(--kelp); font-size: .9rem; display: flex; gap: 8px; align-items: center; transition: opacity .4s; }
+.hint i { width: 18px; height: 28px; border: 2px solid var(--line); border-radius: 10px; position: relative; }
+.hint i::after { content: ""; position: absolute; left: 50%; top: 5px; width: 3px; height: 6px; margin-left: -1.5px; border-radius: 2px; background: var(--amber); }
 @media (prefers-reduced-motion: no-preference) {
-  .ad { animation: fold .55s cubic-bezier(.6, 0, .3, 1) forwards; }
-  .a1 { animation-delay: 1.1s; }
-  .a2 { animation-delay: 1.5s; }
-  .a3 { animation-delay: 1.9s; }
+  .hint i::after { animation: wheel 1.6s var(--ease-out) infinite; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .ad { display: none; }
-}
-@keyframes fold {
-  40% { opacity: 0; transform: scaleX(.96); }
-  100% { opacity: 0; height: 0; margin: 0; transform: scaleX(.96); }
-}
+@keyframes wheel { from { transform: translateY(0); opacity: 1; } to { transform: translateY(9px); opacity: 0; } }
+.fallback { display: none; position: absolute; right: 6%; top: 50%; translate: 0 -50%; width: min(42vw, 520px); border-radius: 14px; box-shadow: 0 40px 90px -30px #000; }
+.no-webgl .fallback { display: block; }
 
 /* sections */
-section { padding: 88px 0; border-top: 1px solid var(--line); }
-h2 { font: 800 clamp(2rem, 4.2vw, 3rem)/1 var(--display); letter-spacing: -.025em; margin: 0 0 14px; }
-.intro { color: var(--kelp); max-width: 56ch; margin: 0 0 48px; }
+section { padding: 120px 0; position: relative; background: var(--deep); }
+h2 { font: 800 clamp(2.2rem, 5vw, 3.6rem)/1 var(--display); letter-spacing: -.03em; margin: 0 0 16px; }
+.intro { color: var(--kelp); max-width: 58ch; margin: 0 0 56px; font-size: 1.125rem; }
 
-.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; counter-reset: s; }
-.steps li { counter-increment: s; }
+/* proof: measured results */
+.proof { background: var(--deeper); }
+.results { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.results th { text-align: left; font: 600 .85rem var(--body); color: var(--kelp); padding: 0 12px 14px 0; border-bottom: 1px solid var(--line); }
+.results td { padding: 16px 12px 16px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.results td:first-child { font: 800 1.15rem var(--display); white-space: nowrap; }
+.results .num { text-align: right; width: 5.5em; }
+.bar { position: relative; height: 10px; border-radius: 5px; background: var(--tide); min-width: 120px; }
+.bar span { position: absolute; inset: 0 auto 0 0; border-radius: 5px; background: var(--coral); transform-origin: left; }
+.bar span.after { background: var(--amber); }
+.results .ok { color: var(--amber); font-weight: 600; }
+@media (prefers-reduced-motion: no-preference) {
+  .results .bar span { transform: scaleX(0); transition: transform 1.1s var(--ease-out); }
+  .results.on .bar span { transform: scaleX(1); }
+}
+.foot-note { color: var(--kelp); font-size: .9rem; margin-top: 20px; max-width: 70ch; }
+
+.lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 48px; margin: 0; padding: 0; list-style: none; }
+.lists li { padding: 20px 0; border-bottom: 1px solid var(--line); }
+.lists b { display: block; font: 800 1.2rem var(--display); }
+.lists span { color: var(--kelp); font-size: .98rem; }
+
+/* install */
+.install-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 52px 1fr; gap: 18px; padding: 0 0 28px; position: relative; }
 .steps li::before {
   content: counter(s);
   display: grid; place-items: center;
-  width: 46px; height: 46px; border-radius: 50%;
-  border: 2px solid var(--amber); color: var(--amber);
-  font: 800 1.25rem var(--display); margin-bottom: 18px;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--amber); color: var(--deep);
+  font: 800 1.3rem var(--display);
 }
-.steps h3 { font: 800 1.2rem var(--display); margin: 0 0 6px; }
-.steps p { margin: 0; color: var(--kelp); font-size: .98rem; }
+.steps li:not(:last-child)::after { content: ""; position: absolute; left: 25px; top: 60px; bottom: 6px; width: 2px; background: var(--line); }
+.steps h3 { font: 800 1.25rem var(--display); margin: 10px 0 4px; }
+.steps p { margin: 0; color: var(--kelp); }
 code {
   font: 600 .9em ui-monospace, Consolas, monospace;
   background: var(--tide); color: var(--foam);
   padding: 2px 7px; border-radius: 5px;
 }
+.card { background: var(--tide); border-radius: 18px; padding: 32px; }
+.card h3 { font: 800 1.35rem var(--display); margin: 0 0 8px; }
+.card p { color: var(--kelp); margin: 0 0 22px; }
+.card .btn { width: 100%; justify-content: center; }
+.card + .card { margin-top: 20px; }
+.card.alt { background: transparent; box-shadow: inset 0 0 0 2px var(--line); }
 .copy { all: unset; cursor: pointer; }
 .copy:focus-visible { outline: 3px solid var(--amber); border-radius: 5px; }
 .copied { color: var(--amber); font-size: .85rem; margin-left: 6px; }
 
-.blocks { display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; margin: 0; }
-.blocks div { padding: 22px 0; border-bottom: 1px solid var(--line); }
-.blocks dt { font: 800 1.2rem var(--display); margin-bottom: 4px; }
-.blocks dd { margin: 0; color: var(--kelp); }
-
-details { border-bottom: 1px solid var(--line); max-width: 760px; }
+/* questions */
+details { border-bottom: 1px solid var(--line); max-width: 780px; }
 summary {
   cursor: pointer; list-style: none;
   font: 800 1.2rem var(--display); padding: 22px 0;
   display: flex; justify-content: space-between; gap: 16px;
 }
 summary::-webkit-details-marker { display: none; }
-summary::after { content: "+"; color: var(--amber); font-size: 1.5rem; line-height: 1; transition: transform .2s; }
+summary::after { content: "+"; color: var(--amber); font-size: 1.6rem; line-height: 1; transition: transform .3s var(--ease-out); }
 details[open] summary::after { transform: rotate(45deg); }
-details p { margin: 0 0 22px; color: var(--kelp); max-width: 64ch; }
+details p { margin: 0 0 22px; color: var(--kelp); max-width: 66ch; }
 
-footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--kelp); font-size: .92rem; }
-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--kelp); font-size: .92rem; background: var(--deep); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; }
 
-@media (max-width: 880px) {
-  .hero { grid-template-columns: 1fr; padding-block: 32px 72px; gap: 48px; }
-  .steps { grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) {
+  .hero-copy { justify-content: flex-end; padding-bottom: 120px; }
+  .hero-copy > * { max-width: none; }
+  .install-grid { grid-template-columns: 1fr; gap: 40px; }
+  .results .hide-sm { display: none; }
 }
 @media (max-width: 560px) {
-  .wrap { padding: 0 16px; }
-  .top nav a:not(:last-child) { display: none; }
-  .steps, .blocks { grid-template-columns: 1fr; }
-  section { padding: 64px 0; }
+  .wrap { padding-inline: 16px; }
+  .top { padding-inline: 16px; }
+  .top nav a:not(.get) { display: none; }
+  .hero-copy { padding-inline: 16px; }
+  .readout { right: 16px; bottom: 24px; }
+  .hint { display: none; }
+  section { padding: 80px 0; }
   .btn { width: 100%; justify-content: center; }
+  .results td:first-child { font-size: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track { height: auto; }
+  .stage { position: relative; }
 }
 </style>
 </head>
 <body>
-<header class="wrap top">
+<header class="top">
   <a class="brand" href="./"><img src="icon.png" alt="">Hib Remover Ads</a>
   <nav>
+    <a href="#proof">Results</a>
     <a href="#install">Install</a>
     <a href="#questions">Questions</a>
-    <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads">GitHub</a>
+    <a class="get" href="#install">Download</a>
   </nav>
 </header>
 
 <main>
-  <div class="wrap hero">
-    <div>
-      <h1>Hib Remover Ads</h1>
-      <p class="lede">A free ad blocker for YouTube and every other site. No account, no tracking, nothing to pay.</p>
-      <div class="cta">
-        <a class="btn" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/hib-remover-ads.zip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
-          Download for Chrome
-        </a>
-        <small>Version 1.0.0 · 33 KB · Also works in Edge, Brave and Opera</small>
+  <div class="track" id="track">
+    <div class="stage">
+      <canvas id="scene" aria-hidden="true"></canvas>
+      <img class="fallback" src="og.png" alt="Hib Remover Ads popup showing ads blocked on a page">
+      <div class="hero-copy">
+        <h1><span>Hib</span><span>Remover</span><span>Ads</span></h1>
+        <p class="lede">A free ad blocker for YouTube and every other website. No account, no tracking, nothing to pay.</p>
+        <div class="cta">
+          <a class="btn" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+            Download for Windows
+          </a>
+          <a class="btn ghost" href="#install">Other ways to install</a>
+        </div>
+        <p class="meta">Version 2.0 · Works in Chrome, Edge, Brave and Opera</p>
       </div>
-    </div>
-
-    <div class="demo" aria-label="Example: a news page with its ads removed" role="img">
-      <div class="demo-bar">
-        <span class="dots"><i></i><i></i><i></i></span>
-        <span class="url">dailynews.example/world</span>
-        <span class="badge"><img src="icon.png" alt="">3</span>
-      </div>
-      <div class="page">
-        <h3>City council approves the new riverside park</h3>
-        <div class="ad a1"><span>Advertisement</span></div>
-        <div class="txt"></div><div class="txt"></div><div class="txt s"></div>
-        <div class="ad tall a2"><span>Sponsored video</span></div>
-        <div class="txt"></div><div class="txt"></div><div class="txt"></div><div class="txt s"></div>
-        <div class="ad a3"><span>You won't believe these deals</span></div>
-        <div class="txt"></div><div class="txt s"></div>
-      </div>
+      <p class="readout" aria-live="polite"><span>Ads on this page</span><b id="count">9</b></p>
+      <p class="hint" id="hint"><i></i>Scroll, or click an ad</p>
     </div>
   </div>
 
-  <section id="install">
+  <section class="proof" id="proof">
     <div class="wrap">
-      <h2>Install in one minute</h2>
-      <p class="intro">Hib Remover Ads isn't on the Chrome Web Store yet, so you add it yourself. You only do this once.</p>
-      <ol class="steps">
-        <li>
-          <h3>Download</h3>
-          <p>Get <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/hib-remover-ads.zip">hib-remover-ads.zip</a>.</p>
-        </li>
-        <li>
-          <h3>Unzip it</h3>
-          <p>Right-click the file and choose <b>Extract All</b>. Keep the folder somewhere you won't delete it, like Documents.</p>
-        </li>
-        <li>
-          <h3>Open extensions</h3>
-          <p>Paste <button class="copy" data-copy="chrome://extensions" aria-label="Copy chrome://extensions"><code>chrome://extensions</code></button> into the address bar and turn on <b>Developer mode</b> at the top right.</p>
-        </li>
-        <li>
-          <h3>Load it</h3>
-          <p>Click <b>Load unpacked</b> and pick the folder you extracted. Pin it from the puzzle-piece menu to see the counter.</p>
-        </li>
-      </ol>
+      <h2>Tested on real websites</h2>
+      <p class="intro">We opened each site twice in Chromium, once without Hib Remover Ads and once with it, and counted the ad files each one downloaded. Page text stayed the same, so nothing broke.</p>
+      <table class="results" id="results">
+        <thead><tr><th>Site</th><th class="num">Without</th><th class="hide-sm">Ad files downloaded</th><th class="num">With</th><th class="num hide-sm">Page intact</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="foot-note" id="results-note"></p>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <h2>What it removes</h2>
-      <p class="intro">Ads are stopped before they download, so pages also load faster.</p>
-      <dl class="blocks">
-        <div><dt>YouTube ads</dt><dd>Pre-roll and mid-roll video ads, overlays, sponsored cards and Shorts ads. If one slips through, it gets muted and skipped.</dd></div>
-        <div><dt>Banners and popups</dt><dd>Around 130 ad networks are blocked, including Google ads, Taboola and Outbrain.</dd></div>
-        <div><dt>Trackers</dt><dd>Ad trackers that follow you from site to site are blocked too.</dd></div>
-        <div><dt>Empty ad boxes</dt><dd>The gaps ads leave behind are hidden, so pages look clean.</dd></div>
-      </dl>
+      <h2>Built on the lists the big blockers use</h2>
+      <p class="intro">Hib Remover Ads compiles the same community filter lists that uBlock Origin and AdBlock rely on, then adds its own YouTube protection on top.</p>
+      <ul class="lists">
+        <li><b>YouTube video ads</b><span>Ad instructions are removed from YouTube's player data before it can schedule an ad. Anything that slips through is muted and skipped.</span></li>
+        <li><b>Banners, popups and popunders</b><span>Over 17,000 blocking rules from EasyList, uBlock filters, Liste FR and Liste AR.</span></li>
+        <li><b>Trackers</b><span>EasyPrivacy and uBlock Privacy stop the scripts that follow you from site to site.</span></li>
+        <li><b>Anti-adblock walls</b><span>About 4,600 site-specific fixes switch off "please disable your ad blocker" checks.</span></li>
+        <li><b>Empty ad boxes</b><span>More than 15,000 hiding rules remove the gaps ads leave behind.</span></li>
+        <li><b>Your choice per site</b><span>Pause it on any site with one click from the toolbar.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap install-grid">
+      <div>
+        <h2>Install in one minute</h2>
+        <p class="intro">It isn't on the Chrome Web Store yet, so the installer sets it up and walks you through the last three clicks.</p>
+        <ol class="steps">
+          <li><div><h3>Run the installer</h3><p>Open <b>HibRemoverAds-Setup.exe</b>, pick your browser and click <b>Install</b>. If Windows shows "Windows protected your PC", click <b>More info</b>, then <b>Run anyway</b>.</p></div></li>
+          <li><div><h3>Turn on Developer mode</h3><p>Your browser opens its extensions page. Switch on <b>Developer mode</b> at the top right.</p></div></li>
+          <li><div><h3>Load it</h3><p>Click <b>Load unpacked</b>, press <b>Ctrl+V</b> in the folder box and click <b>Select Folder</b>. The installer already copied the folder path for you.</p></div></li>
+        </ol>
+      </div>
+      <div>
+        <div class="card">
+          <h3>Windows installer</h3>
+          <p>Recommended. 1.6 MB. Run it again any time to update.</p>
+          <a class="btn" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe">Download HibRemoverAds-Setup.exe</a>
+        </div>
+        <div class="card alt">
+          <h3>Mac, Linux or manual install</h3>
+          <p>Download the zip and extract it to a folder you'll keep. Open <button class="copy" data-copy="chrome://extensions" aria-label="Copy chrome://extensions"><code>chrome://extensions</code></button>, turn on Developer mode, click Load unpacked and pick the folder.</p>
+          <a class="btn ghost" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/hib-remover-ads.zip">Download hib-remover-ads.zip</a>
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="questions">
     <div class="wrap">
       <h2>Questions</h2>
-      <p class="intro">Something not working? Open an issue on <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads/issues">GitHub</a>.</p>
+      <p class="intro">Something not working? Open an issue on <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads/issues">GitHub</a> with the site's address.</p>
       <details>
         <summary>Is it really free?</summary>
-        <p>Yes. There is no paid version and no account. The code is open on GitHub for anyone to read.</p>
+        <p>Yes. There is no paid version and no account. The code is open on GitHub under the GPL-3.0 license.</p>
       </details>
       <details>
         <summary>Does it collect my data?</summary>
-        <p>No. Everything runs inside your browser. The only thing it stores is your settings and the number of ads it blocked.</p>
+        <p>No. Everything runs inside your browser. It only stores your settings and the number of ads it blocked.</p>
       </details>
       <details>
-        <summary>Chrome says "Disable developer mode extensions". What do I do?</summary>
-        <p>Chrome shows this for any extension that isn't from the Web Store. Click the X to close it. Hib Remover Ads keeps working.</p>
+        <summary>Windows says the installer is from an unknown publisher</summary>
+        <p>Windows shows this for any program that isn't signed with a paid certificate. Click <b>More info</b>, then <b>Run anyway</b>. The installer's source code is in the repository if you want to check it.</p>
+      </details>
+      <details>
+        <summary>Chrome says "Disable developer mode extensions"</summary>
+        <p>Chrome shows this for any extension that isn't from the Web Store. Close it with the X. Hib Remover Ads keeps working.</p>
       </details>
       <details>
         <summary>A site stopped working or asks me to turn off my ad blocker</summary>
-        <p>Click the Hib Remover Ads icon and choose <b>Pause on this site</b>. Ads come back only on that site.</p>
+        <p>Click the Hib Remover Ads icon and choose <b>Pause on this site</b>. Ads come back only on that site. Please report it on GitHub so the next version can fix it.</p>
       </details>
       <details>
         <summary>How do I update it?</summary>
-        <p>Download the new zip, replace the files in your folder, then click the reload arrow on the extension in <code>chrome://extensions</code>.</p>
+        <p>Run the newest installer, then click the reload arrow on Hib Remover Ads in your browser's extensions page.</p>
       </details>
     </div>
   </section>
@@ -281,7 +330,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
 <footer>
   <div class="wrap">
-    <span>Hib Remover Ads, made by Zakaria Hibaoui</span>
+    <span>Hib Remover Ads, made by Zakaria Hibaoui. GPL-3.0.</span>
+    <span>Filters from EasyList, EasyPrivacy, Liste FR, Liste AR and uBlock Origin.</span>
     <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads">Source code on GitHub</a>
   </div>
 </footer>
@@ -296,6 +346,361 @@ document.querySelectorAll('.copy').forEach((b) => {
       }
     } catch {}
   });
+});
+
+// Measured results table, generated from tests/test_real_sites.py output.
+fetch('results.json').then((r) => r.json()).then(({ sites, date }) => {
+  const body = document.querySelector('#results tbody');
+  const max = Math.max(...sites.map((s) => s.without));
+  const pct = (n) => `${Math.max(n ? 1.5 : 0, (n / max) * 100)}%`;
+  for (const s of sites) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td></td><td class="num">${s.without.toLocaleString('en')}</td>
+      <td class="hide-sm"><div class="bar"><span style="width:${pct(s.without)}"></span></div>
+      <div class="bar" style="margin-top:6px"><span class="after" style="width:${pct(s.with)}"></span></div></td>
+      <td class="num">${s.with.toLocaleString('en')}</td><td class="num hide-sm ok">${s.intact ? 'Yes' : 'Check'}</td>`;
+    tr.firstChild.textContent = s.name;
+    body.appendChild(tr);
+  }
+  document.getElementById('results-note').textContent =
+    `Measured ${date} from Morocco with headless Chromium. Ad files are requests to known ad servers; results change with region and time.`;
+  const table = document.getElementById('results');
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { table.classList.add('on'); o.disconnect(); } }, { threshold: 0.2 })
+    .observe(table);
+}).catch(() => { document.getElementById('proof').hidden = true; });
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+const canvas = document.getElementById('scene');
+const countEl = document.getElementById('count');
+const readout = countEl.parentElement;
+const hint = document.getElementById('hint');
+const track = document.getElementById('track');
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+} catch {
+  document.documentElement.classList.add('no-webgl');
+  countEl.textContent = '0';
+  throw new Error('WebGL unavailable');
+}
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+camera.position.set(0, 0, 13);
+
+// ---- Textures drawn on 2D canvases ---------------------------------------
+
+const FONT = '"Bricolage Grotesque", system-ui, sans-serif';
+const BODY = '"Figtree", system-ui, sans-serif';
+
+function rounded(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, r);
+}
+
+function texture(w, h, draw) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+  draw(ctx, w, h);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  return t;
+}
+
+const pageTex = () => texture(1024, 1280, (ctx, w, h) => {
+  rounded(ctx, 0, 0, w, h, 36); ctx.save(); ctx.clip();
+  ctx.fillStyle = '#e4f0ec'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#cfe1db'; ctx.fillRect(0, 0, w, 84);
+  for (let i = 0; i < 3; i++) {
+    ctx.fillStyle = '#a9c2bb'; ctx.beginPath(); ctx.arc(44 + i * 32, 42, 10, 0, 7); ctx.fill();
+  }
+  ctx.fillStyle = '#f2f8f6'; rounded(ctx, 150, 22, 700, 40, 12); ctx.fill();
+  ctx.fillStyle = '#4d6c66'; ctx.font = `600 24px ${BODY}`; ctx.fillText('dailynews.example/world', 176, 50);
+  ctx.fillStyle = '#10272b'; rounded(ctx, 880, 20, 110, 44, 12); ctx.fill();
+  ctx.fillStyle = '#f3b23c'; ctx.beginPath(); ctx.arc(912, 42, 13, 0, 7); ctx.fill();
+  ctx.fillStyle = '#10272b'; ctx.fillRect(903, 39, 18, 6);
+  ctx.fillStyle = '#10272b'; ctx.font = `800 64px ${FONT}`;
+  ctx.fillText('City council approves', 64, 196); ctx.fillText('the riverside park', 64, 266);
+  ctx.fillStyle = '#4d6c66'; ctx.font = `600 26px ${BODY}`; ctx.fillText('By Amina Idrissi  ·  4 min read', 64, 320);
+  const g = ctx.createLinearGradient(0, 352, 0, 652); g.addColorStop(0, '#7fa79c'); g.addColorStop(1, '#3f6b63');
+  ctx.fillStyle = g; rounded(ctx, 64, 352, 896, 300, 18); ctx.fill();
+  ctx.fillStyle = '#2c534c'; ctx.beginPath(); ctx.moveTo(64, 600); ctx.quadraticCurveTo(420, 470, 960, 590); ctx.lineTo(960, 652); ctx.lineTo(64, 652); ctx.fill();
+  let y = 700;
+  for (let i = 0; i < 12; i++) {
+    ctx.fillStyle = '#b9cfc8'; rounded(ctx, 64, y, i % 4 === 3 ? 560 : 896, 16, 8); ctx.fill();
+    y += i % 4 === 3 ? 58 : 36;
+  }
+  ctx.restore();
+});
+
+const stripes = (ctx, w, h, a, b) => {
+  ctx.fillStyle = a; ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = b; ctx.lineWidth = 22;
+  for (let x = -h; x < w + h; x += 48) { ctx.beginPath(); ctx.moveTo(x, h); ctx.lineTo(x + h, 0); ctx.stroke(); }
+};
+const label = (ctx, text, x, y, size, color = '#7a4b00', bg = '#fff6dd') => {
+  ctx.font = `800 ${size}px ${FONT}`;
+  const m = ctx.measureText(text).width;
+  ctx.fillStyle = bg; rounded(ctx, x - m / 2 - size * .5, y - size * .9, m + size, size * 1.4, size * .3); ctx.fill();
+  ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.fillText(text, x, y); ctx.textAlign = 'left';
+};
+
+// Each ad: size in world units, home position, tilt, and how it's drawn.
+const ADS = [
+  { w: 3.9, h: 0.85, p: [0.1, 1.25, 0.25], r: 0, draw: (c, w, h) => { stripes(c, w, h, '#ffd779', '#ffe3a3'); label(c, 'Advertisement', w / 2, h / 2 + 18, 52); } },
+  { w: 2.4, h: 1.6, p: [2.6, 0.2, 1.1], r: -0.12, draw: (c, w, h) => {
+      c.fillStyle = '#ef6f6c'; c.fillRect(0, 0, w, h);
+      c.fillStyle = '#fff'; c.font = `800 92px ${FONT}`; c.textAlign = 'center'; c.fillText('YOU WON!', w / 2, h / 2 - 10);
+      c.font = `600 44px ${BODY}`; c.fillText('Claim your phone now', w / 2, h / 2 + 64);
+      c.fillStyle = '#10272b'; c.beginPath(); c.arc(w - 46, 46, 26, 0, 7); c.fill();
+      c.strokeStyle = '#fff'; c.lineWidth = 7; c.beginPath(); c.moveTo(w - 57, 35); c.lineTo(w - 35, 57); c.moveTo(w - 35, 35); c.lineTo(w - 57, 57); c.stroke();
+    } },
+  { w: 2.6, h: 1.46, p: [-0.55, 0.1, 0.45], r: 0.02, draw: (c, w, h) => {
+      c.fillStyle = '#0b1d20'; c.fillRect(0, 0, w, h);
+      c.fillStyle = '#f3b23c'; c.beginPath(); c.moveTo(w / 2 - 50, h / 2 - 64); c.lineTo(w / 2 + 70, h / 2); c.lineTo(w / 2 - 50, h / 2 + 64); c.fill();
+      label(c, 'Ad · 0:15', 120, 70, 40, '#10272b', '#f3b23c');
+      c.fillStyle = 'rgba(255,255,255,.9)'; rounded(c, w - 290, h - 120, 250, 76, 10); c.fill();
+      c.fillStyle = '#10272b'; c.font = `800 38px ${FONT}`; c.fillText('Skip ad ▸', w - 262, h - 70);
+    } },
+  { w: 1.25, h: 2.7, p: [-2.75, -0.35, 0.9], r: 0.1, draw: (c, w, h) => {
+      stripes(c, w, h, '#ffd779', '#ffe3a3');
+      c.save(); c.translate(w / 2, h / 2); c.rotate(-Math.PI / 2); label(c, 'Sponsored', 0, 18, 64); c.restore();
+    } },
+  { w: 3.2, h: 0.62, p: [0.3, -2.05, 0.35], r: 0, draw: (c, w, h) => {
+      c.fillStyle = '#183a3f'; c.fillRect(0, 0, w, h);
+      c.fillStyle = '#e4f0ec'; c.font = `800 46px ${FONT}`; c.fillText('You won’t believe these deals', 40, h / 2 + 16);
+      c.fillStyle = '#f3b23c'; c.font = `600 30px ${BODY}`; c.fillText('Sponsored', w - 200, h / 2 + 12);
+    } },
+  { w: 1.5, h: 1.1, p: [2.35, -1.55, 1.4], r: 0.16, draw: (c, w, h) => {
+      c.fillStyle = '#f3b23c'; c.fillRect(0, 0, w, h);
+      c.fillStyle = '#10272b'; c.font = `800 70px ${FONT}`; c.textAlign = 'center'; c.fillText('-70%', w / 2, h / 2 + 4);
+      c.font = `600 34px ${BODY}`; c.fillText('Shop now', w / 2, h / 2 + 60);
+    } },
+  { w: 1.9, h: 0.7, p: [-2.2, 1.75, 1.25], r: -0.14, draw: (c, w, h) => {
+      c.fillStyle = '#fff'; c.fillRect(0, 0, w, h);
+      c.fillStyle = '#ef6f6c'; c.beginPath(); c.arc(56, h / 2, 24, 0, 7); c.fill();
+      c.fillStyle = '#10272b'; c.font = `800 38px ${FONT}`; c.fillText('Allow notifications?', 100, h / 2 + 13);
+    } },
+  { w: 1.1, h: 1.1, p: [-1.2, -1.2, 1.7], r: -0.2, draw: (c, w, h) => {
+      c.fillStyle = '#10272b'; c.fillRect(0, 0, w, h);
+      c.fillStyle = '#ef6f6c'; c.font = `800 120px ${FONT}`; c.textAlign = 'center'; c.fillText('!', w / 2, h / 2 + 44);
+      c.fillStyle = '#e4f0ec'; c.font = `600 30px ${BODY}`; c.fillText('Virus found', w / 2, h - 40);
+    } },
+  { w: 1.6, h: 0.5, p: [1.55, 2.25, 0.8], r: 0.06, draw: (c, w, h) => { stripes(c, w, h, '#ffd779', '#ffe3a3'); label(c, 'Tracker', w / 2, h / 2 + 14, 40); } },
+];
+
+// ---- Scene graph -----------------------------------------------------------
+
+const rig = new THREE.Group();
+scene.add(rig);
+
+const shadowTex = texture(256, 256, (ctx) => {
+  const g = ctx.createRadialGradient(128, 128, 10, 128, 128, 128);
+  g.addColorStop(0, 'rgba(0,0,0,.55)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 256, 256);
+});
+const shadow = new THREE.Mesh(new THREE.PlaneGeometry(7.5, 8.5), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+shadow.position.set(0.25, -0.45, -0.6);
+rig.add(shadow);
+
+const ads = [];
+const PX = 300; // canvas pixels per world unit
+
+function build() {
+  const page = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 5.5), new THREE.MeshBasicMaterial({ map: pageTex(), transparent: true }));
+  rig.add(page);
+  ADS.forEach((a, i) => {
+    const tex = texture(Math.round(a.w * PX), Math.round(a.h * PX), (c, w, h) => {
+      rounded(c, 0, 0, w, h, 18); c.save(); c.clip(); a.draw(c, w, h); c.restore();
+    });
+    const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide });
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(a.w, a.h), mat);
+    mesh.position.set(...a.p);
+    mesh.userData.index = i;
+    rig.add(mesh);
+    const angle = Math.atan2(a.p[1], a.p[0] || 0.01);
+    ads.push({
+      mesh, home: new THREE.Vector3(...a.p), tilt: a.r,
+      dir: new THREE.Vector3(Math.cos(angle) * 1.4, Math.sin(angle) + 0.6, 2.2).normalize(),
+      spin: (i % 2 ? 1 : -1) * (1.5 + (i % 3)),
+      b: 0, clicked: false, burst: false, hover: 0,
+      at: 0.08 + (i / ADS.length) * 0.78, // scroll progress at which it gets blocked
+    });
+  });
+}
+
+// ---- Particles: amber specks when an ad is blocked -------------------------
+
+const MAXP = 900;
+const pGeo = new THREE.BufferGeometry();
+const pPos = new Float32Array(MAXP * 3).fill(-99);
+const pVel = new Float32Array(MAXP * 3);
+const pLife = new Float32Array(MAXP);
+pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+const dotTex = texture(64, 64, (ctx) => {
+  const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0, 'rgba(255,214,140,1)'); g.addColorStop(0.4, 'rgba(243,178,60,.9)'); g.addColorStop(1, 'rgba(243,178,60,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 64, 64);
+});
+const points = new THREE.Points(pGeo, new THREE.PointsMaterial({
+  size: 0.16, map: dotTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+}));
+points.frustumCulled = false;
+rig.add(points);
+let pNext = 0;
+function burst(ad) {
+  const { mesh } = ad;
+  const w = mesh.geometry.parameters.width, h = mesh.geometry.parameters.height;
+  for (let n = 0; n < 90; n++) {
+    const i = pNext; pNext = (pNext + 1) % MAXP;
+    pPos[i * 3] = mesh.position.x + (Math.random() - 0.5) * w;
+    pPos[i * 3 + 1] = mesh.position.y + (Math.random() - 0.5) * h;
+    pPos[i * 3 + 2] = mesh.position.z;
+    const s = 1.5 + Math.random() * 3.5;
+    pVel[i * 3] = (Math.random() - 0.5) * s + ad.dir.x * 2;
+    pVel[i * 3 + 1] = (Math.random() - 0.3) * s + ad.dir.y * 2;
+    pVel[i * 3 + 2] = Math.random() * s;
+    pLife[i] = 0.7 + Math.random() * 0.6;
+  }
+}
+
+// ---- Input -----------------------------------------------------------------
+
+const pointer = new THREE.Vector2(0, 0);
+const look = new THREE.Vector2(0, 0);
+const ray = new THREE.Raycaster();
+let hovered = null;
+
+addEventListener('pointermove', (e) => {
+  pointer.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+}, { passive: true });
+
+function pick(e) {
+  const r = canvas.getBoundingClientRect();
+  const v = new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(v, camera);
+  const live = ads.filter((a) => a.b < 0.5).map((a) => a.mesh);
+  const hit = ray.intersectObjects(live, false)[0];
+  return hit ? ads[hit.object.userData.index] : null;
+}
+canvas.addEventListener('pointermove', (e) => {
+  hovered = pick(e);
+  canvas.style.cursor = hovered ? 'pointer' : '';
+});
+canvas.addEventListener('pointerleave', () => { hovered = null; canvas.style.cursor = ''; });
+canvas.addEventListener('click', (e) => {
+  const ad = pick(e);
+  if (ad) { ad.clicked = true; hint.style.opacity = 0; }
+});
+
+// ---- Layout & loop ---------------------------------------------------------
+
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  // Desktop: the page sits to the right of the headline. Narrow: in the band
+  // above the headline, sized so the whole cluster of ads fits that band.
+  const viewH = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+  const unit = h / viewH; // pixels per world unit at the rig's depth
+  if (w < 900) {
+    const top = 64, bottom = document.querySelector('.hero-copy > h1').offsetTop - 8;
+    const room = Math.max(140, bottom - top);
+    const s = Math.min(0.72, room / (6.4 * unit), (w - 24) / (7.4 * unit));
+    rig.scale.setScalar(s);
+    rig.position.set(0.1 * s, (h / 2 - (top + room / 2)) / unit, 0);
+  } else {
+    rig.scale.setScalar(0.9);
+    rig.position.set(Math.min(2.5, camera.aspect * 1.38), 0.05, 0);
+  }
+}
+addEventListener('resize', resize);
+
+const progress = () => {
+  const r = track.getBoundingClientRect();
+  const span = r.height - innerHeight;
+  return span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 1;
+};
+
+const clock = new THREE.Clock();
+let intro = reduced ? 1 : 0;
+let shown = -1;
+const ease = (t) => 1 - Math.pow(1 - t, 3);
+
+function frame() {
+  const dt = Math.min(clock.getDelta(), 0.05);
+  const t = clock.elapsedTime;
+  const p = reduced ? 1 : progress();
+  intro = Math.min(1, intro + dt / 1.4);
+
+  // Frame-rate independent following, so it feels the same at 60 and 120 Hz.
+  const follow = 1 - Math.exp(-6 * dt);
+  look.x += (pointer.x - look.x) * follow;
+  look.y += (pointer.y - look.y) * follow;
+  const k = ease(intro);
+  rig.rotation.y = -0.38 * (1 - p * 0.75) + look.x * 0.22 + (1 - k) * -0.6;
+  rig.rotation.x = 0.08 - look.y * 0.14;
+  rig.position.z = (1 - k) * -6;
+
+  let live = 0;
+  for (const ad of ads) {
+    const target = ad.clicked || p >= ad.at ? 1 : 0;
+    if (target && !ad.burst && ad.b < 0.05) { ad.burst = true; if (!reduced) burst(ad); }
+    if (!target) ad.burst = false;
+    ad.b += (target - ad.b) * (1 - Math.exp(-(target ? 5 : 8) * dt));
+    if (reduced) ad.b = target;
+    ad.hover += ((hovered === ad ? 1 : 0) - ad.hover) * (1 - Math.exp(-12 * dt));
+    const b = ad.b;
+    const fly = b * b * 9;
+    const bob = Math.sin(t * 1.3 + ad.spin) * 0.06 * (1 - b);
+    ad.mesh.position.set(
+      ad.home.x + ad.dir.x * fly,
+      ad.home.y + ad.dir.y * fly - b * b * b * 4 + bob,
+      ad.home.z + ad.dir.z * fly + ad.hover * 0.25,
+    );
+    ad.mesh.rotation.set(b * ad.spin * 0.8, b * ad.spin, ad.tilt + b * ad.spin * 0.5);
+    ad.mesh.scale.setScalar((1 - b * 0.6) * (1 + ad.hover * 0.05) * (0.6 + 0.4 * k));
+    ad.mesh.material.opacity = Math.max(0, 1 - b * 1.25) * k;
+    ad.mesh.visible = ad.mesh.material.opacity > 0.01;
+    if (b < 0.5) live++;
+  }
+  if (live !== shown) {
+    shown = live;
+    countEl.textContent = live;
+    readout.classList.toggle('clean', live === 0);
+  }
+  if (p > 0.04) hint.style.opacity = 0;
+
+  for (let i = 0; i < MAXP; i++) {
+    if (pLife[i] <= 0) { pPos[i * 3 + 2] = -99; continue; }
+    pLife[i] -= dt;
+    pVel[i * 3 + 1] -= 6 * dt;
+    pPos[i * 3] += pVel[i * 3] * dt;
+    pPos[i * 3 + 1] += pVel[i * 3 + 1] * dt;
+    pPos[i * 3 + 2] += pVel[i * 3 + 2] * dt;
+  }
+  pGeo.attributes.position.needsUpdate = true;
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+
+// Draw textures once the web fonts are in, so the ad labels use the right face.
+document.fonts.ready.then(() => {
+  build();
+  resize();
+  window.__hib = { ads, progress };
+  requestAnimationFrame(frame);
 });
 </script>
 </body>

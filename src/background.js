@@ -1,4 +1,4 @@
-// Hush service worker: owns blocking state, per-site pauses and counters.
+// Hib Remover Ads service worker: owns blocking state, per-site pauses and counters.
 //
 // Storage layout
 //   local:   { enabled, paused: [host], total, lastMatchTs }
@@ -10,21 +10,32 @@
 // called from a 2-minute alarm and when the popup opens. Matches are kept for
 // 5 minutes, so the alarm never misses any.
 
-const RULESET = 'ads';
+// 'ads' is our own curated list; 'block' and 'allow' are compiled from EasyList,
+// EasyPrivacy and uBlock Origin's lists by tools/filterlists.py. Only block
+// rulesets count toward the numbers users see.
+const RULESETS = ['ads', 'block', 'allow'];
+const COUNTED = new Set(['ads', 'block']);
 const PAUSE_RULE_ID = 1;
 const YT_MATCHES = ['*://*.youtube.com/*', '*://*.youtube-nocookie.com/*'];
 const VALID_HOST = /^[a-z0-9-]+(\.[a-z0-9-]+)*$/;
 
 const SCRIPTS = [
   {
-    id: 'hush-cosmetic',
+    id: 'hib-generic',
+    css: ['content/generic.css'],
+    matches: ['<all_urls>'],
+    runAt: 'document_start',
+    allFrames: true,
+  },
+  {
+    id: 'hib-cosmetic',
     js: ['content/selectors.js', 'content/cosmetic.js'],
     matches: ['<all_urls>'],
     runAt: 'document_start',
     allFrames: true,
   },
   {
-    id: 'hush-yt-main',
+    id: 'hib-yt-main',
     js: ['content/yt-main.js'],
     matches: YT_MATCHES,
     runAt: 'document_start',
@@ -32,7 +43,7 @@ const SCRIPTS = [
     world: 'MAIN',
   },
   {
-    id: 'hush-yt',
+    id: 'hib-yt',
     js: ['content/youtube.js'],
     matches: YT_MATCHES,
     runAt: 'document_start',
@@ -44,7 +55,7 @@ const SCRIPTS = [
 let queue = Promise.resolve();
 const serial = (fn) => {
   const run = queue.then(fn);
-  queue = run.catch((err) => console.error('[hush]', err));
+  queue = run.catch((err) => console.error('[hib]', err));
   return run;
 };
 
@@ -69,15 +80,99 @@ async function getSettings() {
   return { enabled, paused: paused.filter((h) => VALID_HOST.test(h)) };
 }
 
+// ---- Filter data -----------------------------------------------------------
+
+const loadJson = (path) => fetch(chrome.runtime.getURL(path)).then((r) => r.json());
+let cosmeticData;
+const getCosmetic = () => (cosmeticData ??= loadJson('rules/cosmetic.json'));
+
+// Entity rules ("example.*") can't be match patterns, so expand common suffixes.
+const ENTITY_TLDS = ['com', 'net', 'org', 'io', 'co', 'to', 'tv', 'me', 'cc', 'ws', 'info', 'biz',
+  'fr', 'de', 'es', 'it', 'nl', 'be', 'ch', 'pl', 'ru', 'ma', 'dz', 'tn', 'eg', 'sa', 'ae',
+  'co.uk', 'com.br', 'com.tr', 'in', 'xyz', 'site', 'online', 'live', 'pro', 'top', 'lol'];
+const hostPatterns = (hosts) => [...new Set(hosts.flatMap((h) => (h.endsWith('.*')
+  ? ENTITY_TLDS.map((t) => `*://*.${h.slice(0, -1)}${t}/*`)
+  : [`*://*.${h}/*`])))];
+
+// Walks a host up through its parent domains, plus entity forms.
+const hostKeys = (host) => {
+  const labels = host.split('.');
+  const keys = [];
+  for (let i = 0; i < labels.length - 1; i++) {
+    keys.push(labels.slice(i).join('.'));
+    if (labels.length - i - 1 <= 2) keys.push(`${labels[i]}.*`);
+  }
+  return keys;
+};
+
+const cssCache = new Map();
+// Element hiding for one site: its own selectors, plus generic ones when the
+// static generic stylesheet is switched off there because of exceptions.
+async function cosmeticFor(host) {
+  if (cssCache.has(host)) return cssCache.get(host);
+  const data = await getCosmetic();
+  const keys = hostKeys(host);
+  const has = (list) => keys.some((k) => list.includes(k));
+  let result = { css: '', selectors: [] };
+  if (!has(data.noCosmetic)) {
+    const except = new Set(keys.flatMap((k) => data.exceptions[k] || []));
+    const own = keys.flatMap((k) => data.specific[k] || []).filter((s) => !except.has(s));
+    const generic = !has(data.noGeneric) && has(data.partialGeneric)
+      ? data.generic.filter((s) => !except.has(s))
+      : [];
+    const all = [...new Set([...own, ...generic])];
+    result = {
+      css: all.length ? `${all.join(',')}{display:none!important}` : '',
+      selectors: own,
+    };
+  }
+  if (cssCache.size > 200) cssCache.clear();
+  cssCache.set(host, result);
+  return result;
+}
+
+async function injectCosmetic(sender, host) {
+  const { css, selectors } = await cosmeticFor(host);
+  if (css) {
+    try {
+      await chrome.scripting.insertCSS({
+        target: { tabId: sender.tab.id, frameIds: [sender.frameId] },
+        css,
+        origin: 'USER',
+      });
+    } catch {
+      // Frame went away or a selector was rejected; the rest of the blocking still works.
+    }
+  }
+  return selectors;
+}
+
 async function registerScripts(paused) {
-  const excludeMatches = paused.flatMap((h) => [`*://${h}/*`, `*://*.${h}/*`]);
+  const pausedMatches = paused.flatMap((h) => [`*://${h}/*`, `*://*.${h}/*`]);
+  const data = await getCosmetic();
+  const scriptletHosts = await loadJson('scriptlets/hosts.json');
+  const noGeneric = hostPatterns([...data.noGeneric, ...data.partialGeneric, ...data.noCosmetic]);
+  const scripts = [
+    ...SCRIPTS,
+    {
+      id: 'hib-scriptlets',
+      js: ['scriptlets/config.js', 'scriptlets/engine.js'],
+      matches: hostPatterns(scriptletHosts),
+      runAt: 'document_start',
+      allFrames: true,
+      world: 'MAIN',
+    },
+  ].map((s) => {
+    const excludeMatches = [...pausedMatches, ...(s.id === 'hib-generic' ? noGeneric : [])];
+    return excludeMatches.length ? { ...s, excludeMatches } : s;
+  });
   try {
-    await chrome.scripting.registerContentScripts(
-      SCRIPTS.map((s) => (excludeMatches.length ? { ...s, excludeMatches } : s)),
-    );
+    await chrome.scripting.registerContentScripts(scripts);
   } catch (err) {
     // Never leave the web unprotected because of one bad pause entry.
-    console.error('[hush] register with pauses failed, registering without', err);
+    console.error('[hib] register with exclusions failed, registering without', err);
+    const registered = await chrome.scripting.getRegisteredContentScripts();
+    if (registered.length) await chrome.scripting.unregisterContentScripts({ ids: registered.map((s) => s.id) });
     await chrome.scripting.registerContentScripts(SCRIPTS);
   }
 }
@@ -87,7 +182,7 @@ async function applySettings() {
   const { enabled, paused } = await getSettings();
 
   await chrome.declarativeNetRequest.updateEnabledRulesets(
-    enabled ? { enableRulesetIds: [RULESET] } : { disableRulesetIds: [RULESET] },
+    enabled ? { enableRulesetIds: RULESETS } : { disableRulesetIds: RULESETS },
   );
 
   const dynamic = await chrome.declarativeNetRequest.getDynamicRules();
@@ -133,10 +228,10 @@ async function flushMatches() {
     info = await chrome.declarativeNetRequest.getMatchedRules({ minTimeStamp: lastMatchTs + 1 });
   } catch (err) {
     // Over Chrome's call quota; the next alarm picks these matches up.
-    console.warn('[hush] getMatchedRules', err.message);
+    console.warn('[hib] getMatchedRules', err.message);
     return;
   }
-  const hits = info.rulesMatchedInfo.filter((m) => m.rule.rulesetId === RULESET);
+  const hits = info.rulesMatchedInfo.filter((m) => COUNTED.has(m.rule.rulesetId));
   if (!hits.length) return;
 
   const open = new Set((await chrome.tabs.query({})).map((t) => t.id));
@@ -254,6 +349,12 @@ chrome.runtime.onMessage.addListener((msg, sender, reply) => {
         serial(() => resetTab(tabId, since));
       }
       return false;
+    }
+    case 'cosmetic': {
+      const host = hostOf(sender.url);
+      if (tabId == null || !host) return false;
+      injectCosmetic(sender, host).then(reply, () => reply([]));
+      return true;
     }
     case 'hidden': {
       const count = Math.min(500, Math.max(0, Math.floor(Number(msg.count) || 0)));

@@ -83,7 +83,7 @@ def main():
         sw = ctx.service_workers[0] if ctx.service_workers else ctx.wait_for_event("serviceworker")
         ext_id = sw.url.split("/")[2]
 
-        ready = wait_for(lambda: sw.evaluate("chrome.scripting.getRegisteredContentScripts().then(s => s.length)") == 3)
+        ready = wait_for(lambda: sw.evaluate("chrome.scripting.getRegisteredContentScripts().then(s => s.length)") == 5)
         check("content scripts registered on install", ready)
 
         blocked = []

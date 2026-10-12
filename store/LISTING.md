@@ -1,8 +1,8 @@
 # Chrome Web Store listing: Hib Remover Ads
 
 Upload: `hib-remover-ads-1.0.0.zip`
-Screenshot: `screenshot-1280x800.png`
-Small promo tile: `promo-440x280.png`
+Screenshots (upload all three, in order): `screenshot-1.png`, `screenshot-2.png`, `screenshot-3.png`
+Small promo tile: `promo-small-440x280.png`
 Icon: `../src/icons/on-128.png`
 Category: Privacy & Security (Confidentialité/sécurité)
 Language: English (add French too: Store > Listing > add language)
@@ -14,7 +14,7 @@ Ad remover and ad blocker for YouTube and every site. Blocks video ads, popups a
 Hib Remover Ads removes ads from YouTube and the rest of the web.
 
 - Removes YouTube video ads, overlays and sponsored cards
-- Blocks banners, popups and trackers from about 130 ad networks
+- Blocks banners, popups and trackers from about 120 ad networks
 - Hides leftover empty ad boxes so pages look clean
 - Shows how many ads were blocked on each page and in total
 - Pause it on one site with one click, or turn it off everywhere

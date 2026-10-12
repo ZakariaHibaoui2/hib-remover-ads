@@ -35,7 +35,18 @@ globalThis.HUSH_SELECTORS = {
     "[aria-label=\"advertisement\"]",
     "[id^=\"mgid_\"]",
     ".mgbox",
-    "[data-revcontent-widget]"
+    "[data-revcontent-widget]",
+    ".ad-slot-header",
+    ".ad-slot-header__wrapper",
+    ".ad-slot-rail",
+    ".ad-slot__wrapper",
+    ".ad-feedback-link",
+    "div[class*=\"cls-ad-\"]",
+    "[id^=\"sda-\"]",
+    ".gemini-ad",
+    "[data-content=\"Advertisement\"]",
+    ".ad-wrapper--header",
+    ".top-ad-container"
   ],
   "youtube": [
     "ytd-ad-slot-renderer",
