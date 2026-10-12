@@ -8,39 +8,56 @@
 </head>
 <body data-state="loading">
   <header class="bar">
-    <span class="brand"><img src="../icons/on-32.png" alt="" width="20" height="20">Hib Remover Ads</span>
+    <span class="brand"><img src="../icons/on-32.png" alt="" width="22" height="22">Hib Remover Ads</span>
     <button id="power" class="switch" role="switch" aria-checked="true" aria-label="Block ads everywhere">
       <span class="knob"></span>
     </button>
   </header>
 
-  <main class="site">
-    <h1 id="host" class="host">&nbsp;</h1>
-    <p id="status" class="status" aria-live="polite">&nbsp;</p>
-
-    <div class="stage">
-      <div class="coin-wrap" aria-hidden="true">
-        <div class="coin">
-          <span class="face front"><i></i></span>
-          <span class="rim" style="--z:-1px"></span><span class="rim" style="--z:-2px"></span>
-          <span class="rim" style="--z:-3px"></span><span class="rim" style="--z:-4px"></span>
-          <span class="rim" style="--z:-5px"></span><span class="rim" style="--z:-6px"></span>
-          <span class="rim" style="--z:-7px"></span>
-          <span class="face back"><i></i><i></i></span>
-        </div>
-        <span class="glow"></span>
+  <main>
+    <div class="site rise" style="--i:0">
+      <span class="fav"><img id="fav" alt="" width="20" height="20"></span>
+      <div class="site-text">
+        <h1 id="host" class="host">&nbsp;</h1>
+        <p id="status" class="status" aria-live="polite">&nbsp;</p>
       </div>
-      <p class="count">
-        <span id="page" class="num">0</span>
-        <span id="page-label">blocked on this page</span>
-      </p>
     </div>
 
-    <button id="pause" class="action" type="button">Pause on this site</button>
+    <section class="panel rise" style="--i:1">
+      <div class="hero">
+        <div class="coin-wrap" aria-hidden="true">
+          <span class="ring"></span>
+          <div class="coin">
+            <span class="face front"><i></i></span>
+            <span class="rim" style="--z:-1px"></span><span class="rim" style="--z:-2px"></span>
+            <span class="rim" style="--z:-3px"></span><span class="rim" style="--z:-4px"></span>
+            <span class="rim" style="--z:-5px"></span><span class="rim" style="--z:-6px"></span>
+            <span class="rim" style="--z:-7px"></span>
+            <span class="face back"><i></i><i></i></span>
+          </div>
+        </div>
+        <p class="count">
+          <span id="page" class="num">0</span>
+          <span id="page-label">ads blocked on this page</span>
+        </p>
+      </div>
+      <dl class="split">
+        <div><dt>Requests stopped</dt><dd id="net">0</dd></div>
+        <div><dt>Ad boxes hidden</dt><dd id="cosmetic">0</dd></div>
+      </dl>
+      <p class="note" id="note"></p>
+    </section>
+
+    <button id="pause" class="action rise" style="--i:2" type="button">
+      <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx="1.2"/><rect x="11.8" y="4" width="3.2" height="12" rx="1.2"/></svg>
+      <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.2v11.6a1 1 0 0 0 1.5.86l9.3-5.8a1 1 0 0 0 0-1.72L7.5 3.34A1 1 0 0 0 6 4.2Z"/></svg>
+      <span id="pause-label">Pause on this site</span>
+    </button>
   </main>
 
   <footer class="foot">
-    <span id="total">0</span> ads blocked since you installed Hib Remover Ads
+    <span><b id="total">0</b> blocked in total</span>
+    <a id="report" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/issues/new" target="_blank" rel="noopener">Report a site</a>
   </footer>
 
   <script src="popup.js" type="module"></script>

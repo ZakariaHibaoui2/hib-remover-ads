@@ -43,11 +43,11 @@ if (!reduced) {
     coin.style.setProperty('--rx', '0deg');
   });
   document.body.classList.add('intro');
-  coin.addEventListener('animationend', () => document.body.classList.remove('intro'), { once: true });
+  setTimeout(() => document.body.classList.remove('intro'), 1300);
 }
 
 function render() {
-  const { enabled, host, paused, page, total } = stats;
+  const { enabled, host, paused, page, total, net = 0, cosmetic = 0 } = stats;
   const state = !host ? 'unsupported' : !enabled ? 'off' : paused ? 'paused' : 'on';
   document.body.dataset.state = state;
 
@@ -62,11 +62,21 @@ function render() {
 
   countTo($('page'), page);
   $('page-label').textContent = page === 1 ? 'ad blocked on this page' : 'ads blocked on this page';
+  countTo($('net'), net);
+  countTo($('cosmetic'), cosmetic);
   $('total').textContent = fmt.format(total);
+  $('note').textContent = 'Open a website and Hib Remover Ads will start blocking its ads.';
+  if (host && tab?.url) {
+    const fav = new URL(chrome.runtime.getURL('/_favicon/'));
+    fav.searchParams.set('pageUrl', tab.url);
+    fav.searchParams.set('size', '32');
+    $('fav').src = fav.href;
+    $('report').href = `https://github.com/ZakariaHibaoui2/hib-remover-ads/issues/new?title=${encodeURIComponent(`Ads on ${host}`)}`;
+  }
 
   const pause = $('pause');
   pause.disabled = !enabled;
-  pause.textContent = paused ? 'Resume blocking here' : 'Pause on this site';
+  $('pause-label').textContent = paused ? 'Resume blocking here' : 'Pause on this site';
 }
 
 async function refresh() {

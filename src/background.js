@@ -289,6 +289,8 @@ async function getStats(tabId, url) {
     host,
     paused: isPausedHost(host, paused),
     page: entry ? entry.net + entry.cosmetic : 0,
+    net: entry ? entry.net : 0,
+    cosmetic: entry ? entry.cosmetic : 0,
     total,
   };
 }
