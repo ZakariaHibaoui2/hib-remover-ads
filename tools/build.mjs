@@ -32,6 +32,15 @@ const rules = [
       action: { type: 'redirect', redirect: { extensionPath: '/redirects/gpt.js' } },
       condition: { urlFilter, resourceTypes: ['script'] },
     })),
+  // Pages that test for a blocker by loading an image from an ad server get a blank
+  // 1x1 image instead of an error. Nothing is fetched from the ad server either way.
+  // Priority 2: above the block, while allow rules (also 2) still win.
+  {
+    id: 150,
+    priority: 2,
+    action: { type: 'redirect', redirect: { extensionPath: '/redirects/1x1.gif' } },
+    condition: { requestDomains: domains, domainType: 'thirdParty', resourceTypes: ['image'] },
+  },
   // Ad tabs opened by a page to one of these networks close themselves.
   {
     id: 200,

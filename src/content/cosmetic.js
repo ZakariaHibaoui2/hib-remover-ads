@@ -50,10 +50,40 @@
     if (n) send({ type: 'hidden', count: n });
   };
 
+  // "Ad blocker detected" walls: a full-screen fixed layer that asks you to turn
+  // the blocker off. Bait images get a blank stand-in (see tools/build.mjs), so most
+  // checks pass; this catches the rest. Only top-level layers over most of the screen
+  // whose text is about ad blockers are removed, and page scrolling is given back.
+  const BLOCKER = /ad ?-?block|ad ?blocker|bloqueur (de )?pub|مانع (ال)?[إا]علان|حاجب (ال)?[إا]علان|bloqueador de anuncios|werbeblocker/i;
+  const DEMAND = /detected|disable|turn (it )?off|whitelist|allowlist|allow ads|pause|détecté|désactiv|اكتشاف|تعطيل|عطّ?ل|أوقف|desactiva|detectado|deaktivier|erkannt/i;
+  const isWall = (text) => BLOCKER.test(text) && DEMAND.test(text);
+  const clearWalls = () => {
+    if (!document.body || window.top !== window) return;
+    let removed = 0;
+    for (const el of [...document.body.children]) {
+      if (el.dataset.hush !== undefined || el.tagName === 'SCRIPT' || el.tagName === 'STYLE') continue;
+      const css = getComputedStyle(el);
+      if (css.position !== 'fixed' || css.display === 'none') continue;
+      const r = el.getBoundingClientRect();
+      if (r.width * r.height < innerWidth * innerHeight * 0.6) continue;
+      if (!isWall((el.textContent || '').slice(0, 2000))) continue;
+      el.remove();
+      removed++;
+    }
+    if (removed) {
+      for (const root of [document.documentElement, document.body]) {
+        if (getComputedStyle(root).overflow === 'hidden' || getComputedStyle(root).overflowY === 'hidden') {
+          root.style.setProperty('overflow', 'auto', 'important');
+        }
+      }
+      send({ type: 'hidden', count: removed });
+    }
+  };
+
   let timer;
   const schedule = () => {
     clearTimeout(timer);
-    timer = setTimeout(count, 700);
+    timer = setTimeout(() => { count(); clearWalls(); }, 700);
   };
 
   // Site-specific hiding from the filter lists. The background injects it as a
@@ -68,6 +98,7 @@
 
   const start = () => {
     count();
+    clearWalls();
     observer = new MutationObserver(schedule);
     observer.observe(document.documentElement, { childList: true, subtree: true });
   };

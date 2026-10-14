@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.2
+
+- No more "ad blocker detected" walls on sites that test for a blocker, such as Yalla Shoot / korahlive.online. A page that loads a test image from an ad server now gets a blank image instead of an error, so its check passes, and the ad server is still never contacted.
+- If a site shows a full-screen "please disable your ad blocker" layer anyway, it is removed and scrolling works again (English, French, Arabic, Spanish and German wording). Ordinary full-screen layers are left alone.
+- New test: `tests/test_antiadblock.py`.
+
 ## 2.1.1
 
 - Better blocking on Arabic, Moroccan and French sites: tested on 45 sites (Hespress, Le360, Hibapress, Kooora, Al Jazeera, Youm7, FilGoal, 20 Minutes and others), 81 visible ads without the extension and 0 with it.

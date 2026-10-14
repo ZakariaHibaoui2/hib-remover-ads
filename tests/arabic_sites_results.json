@@ -1,8 +1,8 @@
 {
   "totals": {
-    "plain_visible": 81,
+    "plain_visible": 94,
     "hush_visible": 0,
-    "plain_ad_loads": 22979,
+    "plain_ad_loads": 17264,
     "hush_ad_loads": 36
   },
   "sites": [
@@ -10,16 +10,21 @@
       "name": "hespress",
       "url": "https://www.hespress.com",
       "plain": {
-        "ad_requests": 104,
-        "loaded_ad": 94,
+        "ad_requests": 129,
+        "loaded_ad": 120,
         "blocked": 0,
         "popups": 0,
-        "text": 7746,
-        "visible_ads": 2,
+        "text": 7827,
+        "visible_ads": 3,
         "ads": [
           {
             "chain": "div#div-gpt-ad-1608047063415-0 < div.col.ablock.bill < div.row.ad-section < div.container < div.container-fluid",
-            "src": "https://0fbf13011b30dfc0a8ab0b4138dce25f.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://c24c8147c6891f0d0193a3986157551e.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "970x250"
+          },
+          {
+            "chain": "div#div-gpt-ad-1618583610512-0 < div.col.ablock.bill < div.row.ad-section < div.container < div.container-fluid",
+            "src": "https://c24c8147c6891f0d0193a3986157551e.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "970x250"
           },
           {
@@ -36,14 +41,14 @@
         "loaded_ad": 1,
         "blocked": 4,
         "popups": 0,
-        "text": 7810,
+        "text": 7764,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.hespress.com/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "78e14c78-330b-4a15-b8f4-4304c0c55e68",
+          "68ef09da-b6b4-4e93-af85-c11da65364fc",
           "i1.hespress.com",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "pagead2.googlesyndication.com",
@@ -56,28 +61,28 @@
         ],
         "ok": true
       },
-      "text_ratio": 1.01,
+      "text_ratio": 0.99,
       "possible_breakage": false
     },
     {
       "name": "le360",
       "url": "https://le360.ma",
       "plain": {
-        "ad_requests": 30,
-        "loaded_ad": 29,
+        "ad_requests": 29,
+        "loaded_ad": 28,
         "blocked": 0,
         "popups": 0,
-        "text": 10720,
+        "text": 10052,
         "visible_ads": 2,
         "ads": [
           {
-            "chain": "iframe#rv-h5-3dcf466593 < div.ad-le360-container < div.advanced-grid-1.layout-section < section.col-sm-12.col-md-12.col-xl-3 < div.row",
-            "src": "https://pub.le360.ma/images/b40aaa961f3485f253dea03698ae560e/index.html?clickTag=https%3A%2F%2Fpub.le360.ma%2Fads360%2Fw",
+            "chain": "iframe#rv-h5-9f2a9d8af4 < div.ad-le360-container < div.advanced-grid-1.layout-section < section.col-sm-12.col-md-12.col-xl-3 < div.row",
+            "src": "https://pub.le360.ma/images/5a607824399f23df778c243b1e8f3d3b/index.html?clickTag=https%3A%2F%2Fpub.le360.ma%2Fads360%2Fw",
             "size": "300x250"
           },
           {
-            "chain": "iframe#rv-h5-3dcf466593 < div.ad-le360-container < div.advanced-grid-1.layout-section < section.col-sm-12.col-md-12.col-xl-3 < div.row",
-            "src": "https://pub.le360.ma/images/b40aaa961f3485f253dea03698ae560e/index.html?clickTag=https%3A%2F%2Fpub.le360.ma%2Fads360%2Fw",
+            "chain": "iframe#rv-h5-9f2a9d8af4 < div.ad-le360-container < div.advanced-grid-1.layout-section < section.col-sm-12.col-md-12.col-xl-3 < div.row",
+            "src": "https://pub.le360.ma/images/5a607824399f23df778c243b1e8f3d3b/index.html?clickTag=https%3A%2F%2Fpub.le360.ma%2Fads360%2Fw",
             "size": "300x250"
           }
         ],
@@ -89,7 +94,7 @@
         "loaded_ad": 0,
         "blocked": 8,
         "popups": 0,
-        "text": 10585,
+        "text": 9917,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://fr.le360.ma/",
@@ -149,11 +154,11 @@
       "name": "alyaoum24",
       "url": "https://alyaoum24.com",
       "plain": {
-        "ad_requests": 4480,
-        "loaded_ad": 4199,
+        "ad_requests": 3042,
+        "loaded_ad": 2685,
         "blocked": 0,
         "popups": 0,
-        "text": 5796,
+        "text": 5737,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://alyaoum24.com/",
@@ -164,7 +169,7 @@
         "loaded_ad": 1,
         "blocked": 9,
         "popups": 0,
-        "text": 5787,
+        "text": 5728,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://alyaoum24.com/",
@@ -174,7 +179,7 @@
         ],
         "script_hosts": [
           "alyaoum24.com",
-          "c3b855bd-99a7-4b2c-8abd-0de1841976bb",
+          "ea0e7175-13cd-4bc2-8c21-e3e66b83dc50",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "scripts.adeqmedia.com",
           "securepubads.g.doubleclick.net",
@@ -192,17 +197,22 @@
       "name": "goud",
       "url": "https://www.goud.ma",
       "plain": {
-        "ad_requests": 3593,
-        "loaded_ad": 3362,
+        "ad_requests": 2072,
+        "loaded_ad": 1868,
         "blocked": 0,
         "popups": 1,
-        "text": 4523,
-        "visible_ads": 2,
+        "text": 4718,
+        "visible_ads": 3,
         "ads": [
           {
             "chain": "div#div-gpt-ad-9981614720555-0.container < div#page.site",
             "src": "",
             "size": "1310x250"
+          },
+          {
+            "chain": "div#div-gpt-ad-5186577377819-0.container < section.gd-section < main#primary.site-main.container < div#page.site",
+            "src": "",
+            "size": "1200x250"
           },
           {
             "chain": "div#div-gpt-ad-1714467165204-0.hidden",
@@ -218,14 +228,14 @@
         "loaded_ad": 1,
         "blocked": 3,
         "popups": 0,
-        "text": 4517,
+        "text": 4733,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.goud.ma/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "73d1ea09-e4ad-4dba-b557-f9ed24843561",
+          "62f09a92-b491-4ab8-a851-d813f0ddc627",
           "cdn.pabidding.io",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "pahtag.tech",
@@ -242,17 +252,22 @@
       "name": "barlamane",
       "url": "https://www.barlamane.com",
       "plain": {
-        "ad_requests": 60,
-        "loaded_ad": 44,
+        "ad_requests": 103,
+        "loaded_ad": 78,
         "blocked": 0,
         "popups": 1,
-        "text": 9369,
-        "visible_ads": 2,
+        "text": 9362,
+        "visible_ads": 3,
         "ads": [
           {
+            "chain": "div#div-gpt-ad-1539950505438-0 < div#tie-widget-footer-ads_300x600-3.container-wrapper.widget.widget_ads_300x600 < div.theiaStickySidebar < aside.sidebar.tie-col-md-4.tie-col-xs-12 < div.tie-row.main-content-row",
+            "src": "https://567c7a3fb9e99204de3e9be0d813cce4.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "345x600"
+          },
+          {
             "chain": "div#div-gpt-ad-1758018401540-0 < center < div.textwidget.custom-html-widget < div#custom_html-3.widget_text.container-wrapper.widget < div.theiaStickySidebar",
-            "src": "",
-            "size": "345x250"
+            "src": "https://567c7a3fb9e99204de3e9be0d813cce4.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "345x600"
           },
           {
             "chain": "div#div-gpt-ad-1758019151824-0 < div.textwidget.custom-html-widget < div#custom_html-4.widget_text.container-wrapper.widget < div.theiaStickySidebar < aside.sidebar.tie-col-md-4.tie-col-xs-12",
@@ -268,7 +283,7 @@
         "loaded_ad": 2,
         "blocked": 2,
         "popups": 0,
-        "text": 9369,
+        "text": 9362,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://barlamane.com/",
@@ -276,7 +291,7 @@
         "frames": [],
         "script_hosts": [
           "",
-          "0297edbf-e54e-4654-905a-4f3e56b95462",
+          "9b1438ce-7915-47a6-a3b8-06e0253531cd",
           "barlamane.com",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "securepubads.g.doubleclick.net",
@@ -296,17 +311,17 @@
         "loaded_ad": 54,
         "blocked": 0,
         "popups": 0,
-        "text": 16796,
+        "text": 16886,
         "visible_ads": 2,
         "ads": [
           {
             "chain": "div#div-gpt-ad-1528556605501-1 < div.textwidget < div < div.ad-billboard",
-            "src": "https://dfb2d2f2b57d20e72c9e9f08d04fd76f.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://dcc2cda86e8b049286171a5bff8da7b2.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "1004x250"
           },
           {
             "chain": "div#div-gpt-ad-1528556605501-3 < div.textwidget < div < div.aside-content < aside.aside",
-            "src": "https://dfb2d2f2b57d20e72c9e9f08d04fd76f.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://dcc2cda86e8b049286171a5bff8da7b2.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "300x250"
           }
         ],
@@ -318,14 +333,14 @@
         "loaded_ad": 1,
         "blocked": 2,
         "popups": 0,
-        "text": 16794,
+        "text": 16884,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://chouftv.net/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "31f7fba9-bf1a-49ea-8371-9d2930716a07",
+          "4c7c3c10-93d2-4f85-8cef-e24c05ccd34e",
           "cdn.jsdelivr.net",
           "cdnjs.cloudflare.com",
           "chouftv.net",
@@ -344,11 +359,11 @@
       "name": "avito",
       "url": "https://www.avito.ma",
       "plain": {
-        "ad_requests": 61,
-        "loaded_ad": 53,
+        "ad_requests": 62,
+        "loaded_ad": 54,
         "blocked": 0,
         "popups": 0,
-        "text": 4765,
+        "text": 12199,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.avito.ma/",
@@ -359,14 +374,14 @@
         "loaded_ad": 1,
         "blocked": 2,
         "popups": 0,
-        "text": 4540,
+        "text": 12053,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.avito.ma/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "0a0f6e94-beb1-4be9-a6c0-91363556a5ff",
+          "aeadcf7a-61a7-47e9-a986-c44cf4908d65",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "securepubads.g.doubleclick.net",
           "static.cloudflareinsights.com",
@@ -375,7 +390,7 @@
         ],
         "ok": true
       },
-      "text_ratio": 0.95,
+      "text_ratio": 0.99,
       "possible_breakage": false
     },
     {
@@ -386,7 +401,7 @@
         "loaded_ad": 45,
         "blocked": 0,
         "popups": 0,
-        "text": 28785,
+        "text": 28368,
         "visible_ads": 2,
         "ads": [
           {
@@ -408,17 +423,18 @@
         "loaded_ad": 1,
         "blocked": 48,
         "popups": 0,
-        "text": 28785,
+        "text": 28368,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://medias24.com/",
         "candidates": [],
         "frames": [
           "www.youtube.com",
-          "embed.acast.com"
+          "embed.acast.com",
+          "www.facebook.com"
         ],
         "script_hosts": [
-          "c6c1460a-1bc5-4d6a-a156-3f14d0712342",
+          "4f75f6ec-6f71-4663-a561-c167f8ca82f8",
           "cdn.jsdelivr.net",
           "cdn.matomo.cloud",
           "code.jquery.com",
@@ -428,6 +444,7 @@
           "s3.amazonaws.com",
           "securepubads.g.doubleclick.net",
           "static.doubleclick.net",
+          "static.xx.fbcdn.net",
           "www.google.com",
           "www.googletagmanager.com",
           "www.youtube.com"
@@ -441,11 +458,11 @@
       "name": "lematin",
       "url": "https://lematin.ma",
       "plain": {
-        "ad_requests": 4100,
-        "loaded_ad": 3699,
+        "ad_requests": 2605,
+        "loaded_ad": 2311,
         "blocked": 0,
         "popups": 0,
-        "text": 30964,
+        "text": 23767,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://lematin.ma/",
@@ -454,17 +471,19 @@
       "hush": {
         "ad_requests": 10,
         "loaded_ad": 1,
-        "blocked": 11,
+        "blocked": 13,
         "popups": 0,
-        "text": 30890,
+        "text": 23704,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://lematin.ma/",
         "candidates": [],
-        "frames": [],
+        "frames": [
+          "www.facebook.com"
+        ],
         "script_hosts": [
+          "5e99f8bf-f74c-42e9-9e42-9cb3824127ba",
           "applets.ebxcdn.com",
-          "b900dd9d-228d-4d5a-911e-a221e5f209df",
           "cdn.onesignal.com",
           "imasdk.googleapis.com",
           "lematin.ma",
@@ -474,6 +493,7 @@
           "s1.lematin.ma",
           "securepubads.g.doubleclick.net",
           "static.chartbeat.com",
+          "static.xx.fbcdn.net",
           "tags.refinery89.com",
           "www.googletagmanager.com"
         ],
@@ -486,11 +506,11 @@
       "name": "yabiladi",
       "url": "https://www.yabiladi.com",
       "plain": {
-        "ad_requests": 54,
-        "loaded_ad": 52,
+        "ad_requests": 81,
+        "loaded_ad": 71,
         "blocked": 0,
-        "popups": 0,
-        "text": 16263,
+        "popups": 1,
+        "text": 16485,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.yabiladi.com/",
@@ -501,14 +521,14 @@
         "loaded_ad": 1,
         "blocked": 3,
         "popups": 0,
-        "text": 16263,
+        "text": 16485,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.yabiladi.com/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "649d632d-7308-4737-b4ac-ddb066e75143",
+          "49697d5c-b1c1-425a-8ef9-223fb16c4264",
           "cache.consentframework.com",
           "choices.consentframework.com",
           "code.jquery.com",
@@ -530,12 +550,12 @@
       "name": "akhbarona",
       "url": "https://www.akhbarona.com",
       "plain": {
-        "ad_requests": 2999,
-        "loaded_ad": 2805,
+        "ad_requests": 2335,
+        "loaded_ad": 2146,
         "blocked": 0,
         "popups": 0,
-        "text": 6342,
-        "visible_ads": 5,
+        "text": 6327,
+        "visible_ads": 10,
         "ads": [
           {
             "chain": "div#div-gpt-ad-1521102400350-4 < div.hero-sec-adds-1 < div.left-add < div.home-main-body < main#main-content.hero-sec.body-display.mt-3",
@@ -544,7 +564,7 @@
           },
           {
             "chain": "div#div-gpt-ad-1521102400350-1 < div.hero-sec-adds-2 < div < div.home-fx-w < div.home-main-body",
-            "src": "https://6f2672ee310fc346b3f0310b77deecbd.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://434015f3564c32392aaa266a799a5504.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "970x250"
           },
           {
@@ -553,9 +573,34 @@
             "size": "299x274"
           },
           {
-            "chain": "ins.adsbygoogle.adsbygoogle-noablate < div.google-auto-placed < div.newspaper-sec < div < div.home-fx-w",
+            "chain": "div#div-gpt-ad-1724614950062-0 < center < div.hero-sec-adds-2 < div.col-md-12.mt-3 < div.newspaper-sec",
+            "src": "https://434015f3564c32392aaa266a799a5504.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "970x250"
+          },
+          {
+            "chain": "iframe#aswift_1 < div#aswift_1_host < ins.adsbygoogle.adsbygoogle-noablate < div.google-auto-placed < div",
+            "src": "https://googleads.g.doubleclick.net/pagead/ads?gdpr=0&client=ca-pub-6335589077419475&output=html&h=280&adk=3246653501&ad",
+            "size": "940x280"
+          },
+          {
+            "chain": "ins.adsbygoogle.adsbygoogle-noablate < div.google-auto-placed < div.newspaper-3 < div.newspaper-sec < div",
             "src": "",
-            "size": "970x280"
+            "size": "970x248"
+          },
+          {
+            "chain": "ins.adsbygoogle.adsbygoogle-noablate < div.google-auto-placed < div.newspaper-4 < div.newspaper-sec < div",
+            "src": "",
+            "size": "970x248"
+          },
+          {
+            "chain": "div#div-gpt-ad-1518636279794-0 < div.headline_banner < div.hero-sec-adds-4 < aside.sport-fresh-v2__ad < div.sport-fresh-v2__layout",
+            "src": "",
+            "size": "300x250"
+          },
+          {
+            "chain": "div#div-gpt-ad-1785773774827-0 < div.headline_banner.homepage-education-ad < div.hero-sec-adds-4 < div.col-4.col-sm-4.col-md-4 < div.row",
+            "src": "",
+            "size": "300x250"
           },
           {
             "chain": "div#div-gpt-ad-1521102400350-3 < div.hero-sec-adds-3 < div.right-add < div.home-main-body < main#main-content.hero-sec.body-display.mt-3",
@@ -571,14 +616,14 @@
         "loaded_ad": 1,
         "blocked": 3,
         "popups": 0,
-        "text": 7200,
+        "text": 7356,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.akhbarona.com/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "060519b8-40e8-4979-b1f8-212f88514275",
+          "780bac19-17e6-42d5-b154-04adb3aa37f4",
           "cdn.pabidding.io",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "pagead2.googlesyndication.com",
@@ -588,23 +633,23 @@
         ],
         "ok": true
       },
-      "text_ratio": 1.14,
+      "text_ratio": 1.16,
       "possible_breakage": false
     },
     {
       "name": "assabah",
       "url": "https://assabah.ma",
       "plain": {
-        "ad_requests": 81,
-        "loaded_ad": 58,
+        "ad_requests": 96,
+        "loaded_ad": 68,
         "blocked": 0,
         "popups": 0,
-        "text": 8843,
+        "text": 9077,
         "visible_ads": 1,
         "ads": [
           {
             "chain": "div#gpt-passback < div.stream-item-size < div.stream-item.stream-item-above-header < div#tie-wrapper < div#tie-container.site.tie-container",
-            "src": "https://aae370dd78c0440d793a5a3a323eeeeb.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://14ef2cc11928a868102dfd96be688648.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "1298x150"
           }
         ],
@@ -616,7 +661,7 @@
         "loaded_ad": 3,
         "blocked": 16,
         "popups": 0,
-        "text": 9035,
+        "text": 9164,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://assabah.ma/",
@@ -625,7 +670,7 @@
           "www.google.com"
         ],
         "script_hosts": [
-          "66652cb9-4fb9-447a-a079-43b4761d2c83",
+          "748242d2-721a-4cd3-bfc4-0f445318e730",
           "ajax.googleapis.com",
           "assabah.ma",
           "c0.wp.com",
@@ -647,24 +692,24 @@
         ],
         "ok": true
       },
-      "text_ratio": 1.02,
+      "text_ratio": 1.01,
       "possible_breakage": false
     },
     {
       "name": "lesiteinfo",
       "url": "https://www.lesiteinfo.com",
       "plain": {
-        "ad_requests": 74,
-        "loaded_ad": 60,
+        "ad_requests": 78,
+        "loaded_ad": 61,
         "blocked": 0,
         "popups": 0,
-        "text": 14349,
+        "text": 14494,
         "visible_ads": 3,
         "ads": [
           {
-            "chain": "div#div-gpt-ad-1559657197230-0 < div",
+            "chain": "div#div-gpt-ad-1774534571422-0.DfpAm__inner.adm-ad-rendered < div.DfpAm.DfpAm--BLOC2 < div.AmPlaceholder__skeletonAdContainer < div.AmPlaceholder__skeleton < div.AmPlaceholder.has-placeholder.has-skeleton",
             "src": "",
-            "size": "1349x950"
+            "size": "970x250"
           },
           {
             "chain": "div#div-gpt-ad-1774622782155-0.DfpAm__inner.adm-ad-rendered < div.DfpAm.DfpAm--BLOC1 < div.AmPlaceholder__skeletonAdContainer < div.AmPlaceholder__skeleton < div.AmPlaceholder.has-placeholder.has-skeleton",
@@ -685,7 +730,7 @@
         "loaded_ad": 2,
         "blocked": 12,
         "popups": 0,
-        "text": 14274,
+        "text": 14419,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.lesiteinfo.com/",
@@ -696,9 +741,9 @@
         ],
         "script_hosts": [
           "",
+          "91e62d27-350b-4e0a-92ba-d57b34e8d378",
           "c0.wp.com",
           "cdn.onesignal.com",
-          "dac426a7-749a-4313-8a34-b3e6b7620077",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "onesignal.com",
           "securepubads.g.doubleclick.net",
@@ -758,17 +803,17 @@
       "name": "elbotola",
       "url": "https://www.elbotola.com",
       "plain": {
-        "ad_requests": 78,
-        "loaded_ad": 68,
+        "ad_requests": 74,
+        "loaded_ad": 60,
         "blocked": 0,
         "popups": 0,
-        "text": 6237,
+        "text": 5888,
         "visible_ads": 1,
         "ads": [
           {
-            "chain": "aside.min-h-0.relative.z-10 < div.hidden.lg:block < main#js-main.js-main.min-h-screen",
-            "src": "https://dcb06da7823f741bdd9e7e9e2eae5486.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
-            "size": "1020x288"
+            "chain": "aside.min-h-0.flex.w-full < div.flex.flex-col.gap-4 < div.relative.z-10.mx-auto < div.min-h-screen < main#js-main.js-main.min-h-screen",
+            "src": "https://0ef2591c2227ca1db1d4eb1ef3614745.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "1020x256"
           }
         ],
         "final_url": "https://www.elbotola.com/",
@@ -779,14 +824,14 @@
         "loaded_ad": 1,
         "blocked": 2,
         "popups": 0,
-        "text": 5306,
+        "text": 5010,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.elbotola.com/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "821beca3-305e-44a3-99e5-7d8e7ed0d3fc",
+          "780e395c-baf5-4118-b14b-38ec1c9cf881",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "securepubads.g.doubleclick.net",
           "www.elbotola.com",
@@ -801,12 +846,12 @@
       "name": "telquel",
       "url": "https://telquel.ma",
       "plain": {
-        "ad_requests": 50,
-        "loaded_ad": 34,
+        "ad_requests": 57,
+        "loaded_ad": 38,
         "blocked": 0,
         "popups": 0,
-        "text": 9723,
-        "visible_ads": 2,
+        "text": 9858,
+        "visible_ads": 3,
         "ads": [
           {
             "chain": "div#div-gpt-ad-1520421926682-0 < header.header < main.main < div.wrapper",
@@ -817,6 +862,11 @@
             "chain": "div#div-gpt-ad-1520421926682-3 < div.pub < div.col-small.col-sticky.is_stuck < div.container.margin < main.main",
             "src": "",
             "size": "300x250"
+          },
+          {
+            "chain": "div#div-gpt-ad-1529683533499-0 < div.pub < div.col-small < div.container.margin < section.section",
+            "src": "",
+            "size": "300x600"
           }
         ],
         "final_url": "https://telquel.ma/",
@@ -827,7 +877,7 @@
         "loaded_ad": 1,
         "blocked": 7,
         "popups": 0,
-        "text": 9723,
+        "text": 9858,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://telquel.ma/",
@@ -840,7 +890,7 @@
         ],
         "frames": [],
         "script_hosts": [
-          "0c144306-dc73-467e-95f6-bb4ac1382ee5",
+          "35aba9b5-cece-443d-8fd2-20e5e30fdc52",
           "cdn.cxense.com",
           "cdn.jsdelivr.net",
           "cdn.tinypass.com",
@@ -866,20 +916,15 @@
       "name": "snrtnews",
       "url": "https://snrtnews.com",
       "plain": {
-        "ad_requests": 56,
-        "loaded_ad": 40,
+        "ad_requests": 39,
+        "loaded_ad": 33,
         "blocked": 0,
         "popups": 0,
-        "text": 20603,
-        "visible_ads": 2,
+        "text": 22748,
+        "visible_ads": 1,
         "ads": [
           {
-            "chain": "div#div-gpt-ad-1776162066984-0.ads-section < app-paving.ng-star-inserted < div.billboard-ad-container < div.app-header-fixed.header--hidden < div.app-wrapper",
-            "src": "",
-            "size": "970x90"
-          },
-          {
-            "chain": "div#div-gpt-ad-1776163518700-0.ads-section < app-paving < div.leaderboard-ad-container.my-3.ng-star-inserted < div.col-lg-8.col-md-12.order-1 < div.row",
+            "chain": "div#div-gpt-ad-1776163518700-0.ads-section < app-paving < div.leaderboard-ad-container.my-3 < div.col-lg-8.col-md-12.order-1 < div.row",
             "src": "",
             "size": "728x90"
           }
@@ -892,7 +937,7 @@
         "loaded_ad": 1,
         "blocked": 8,
         "popups": 0,
-        "text": 20603,
+        "text": 22748,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://snrtnews.com/fr",
@@ -902,8 +947,8 @@
           "www.youtube.com"
         ],
         "script_hosts": [
+          "95d610b8-5361-4a68-9b47-1cc8f92d0b66",
           "api.onesignal.com",
-          "cd386a90-abd6-4bd0-80d8-877dc6c4e4a1",
           "cdn.onesignal.com",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "securepubads.g.doubleclick.net",
@@ -923,28 +968,13 @@
       "name": "kooora",
       "url": "https://www.kooora.com",
       "plain": {
-        "ad_requests": 640,
-        "loaded_ad": 505,
+        "ad_requests": 672,
+        "loaded_ad": 593,
         "blocked": 0,
         "popups": 0,
-        "text": 10962,
-        "visible_ads": 4,
+        "text": 12358,
+        "visible_ads": 1,
         "ads": [
-          {
-            "chain": "div#ad-leaderboard < div#ad-wrapper-ad-leaderboard.fco-longitude-ad.lngtd-ad-wrapper-banner < div.fco-ad__sticky-container < div.fco-ad__main-container < div.fco-ad.fco-longitude-ad__wrapper.fco-ad__hide-on-mobile",
-            "src": "about:blank",
-            "size": "970x90"
-          },
-          {
-            "chain": "div#ad-gameday-mpu < div#ad-wrapper-ad-gameday-mpu.fco-longitude-ad.lngtd-ad-wrapper-banner < div.fco-ad__sticky-container < div.fco-ad__main-container < div.fco-ad.fco-longitude-ad__wrapper.fco-ad__hide-on-mobile",
-            "src": "",
-            "size": "300x600"
-          },
-          {
-            "chain": "div#ad-ow-slot < div#ad-wrapper-ad-ow-slot.fco-longitude-ad-slot__container.lngtd-ad-wrapper-banner < div.fco-longitude-ad-slot < div.fco-ad__sticky-container < div.fco-ad__main-container",
-            "src": "",
-            "size": "984x307"
-          },
           {
             "chain": "div#ad-topmpu < div#ad-wrapper-ad-topmpu.fco-longitude-ad.lngtd-ad-wrapper-banner < div.fco-ad__sticky-container < div.fco-ad__main-container < div.fco-ad.fco-longitude-ad__wrapper.fco-ad__hide-on-mobile",
             "src": "",
@@ -955,11 +985,11 @@
         "ok": true
       },
       "hush": {
-        "ad_requests": 40,
+        "ad_requests": 58,
         "loaded_ad": 0,
         "blocked": 22,
         "popups": 0,
-        "text": 10897,
+        "text": 12293,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.kooora.com/",
@@ -972,7 +1002,7 @@
           {
             "chain": "div.fco-gameday-with-ad-container < div.fco-section-inner-container < div.fco-section-outer-container < div.skin-layout_background-wrapper__6kKg0 < main.home_home__CyQ3Y",
             "src": "",
-            "size": "1302x708"
+            "size": "1302x544"
           }
         ],
         "frames": [
@@ -1000,20 +1030,20 @@
       "name": "aljazeera",
       "url": "https://www.aljazeera.net",
       "plain": {
-        "ad_requests": 1550,
-        "loaded_ad": 1468,
+        "ad_requests": 1299,
+        "loaded_ad": 1268,
         "blocked": 0,
         "popups": 0,
-        "text": 17650,
+        "text": 18060,
         "visible_ads": 2,
         "ads": [
           {
-            "chain": "div#div-gpt-ad-511755848477.freestar-ads < div < div.ads__slot < div.ads < div.container--ads.container--ads-leaderboard-atf",
-            "src": "",
-            "size": "728x90"
+            "chain": "div#div-gpt-ad-528734065318.freestar-ads < div < div.ads__slot < div.ads < div.container--ads.container--ads-leaderboard-atf",
+            "src": "https://bccdb585c661c8b7bb748a215e356e10.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "970x250"
           },
           {
-            "chain": "div#div-gpt-ad-984289265881.freestar-ads < div < div.ads__slot < div.ads.homepage-ad-left < div.container--ads.sticky-ads",
+            "chain": "div#div-gpt-ad-740996374352.freestar-ads < div < div.ads__slot < div.ads.homepage-ad-left < div.container--ads.sticky-ads",
             "src": "",
             "size": "370x250"
           }
@@ -1024,9 +1054,9 @@
       "hush": {
         "ad_requests": 9,
         "loaded_ad": 1,
-        "blocked": 16,
+        "blocked": 15,
         "popups": 0,
-        "text": 17640,
+        "text": 18048,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.aljazeera.net/",
@@ -1066,11 +1096,11 @@
       "name": "alarabiya",
       "url": "https://www.alarabiya.net",
       "plain": {
-        "ad_requests": 78,
-        "loaded_ad": 59,
+        "ad_requests": 76,
+        "loaded_ad": 58,
         "blocked": 0,
         "popups": 0,
-        "text": 9497,
+        "text": 8678,
         "visible_ads": 2,
         "ads": [
           {
@@ -1092,7 +1122,7 @@
         "loaded_ad": 0,
         "blocked": 5,
         "popups": 0,
-        "text": 9390,
+        "text": 8567,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.alarabiya.net/",
@@ -1114,12 +1144,12 @@
       "name": "youm7",
       "url": "https://www.youm7.com",
       "plain": {
-        "ad_requests": 477,
-        "loaded_ad": 456,
+        "ad_requests": 292,
+        "loaded_ad": 265,
         "blocked": 0,
         "popups": 0,
-        "text": 13335,
-        "visible_ads": 9,
+        "text": 14127,
+        "visible_ads": 10,
         "ads": [
           {
             "chain": "div#div-gpt-ad-1559564788698-0 < div.leftAdsFix.leftAdsFix1 < main.container.bodyCon",
@@ -1140,6 +1170,11 @@
             "chain": "div#div-gpt-ad-1600961287759-0 < div.col-xs-4.midAdv-cont < div.row.slider-and-adv < div.container < div.row.bodyCC",
             "src": "",
             "size": "300x250"
+          },
+          {
+            "chain": "div#div-gpt-ad-1559749015733-0 < div.row.leaderBoard1 < center < div.container < div.row.bodyCC",
+            "src": "https://4fdc3b9ed858e3c510764ff00a9c16bf.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "968x250"
           },
           {
             "chain": "div#div-gpt-ad-1785247051880-0 < div.midAdv-cont.midAdv-cont < aside.col-xs-4.left-Content < div.row.news-content < div.container",
@@ -1175,7 +1210,7 @@
         "loaded_ad": 3,
         "blocked": 5,
         "popups": 0,
-        "text": 14053,
+        "text": 14121,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.youm7.com/",
@@ -1184,8 +1219,8 @@
           "rss.app"
         ],
         "script_hosts": [
-          "2c9d18de-9571-4af7-9342-a528f75ceeca",
           "cdn.qwtag.com",
+          "d8ed2b0d-15c2-489a-943a-f92f3148d8bf",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "pagead2.googlesyndication.com",
           "rss.app",
@@ -1197,33 +1232,33 @@
         ],
         "ok": true
       },
-      "text_ratio": 1.05,
+      "text_ratio": 1.0,
       "possible_breakage": false
     },
     {
       "name": "masrawy",
       "url": "https://www.masrawy.com",
       "plain": {
-        "ad_requests": 142,
-        "loaded_ad": 117,
+        "ad_requests": 143,
+        "loaded_ad": 113,
         "blocked": 0,
         "popups": 0,
-        "text": 7712,
+        "text": 7835,
         "visible_ads": 3,
         "ads": [
           {
             "chain": "div#MediumRectangle < div.adAsync < div#ShowCaseWeb.showcase.sc1 < section#firstSC.showcaseDiv < div.leftSide",
-            "src": "https://26ac5fe636c5b1d4f59c30cba51a6577.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://2bfaea9fdfcd1731cecd8493ae43bfe1.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "300x250"
           },
           {
             "chain": "div#Leaderboard < div.adAsync < div.billboard.bb1 < div.billboardCnts < section.billboardDiv",
-            "src": "https://26ac5fe636c5b1d4f59c30cba51a6577.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
-            "size": "728x250"
+            "src": "https://2bfaea9fdfcd1731cecd8493ae43bfe1.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "728x90"
           },
           {
             "chain": "div#google_ads_iframe_/96551095/NorthPlacement/NorthMasrawy_0__container__ < div#north-gpt-passback < div#gpSliderContent < div#gpSlider.active",
-            "src": "https://26ac5fe636c5b1d4f59c30cba51a6577.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://2bfaea9fdfcd1731cecd8493ae43bfe1.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "240x200"
           }
         ],
@@ -1235,14 +1270,14 @@
         "loaded_ad": 1,
         "blocked": 5,
         "popups": 0,
-        "text": 7664,
+        "text": 7794,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.masrawy.com/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "1d25185f-873a-4df4-ad40-5fa877dc3324",
+          "00eb770a-ac26-43f7-af32-8b2bdc6d7df4",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "securepubads.g.doubleclick.net",
           "static.cloudflareinsights.com",
@@ -1259,12 +1294,12 @@
       "name": "elbalad",
       "url": "https://www.elbalad.news",
       "plain": {
-        "ad_requests": 228,
-        "loaded_ad": 198,
+        "ad_requests": 345,
+        "loaded_ad": 308,
         "blocked": 0,
         "popups": 0,
-        "text": 12395,
-        "visible_ads": 5,
+        "text": 12551,
+        "visible_ads": 6,
         "ads": [
           {
             "chain": "div#div-home-top < div.cont < div.adfull.m < div.left-area < div.container",
@@ -1284,12 +1319,17 @@
           {
             "chain": "div#div-home-mpu1 < div.cont < div.adfull.m < div.col-4.left-col < div.row",
             "src": "",
-            "size": "300x300"
+            "size": "250x300"
           },
           {
-            "chain": "div#adSlot_20726_17918362216acd403da97db_2.swiper-slide.swiper-slide-active < div#swiper-wrapper-a6ee6cfe28f3ab34.swiper-wrapper < div.swiper-container.achernar__carousel.swiper-container-initialized < div.achernar__unit < div.achernar__innerWrapper",
-            "src": "https://370a7a7034960169cca45cfabedcd42f.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
-            "size": "1024x768"
+            "chain": "div#div-home-mpu2 < div#Inner-Col1 < div.cont < div.adfull.m < div.col-4.left-col",
+            "src": "",
+            "size": "360x260"
+          },
+          {
+            "chain": "div#adSlot_20726_17919960816acfb0b17182d_2.swiper-slide.swiper-slide-active < div#swiper-wrapper-1b12558921545e80.swiper-wrapper < div.swiper-container.achernar__carousel.swiper-container-initialized < div.achernar__unit < div.achernar__innerWrapper",
+            "src": "https://8a5a7cb2c9a01a1d641c5a4fcde45c29.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "970x250"
           }
         ],
         "final_url": "https://www.elbalad.news/",
@@ -1300,15 +1340,15 @@
         "loaded_ad": 1,
         "blocked": 3,
         "popups": 0,
-        "text": 12336,
+        "text": 12537,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.elbalad.news/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "7ffbffed-a756-4d20-97d9-7653ca638a14",
           "ad.vidverto.io",
+          "d20c42ed-debe-436d-8b54-f1f567d0c990",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "securepubads.g.doubleclick.net",
           "www.elbalad.news",
@@ -1358,27 +1398,27 @@
       "name": "skynewsarabia",
       "url": "https://www.skynewsarabia.com",
       "plain": {
-        "ad_requests": 128,
-        "loaded_ad": 106,
+        "ad_requests": 150,
+        "loaded_ad": 126,
         "blocked": 0,
         "popups": 0,
-        "text": 6315,
+        "text": 6220,
         "visible_ads": 4,
         "ads": [
           {
             "chain": "div#SNA_LDR--BB1_Ad_adCallWrapper.oneTag < div#SNA_LDR--BB1_Ad < div#SNA_LDR--BB1_Ad_rlWr.dfp_ad_top_ldb1_desktop.w-100.addelivered < div.ad_center_flex.ad_limit_stack_context.ad-served-from-dfp < div.hide_medium_down.ng-scope",
-            "src": "https://f60c0206239569ed99a8ccb64cebbe0f.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://722574129a5b3a71020a3b4010c749cf.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "1366x250"
           },
           {
             "chain": "div#SNA_Side_MPU1_Ad_710_adCallWrapper.oneTag < div#SNA_Side_MPU1_Ad_710 < div#SNA_Side_MPU1_Ad_710_rlWr.w-100.addelivered < div.mpu_ad_not_rendered_empty.ad-served-from-dfp.mpu_ad_rendered_no_empty < div.hide_medium_down.dfp-ad-desktop-mpu-1.ng-scope",
-            "src": "",
+            "src": "https://722574129a5b3a71020a3b4010c749cf.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "300x250"
           },
           {
             "chain": "div#SNA_Insidepage_LDR--BB2_Ad_8_adCallWrapper.oneTag < div#SNA_Insidepage_LDR--BB2_Ad_8 < div#SNA_Insidepage_LDR--BB2_Ad_8_rlWr.w-100.addelivered < div.ad-served-from-dfp < div.w-100.ng-scope",
-            "src": "",
-            "size": "1346x90"
+            "src": "https://722574129a5b3a71020a3b4010c749cf.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "1346x250"
           },
           {
             "chain": "div#SNA_HM1_Ad_adCallWrapper.oneTag < div#SNA_HM1_Ad < div#SNA_HM1_Ad_rlWr.w-100.addelivered < div < div.halfpage_ad_not_rendered_empty.ad-served-from-dfp.halfpage_ad_rendered_no_empty",
@@ -1390,11 +1430,11 @@
         "ok": true
       },
       "hush": {
-        "ad_requests": 3,
+        "ad_requests": 4,
         "loaded_ad": 0,
         "blocked": 12,
         "popups": 0,
-        "text": 6072,
+        "text": 6030,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.skynewsarabia.com/",
@@ -1402,7 +1442,7 @@
           {
             "chain": "div.cus_html_banner_cont.cus_html_banner_cont_1839283 < div.comp.sna_row < div.body_content.sna_row.ng-scope < section.sna_content_body",
             "src": "",
-            "size": "300x90"
+            "size": "728x90"
           },
           {
             "chain": "div.cus_html_banner_cont.cus_html_banner_cont_1826843 < div.comp.sna_row < div.body_content.sna_row.ng-scope < section.sna_content_body",
@@ -1415,6 +1455,7 @@
           "",
           "cdn.flipboard.com",
           "ssl.p.jwpcdn.com",
+          "static.cloudflareinsights.com",
           "wurfl.io",
           "www.asadcdn.com",
           "www.googletagmanager.com",
@@ -1423,18 +1464,18 @@
         ],
         "ok": true
       },
-      "text_ratio": 0.96,
+      "text_ratio": 0.97,
       "possible_breakage": false
     },
     {
       "name": "sabq",
       "url": "https://sabq.org",
       "plain": {
-        "ad_requests": 134,
-        "loaded_ad": 123,
+        "ad_requests": 111,
+        "loaded_ad": 100,
         "blocked": 0,
         "popups": 0,
-        "text": 12807,
+        "text": 13474,
         "visible_ads": 1,
         "ads": [
           {
@@ -1451,14 +1492,14 @@
         "loaded_ad": 1,
         "blocked": 3,
         "popups": 0,
-        "text": 14605,
+        "text": 13470,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://sabq.org/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "bca735c0-59ca-4a55-9061-f00eb766793e",
+          "10e0c42d-7239-4694-8fd2-fa36fa6e30ea",
           "cdn.sabq.org",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "securepubads.g.doubleclick.net",
@@ -1467,39 +1508,49 @@
         ],
         "ok": true
       },
-      "text_ratio": 1.14,
+      "text_ratio": 1.0,
       "possible_breakage": false
     },
     {
       "name": "filgoal",
       "url": "https://www.filgoal.com",
       "plain": {
-        "ad_requests": 3906,
-        "loaded_ad": 3636,
+        "ad_requests": 3414,
+        "loaded_ad": 3115,
         "blocked": 0,
-        "popups": 1,
-        "text": 5428,
-        "visible_ads": 7,
+        "popups": 0,
+        "text": 4845,
+        "visible_ads": 9,
         "ads": [
           {
             "chain": "div#GPT-SkyScraper-Right-0.GPT.Skyscraper.Skyscraper-Right < div.right < div#takeover_special < div.ads.takeover.sticky_mode < div#m-block.clearfix",
-            "src": "https://bd26d8b5652c473950f51ba3bf3dde08.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://29b51ddc19f0e49dfdc1de1dfdecc3c0.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "160x600"
           },
           {
             "chain": "div#GPT-SkyScraper-Left-0.GPT.Skyscraper.Skyscraper-Left < div.left < div#takeover_special < div.ads.takeover.sticky_mode < div#m-block.clearfix",
-            "src": "https://bd26d8b5652c473950f51ba3bf3dde08.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://29b51ddc19f0e49dfdc1de1dfdecc3c0.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "160x600"
           },
           {
             "chain": "div#GPT-MediumRectangle-1.GPT.MediumRectangle < div.ads.mediumrectangle < div.m_adv < div.row < div#top-content",
-            "src": "https://bd26d8b5652c473950f51ba3bf3dde08.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "",
+            "size": "300x250"
+          },
+          {
+            "chain": "div#GPT-Leaderboard-1.GPT.Leaderboard.ads_wide < div.ads.leaderboard < div.row < div.container < div#m-block.clearfix",
+            "src": "",
+            "size": "728x90"
+          },
+          {
+            "chain": "div#GPT-Non-PremiumMediumRectangle-0.GPT.MediumRectangle-NonPremium < div.grid-item < div.grid-col < div.grid.column_mode < div.row",
+            "src": "https://29b51ddc19f0e49dfdc1de1dfdecc3c0.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "300x250"
           },
           {
             "chain": "div#GPT-MediumRectangle-Premium-2.AdXMediumRectangle < div.ads.mediumrectangle < div.grid-item < div.grid-col < div.grid.column_mode",
-            "src": "",
-            "size": "300x250"
+            "src": "https://29b51ddc19f0e49dfdc1de1dfdecc3c0.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "300x280"
           },
           {
             "chain": "ins.adsbygoogle < div.AdXMediumRectangle < div.ads.mediumrectangle < div.grid-item < div.grid-col",
@@ -1525,14 +1576,14 @@
         "loaded_ad": 1,
         "blocked": 15,
         "popups": 0,
-        "text": 4862,
+        "text": 4278,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.filgoal.com/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "39cf9744-be1f-4d4d-8fa6-9118b2a81808",
+          "8be60c8a-a853-4554-9059-9fe1d61c20cc",
           "cdn.netmera-web.com",
           "cdnjs.cloudflare.com",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
@@ -1545,33 +1596,33 @@
         ],
         "ok": true
       },
-      "text_ratio": 0.9,
+      "text_ratio": 0.88,
       "possible_breakage": false
     },
     {
       "name": "yallakora",
       "url": "https://www.yallakora.com",
       "plain": {
-        "ad_requests": 330,
-        "loaded_ad": 302,
+        "ad_requests": 317,
+        "loaded_ad": 281,
         "blocked": 0,
-        "popups": 1,
-        "text": 5394,
+        "popups": 0,
+        "text": 5581,
         "visible_ads": 6,
         "ads": [
           {
             "chain": "div#MediumRectangle < div.adAsync < div#ShowCaseWeb.showcase.sc1 < section.showcaseDiv < div.leftHP",
-            "src": "https://450ca9b9a2c0d6cefb59e024446e1450.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://a93d9e7c65d158c74a975abe634ad0ba.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "300x250"
           },
           {
             "chain": "div#LeaderBoard2 < div.adAsync < div.leaderboard.lb2 < div.leaderboardCnts < section.leaderboardDiv",
-            "src": "https://450ca9b9a2c0d6cefb59e024446e1450.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "https://a93d9e7c65d158c74a975abe634ad0ba.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "728x90"
           },
           {
             "chain": "div#google_ads_iframe_/96551095/NorthPlacement/NorthYK_0__container__ < div#north-gpt-passback < div#gpSliderContent < div#gpSlider.active",
-            "src": "https://450ca9b9a2c0d6cefb59e024446e1450.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "",
             "size": "240x200"
           },
           {
@@ -1598,14 +1649,14 @@
         "loaded_ad": 1,
         "blocked": 9,
         "popups": 0,
-        "text": 5177,
+        "text": 5314,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.yallakora.com/mainpage",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "3272a656-0f31-4ae7-843f-88630065b080",
+          "5698d66d-f137-4478-b8d5-7f4fbdd00650",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "securepubads.g.doubleclick.net",
           "static.cloudflareinsights.com",
@@ -1616,19 +1667,19 @@
         ],
         "ok": true
       },
-      "text_ratio": 0.96,
+      "text_ratio": 0.95,
       "possible_breakage": false
     },
     {
       "name": "btolat",
       "url": "https://www.btolat.com",
       "plain": {
-        "ad_requests": 156,
-        "loaded_ad": 129,
+        "ad_requests": 229,
+        "loaded_ad": 185,
         "blocked": 0,
         "popups": 0,
-        "text": 5712,
-        "visible_ads": 8,
+        "text": 4177,
+        "visible_ads": 11,
         "ads": [
           {
             "chain": "div#div-gpt-ad-1707916116371-0 < div < div.max.leaderboard < div.specialHeader < div.container-fluid",
@@ -1647,12 +1698,12 @@
           },
           {
             "chain": "div#div-gpt-ad-1707916775114-0 < div < div.assideda < div.displayad < div.col.lastNewsBox",
-            "src": "https://2e8a7181d1143f0d8c5593deaaff9194.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "src": "",
             "size": "300x250"
           },
           {
             "chain": "div#div-gpt-ad-1707917916823-0 < div < div.box < div.leftBoxs < div.col-4.hiddenMob.leftSide",
-            "src": "",
+            "src": "https://def5e2b1e4be403fa8f0a194cc4531d3.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
             "size": "300x250"
           },
           {
@@ -1661,9 +1712,19 @@
             "size": "1099x248"
           },
           {
+            "chain": "div#div-gpt-ad-1695049927001-0 < div.bbox < div.container.btolatBody < div.container-fluid",
+            "src": "https://def5e2b1e4be403fa8f0a194cc4531d3.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+            "size": "1099x280"
+          },
+          {
             "chain": "ins.adsbygoogle.adsbygoogle-noablate < div.google-auto-placed < div < div.container.btolatBody < div.container-fluid",
             "src": "",
             "size": "1099x248"
+          },
+          {
+            "chain": "ins.adsbygoogle.adsbygoogle-noablate < div.google-auto-placed",
+            "src": "",
+            "size": "1366x248"
           },
           {
             "chain": "div#gpt-passback",
@@ -1679,14 +1740,14 @@
         "loaded_ad": 3,
         "blocked": 3,
         "popups": 0,
-        "text": 5575,
+        "text": 5448,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.btolat.com/",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "8fd1f051-e801-4282-b2ea-58114bf00df7",
+          "be8ea14d-61e5-41b1-8cdb-d8377821ed1c",
           "ngmbimgjafoacimmdfbhbgmfbanjoomd",
           "pagead2.googlesyndication.com",
           "securepubads.g.doubleclick.net",
@@ -1695,24 +1756,24 @@
         ],
         "ok": true
       },
-      "text_ratio": 0.98,
+      "text_ratio": 1.3,
       "possible_breakage": false
     },
     {
       "name": "cnnarabic",
       "url": "https://arabic.cnn.com",
       "plain": {
-        "ad_requests": 854,
-        "loaded_ad": 821,
+        "ad_requests": 713,
+        "loaded_ad": 675,
         "blocked": 0,
         "popups": 0,
-        "text": 4478,
+        "text": 4602,
         "visible_ads": 3,
         "ads": [
           {
             "chain": "div#ad_bnr_atf_01.ad.adfuel-rendered < div.ad-slot.adSlotLoaded < div.ad-slot-header__container.adSlotHeaderContainer < div.ad-slot-header.ad-slot-header < div.ad-slot-header__wrapper",
             "src": "",
-            "size": "1366x120"
+            "size": "1366x90"
           },
           {
             "chain": "div#ad_bnr_btf_01.ad.adfuel-rendered < div.ad-slot.adSlotLoaded < div.zone__ads < div.zone__inner.has-pseudo-class-fix-layout--wide-center < div.zone.zone--t-light.zone-1-observer",
@@ -1733,7 +1794,7 @@
         "loaded_ad": 2,
         "blocked": 24,
         "popups": 0,
-        "text": 4437,
+        "text": 4588,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://arabic.cnn.com/",
@@ -1741,8 +1802,8 @@
         "frames": [],
         "script_hosts": [
           "8512b548-2306-4976-a576-a880f2c35e4e.edge.permutive.app",
-          "a76afbcc-297f-4087-8235-6e2997b8643c",
           "ads.stickyadstv.com",
+          "ae0be2a1-2271-4ab7-a6a6-950c1532e9e6",
           "arabic.cnn.com",
           "btloader.com",
           "cdn.optimizely.com",
@@ -1765,20 +1826,25 @@
         ],
         "ok": true
       },
-      "text_ratio": 0.99,
+      "text_ratio": 1.0,
       "possible_breakage": false
     },
     {
       "name": "bbcarabic",
       "url": "https://www.bbc.com/arabic",
       "plain": {
-        "ad_requests": 268,
-        "loaded_ad": 240,
+        "ad_requests": 307,
+        "loaded_ad": 291,
         "blocked": 0,
         "popups": 0,
-        "text": 9056,
-        "visible_ads": 1,
+        "text": 8894,
+        "visible_ads": 2,
         "ads": [
+          {
+            "chain": "div#dotcom-slot-leaderboard.dotcom-slot < div.dotcom-ad-inner < div#dotcom-leaderboard.dotcom-ad.active < section.css-13j0x7y < div.css-xhd3h8",
+            "src": "",
+            "size": "970x250"
+          },
           {
             "chain": "div#dotcom-slot-mpu.dotcom-slot < div.dotcom-ad-inner < div#dotcom-mpu.dotcom-ad.active < section.css-1ygg8gy < div.css-1ajedpd",
             "src": "",
@@ -1793,14 +1859,14 @@
         "loaded_ad": 2,
         "blocked": 17,
         "popups": 0,
-        "text": 9033,
+        "text": 8846,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.bbc.com/arabic",
         "candidates": [],
         "frames": [],
         "script_hosts": [
-          "70ae5eaf-325e-4138-9935-4031b83b5f14",
+          "c9b54f76-dc1e-46df-ba95-eda326f08575",
           "cdn.privacy-mgmt.com",
           "emp.bbc.co.uk",
           "emp.bbci.co.uk",
@@ -1818,7 +1884,7 @@
         ],
         "ok": true
       },
-      "text_ratio": 1.0,
+      "text_ratio": 0.99,
       "possible_breakage": false
     },
     {
@@ -1829,7 +1895,7 @@
         "loaded_ad": 1,
         "blocked": 0,
         "popups": 0,
-        "text": 4929,
+        "text": 5103,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.france24.com/ar/",
@@ -1840,7 +1906,7 @@
         "loaded_ad": 0,
         "blocked": 1,
         "popups": 0,
-        "text": 4917,
+        "text": 5091,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.france24.com/ar/",
@@ -1860,11 +1926,11 @@
       "name": "leparisien",
       "url": "https://www.leparisien.fr",
       "plain": {
-        "ad_requests": 6,
+        "ad_requests": 5,
         "loaded_ad": 3,
         "blocked": 0,
         "popups": 0,
-        "text": 39326,
+        "text": 40432,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.leparisien.fr/",
@@ -1875,7 +1941,7 @@
         "loaded_ad": 0,
         "blocked": 3,
         "popups": 0,
-        "text": 39317,
+        "text": 40423,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.leparisien.fr/",
@@ -1909,7 +1975,7 @@
         "loaded_ad": 10,
         "blocked": 0,
         "popups": 0,
-        "text": 21340,
+        "text": 20944,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.20minutes.fr/",
@@ -1920,7 +1986,7 @@
         "loaded_ad": 0,
         "blocked": 2,
         "popups": 0,
-        "text": 21340,
+        "text": 20944,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.20minutes.fr/",
@@ -1950,7 +2016,7 @@
         "loaded_ad": 22,
         "blocked": 0,
         "popups": 0,
-        "text": 50051,
+        "text": 52409,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.lefigaro.fr/",
@@ -1961,7 +2027,7 @@
         "loaded_ad": 1,
         "blocked": 18,
         "popups": 0,
-        "text": 50015,
+        "text": 52329,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.lefigaro.fr/",
@@ -1995,11 +2061,11 @@
       "name": "jeuxvideo",
       "url": "https://www.jeuxvideo.com",
       "plain": {
-        "ad_requests": 30,
-        "loaded_ad": 26,
+        "ad_requests": 29,
+        "loaded_ad": 27,
         "blocked": 0,
         "popups": 0,
-        "text": 17297,
+        "text": 17475,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.jeuxvideo.com/",
@@ -2010,7 +2076,7 @@
         "loaded_ad": 0,
         "blocked": 4,
         "popups": 0,
-        "text": 17186,
+        "text": 17364,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.jeuxvideo.com/",
@@ -2031,22 +2097,22 @@
       "name": "marmiton",
       "url": "https://www.marmiton.org",
       "plain": {
-        "ad_requests": 31,
-        "loaded_ad": 30,
+        "ad_requests": 32,
+        "loaded_ad": 31,
         "blocked": 0,
         "popups": 0,
-        "text": 10459,
+        "text": 10646,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.marmiton.org/",
         "ok": true
       },
       "hush": {
-        "ad_requests": 6,
+        "ad_requests": 4,
         "loaded_ad": 0,
-        "blocked": 6,
+        "blocked": 4,
         "popups": 0,
-        "text": 10395,
+        "text": 10582,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.marmiton.org/",
@@ -2075,7 +2141,7 @@
         "loaded_ad": 2,
         "blocked": 0,
         "popups": 0,
-        "text": 36650,
+        "text": 36874,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.ouest-france.fr/",
@@ -2086,7 +2152,7 @@
         "loaded_ad": 0,
         "blocked": 1,
         "popups": 0,
-        "text": 32120,
+        "text": 32472,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://www.ouest-france.fr/",
@@ -2107,22 +2173,22 @@
       "name": "akwam",
       "url": "https://ak.sv",
       "plain": {
-        "ad_requests": 1,
-        "loaded_ad": 1,
+        "ad_requests": 31,
+        "loaded_ad": 29,
         "blocked": 0,
         "popups": 0,
-        "text": 492,
+        "text": 644,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://akwam.ss/",
         "ok": true
       },
       "hush": {
-        "ad_requests": 1,
+        "ad_requests": 4,
         "loaded_ad": 0,
-        "blocked": 1,
+        "blocked": 4,
         "popups": 0,
-        "text": 492,
+        "text": 644,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://akwam.ss/",
@@ -2130,7 +2196,10 @@
         "frames": [],
         "script_hosts": [
           "akwam.ss",
-          "static.cloudflareinsights.com"
+          "llvpn.com",
+          "s10.histats.com",
+          "static.cloudflareinsights.com",
+          "www.googletagmanager.com"
         ],
         "ok": true
       },
@@ -2141,8 +2210,8 @@
       "name": "wecima",
       "url": "https://wecima.video",
       "plain": {
-        "ad_requests": 15,
-        "loaded_ad": 12,
+        "ad_requests": 14,
+        "loaded_ad": 11,
         "blocked": 0,
         "popups": 0,
         "text": 210,
@@ -2182,7 +2251,7 @@
         "loaded_ad": 9,
         "blocked": 0,
         "popups": 0,
-        "text": 16497,
+        "text": 16471,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://egybest.la/",
@@ -2193,7 +2262,7 @@
         "loaded_ad": 0,
         "blocked": 2,
         "popups": 0,
-        "text": 16497,
+        "text": 16471,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://egybest.la/",
@@ -2213,14 +2282,14 @@
       "name": "shahid4u",
       "url": "https://shahid4u.cam",
       "plain": {
-        "ad_requests": 5,
-        "loaded_ad": 5,
+        "ad_requests": 22,
+        "loaded_ad": 20,
         "blocked": 0,
         "popups": 0,
-        "text": 243,
+        "text": 2309,
         "visible_ads": 0,
         "ads": [],
-        "final_url": "https://shahid4u.cam/",
+        "final_url": "https://open.spotify.com/intl-ar/track/1YEM8OeppBHudPmeES9c4J?si=dd0ff5b919704219&nd=1&dlsi=d6a1401248da487c",
         "ok": true
       },
       "hush": {
@@ -2244,22 +2313,22 @@
       "name": "arabseed",
       "url": "https://arabseed.show",
       "plain": {
-        "ad_requests": 4,
-        "loaded_ad": 2,
+        "ad_requests": 1,
+        "loaded_ad": 1,
         "blocked": 0,
         "popups": 0,
-        "text": 1588,
+        "text": 1275,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://m.myseed.tv/",
         "ok": true
       },
       "hush": {
-        "ad_requests": 2,
+        "ad_requests": 1,
         "loaded_ad": 0,
-        "blocked": 2,
+        "blocked": 1,
         "popups": 0,
-        "text": 1588,
+        "text": 1275,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://m.myseed.tv/",
@@ -2273,8 +2342,7 @@
         "frames": [],
         "script_hosts": [
           "cdn.lordicon.com",
-          "static.cloudflareinsights.com",
-          "www.googletagmanager.com"
+          "static.cloudflareinsights.com"
         ],
         "ok": true
       },
@@ -2289,7 +2357,7 @@
         "loaded_ad": 0,
         "blocked": 0,
         "popups": 0,
-        "text": 885,
+        "text": 882,
         "visible_ads": 0,
         "ads": [],
         "final_url": "https://cimaclub.day/",
