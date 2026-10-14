@@ -12,3 +12,4 @@ store/*.exe
 
 # Screenshots of third-party sites from the Arabic sites test (large, regenerated on each run)
 tests/screenshots/arabic/
+tests/screenshots/korahlive.png
