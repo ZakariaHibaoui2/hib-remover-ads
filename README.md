@@ -69,6 +69,8 @@ A browser extension can only see the browser. **Hib Remover Ads for Windows** wo
 - **Can't break your internet.** It tests itself before it changes anything. Windows keeps spare DNS servers, so if the app ever stops, lookups carry on without it. Uninstalling puts your DNS setting back exactly as it was.
 - **Private.** Your lookups leave the PC encrypted (DNS over HTTPS). No account, no statistics, no history. See [PRIVACY.md](PRIVACY.md#windows-app).
 
+**Three clicks:** Install, Yes on the Windows permission prompt, done. The installer first checks that your PC is ready (free DNS port, working connection) and tells you in plain words if something is in the way, before it changes anything.
+
 **Get it:** run [HibRemoverAds-Setup.exe](https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe) and leave **"Also block ads in Windows apps"** ticked. It asks for administrator permission once. Only want the Windows app? Download [HibRemoverAds-Windows.exe](https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Windows.exe). Remove it any time from **Settings > Apps**.
 
 </td>
@@ -91,6 +93,9 @@ Tested with [`tests/test_windows.py`](tests/test_windows.py), 43 checks:
 | A first lookup, encrypted over the internet | 48 ms (median, measured from Morocco) |
 | 2,000 lookups from 40 programs at once | about 10,000 per second, no errors |
 | On, off, pause, allow list, IPv6, TCP, damaged packets | all pass |
+| Asked by Windows' own lookup tools on the real DNS port | ad servers get "nowhere", real sites resolve |
+| Install dry run: every adapter set, and put back exactly as it was | pass |
+| Port already in use, second copy, restart | fails cleanly with a clear message, nothing changed |
 
 **What it can't do.** It blocks an ad when the ad comes from an ad server. Apps that send ads from the same servers as their content can't be told apart by name: Spotify's audio ads (muted instead), and the ads inside the YouTube, Facebook and Instagram apps. In the browser, the extension handles YouTube. A VPN, or an app that brings its own DNS, goes around it.
 
@@ -106,7 +111,7 @@ Open **PowerShell** (press the Windows key, type `powershell`, press Enter) and 
 irm https://zakariahibaoui2.github.io/hib-remover-ads/install.ps1 | iex
 ```
 
-It downloads the latest version from this repository, unpacks it to `%LOCALAPPDATA%\Hib Remover Ads\extension`, copies that path and opens your browser's extensions page. You can [read the script](docs/install.ps1) first. Then turn on **Developer mode**, click **Load unpacked**, press **Ctrl+V** and click **Select Folder**.
+It downloads the latest version from this repository, unpacks it to `%LOCALAPPDATA%\Hib Remover Ads\extension`, copies that path and opens your browser's extensions page. Then it asks one question: also block ads in Windows apps? Press Enter for yes and accept the administrator prompt. You can [read the script](docs/install.ps1) first. Then turn on **Developer mode**, click **Load unpacked**, press **Ctrl+V** and click **Select Folder**.
 
 Supported: Chrome, Edge, Brave, Opera, Opera GX, Opera Air, Vivaldi, Yandex, Chromium, Thorium, Cent, Cốc Cốc, Comodo Dragon and Epic.
 
@@ -185,6 +190,7 @@ python tests/test_arabic_sites.py  # 45 Arabic, Moroccan and French sites with a
 python tests/test_real_sites.py    # ad-heavy sites with and without the extension
 python tests/test_performance.py   # load time, CPU and memory with and without the extension
 python tests/test_windows.py       # the Windows app: 43 checks, changes no Windows setting
+python tests/test_install.py       # installing: readiness check, DNS dry run, real DNS port, the downloads, the one-command script (43 checks)
 ```
 
 A [weekly workflow](.github/workflows/update-filters.yml) refreshes the filter lists and opens a pull request when they change.

@@ -354,12 +354,37 @@ namespace HibSetup
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern bool SetProcessDPIAware();
 
+        // For the tests: saves a picture of the first page (or of the last page with --steps) and exits.
+        static void Screenshot(string file, bool steps)
+        {
+            using (var form = new SetupForm())
+            {
+                form.StartPosition = FormStartPosition.Manual;
+                form.Location = new Point(-4000, -4000);
+                form.ShowInTaskbar = false;
+                form.Show();
+                if (steps)
+                {
+                    form.chosen = new Browser("Google Chrome", "chrome.exe", "chrome://extensions");
+                    form.ShowSteps();
+                }
+                Application.DoEvents();
+                using (var bmp = new Bitmap(form.Width, form.Height))
+                {
+                    form.DrawToBitmap(bmp, new Rectangle(0, 0, form.Width, form.Height));
+                    bmp.Save(file, System.Drawing.Imaging.ImageFormat.Png);
+                }
+            }
+        }
+
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             try { SetProcessDPIAware(); } catch { }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            int shot = Array.IndexOf(args, "--screenshot");
+            if (shot >= 0) { Screenshot(args[shot + 1], Array.IndexOf(args, "--steps") >= 0); return; }
             Application.Run(new SetupForm());
         }
     }

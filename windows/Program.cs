@@ -31,11 +31,16 @@ namespace Hib
     {
         const string Ours4 = "127.0.0.1", Spare4 = "1.1.1.1", Ours6 = "::1", Spare6 = "2606:4700:4700::1111";
         static readonly object gate = new object();
+        // Dry run: nothing is changed, the commands are only written down (see --plan-dns).
+        public static bool DryRun;
+        public static readonly List<string> Planned = new List<string>();
+        static Dictionary<string, string> dryBackup = new Dictionary<string, string>();
         static string BackupFile { get { return Path.Combine(Paths.Data, "dns-backup.txt"); } }
 
         static Dictionary<string, string> ReadBackup()
         {
             var d = new Dictionary<string, string>();
+            if (DryRun) return new Dictionary<string, string>(dryBackup);
             try
             {
                 foreach (var line in File.ReadAllLines(BackupFile))
@@ -50,6 +55,7 @@ namespace Hib
 
         static void WriteBackup(Dictionary<string, string> d)
         {
+            if (DryRun) { dryBackup = new Dictionary<string, string>(d); return; }
             var lines = new List<string>();
             foreach (var kv in d) lines.Add(kv.Key + "=" + kv.Value);
             File.WriteAllLines(BackupFile, lines.ToArray());
@@ -142,7 +148,7 @@ namespace Hib
                         bool v6 = kv.Key.EndsWith("|6");
                         string name, ip = v6 ? "ipv6" : "ipv4";
                         if (!names.TryGetValue(id, out name)) continue;
-                        if (!Current(id, v6).StartsWith(v6 ? Ours6 : Ours4)) continue;   // changed by someone else since: leave it
+                        if (!DryRun && !Current(id, v6).StartsWith(v6 ? Ours6 : Ours4)) continue;   // changed by someone else since: leave it
                         var servers = kv.Value.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                         if (servers.Length == 0)
                             Netsh("interface " + ip + " set dnsservers name=\"" + name + "\" source=dhcp");
@@ -155,12 +161,31 @@ namespace Hib
                     }
                     catch (Exception ex) { Log.Write("DNS restore: " + ex.Message); }
                 }
+                if (DryRun) return;
                 try { File.Delete(BackupFile); } catch { }
                 Program.Run("ipconfig.exe", "/flushdns");
             }
         }
 
-        static void Netsh(string args) { Program.Run("netsh.exe", args); }
+        static void Netsh(string args)
+        {
+            if (DryRun) Planned.Add("netsh " + args);
+            else Program.Run("netsh.exe", args);
+        }
+
+        /// <summary>The adapters that would be changed, with their DNS setting as it is now.</summary>
+        public static List<string> Describe()
+        {
+            var list = new List<string>();
+            foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (!Eligible(nic)) continue;
+                string v4 = Current(nic.Id, false), v6 = Current(nic.Id, true);
+                list.Add(nic.Name + "\t" + (v4.Length == 0 ? "automatic" : v4) + "\t"
+                    + (!nic.Supports(NetworkInterfaceComponent.IPv6) ? "none" : v6.Length == 0 ? "automatic" : v6));
+            }
+            return list;
+        }
     }
 
     class Service : ServiceBase
@@ -242,6 +267,102 @@ namespace Hib
                 catch { }
                 Thread.Sleep(200);
             }
+            return false;
+        }
+
+        // ---------- is this PC ready? ----------
+
+        /// <summary>
+        /// Checks, without changing anything and without administrator rights, that the blocker
+        /// can work on this PC. Each entry is { "ok" | "warn" | "FAIL", what was checked, detail }.
+        /// </summary>
+        public static List<string[]> Preflight()
+        {
+            var r = new List<string[]>();
+            var os = Environment.OSVersion.Version;
+            r.Add(new[] { os.Major >= 10 ? "ok" : "FAIL", "Windows 10 or 11", "Windows " + os.Major + "." + os.Minor + " build " + os.Build });
+
+            bool ours = false;
+            try
+            {
+                if (ServiceInstalled())
+                    using (var sc = new ServiceController(Paths.ServiceName)) ours = sc.Status == ServiceControllerStatus.Running;
+            }
+            catch { }
+            if (ours) r.Add(new[] { "ok", "Port 53 on this PC", "already used by Hib Remover Ads itself" });
+            else
+            {
+                string busy = TryBind(IPAddress.Loopback);
+                r.Add(busy == null ? new[] { "ok", "Port 53 on this PC is free", "" }
+                    : new[] { "FAIL", "Port 53 on this PC is free", "It is used by " + PortOwner() + ". Close or remove that program first, then run this again." });
+                busy = TryBind(IPAddress.IPv6Loopback);
+                r.Add(new[] { busy == null ? "ok" : "warn", "IPv6 on this PC", busy == null ? "" : "not available; IPv4 only" });
+            }
+
+            try { ServicePointManager.SecurityProtocol = (SecurityProtocolType)(3072 | 12288); }
+            catch { ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; }
+            ServicePointManager.Expect100Continue = false;
+            byte[] q = { 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 7, (byte)'e', (byte)'x', (byte)'a', (byte)'m', (byte)'p', (byte)'l', (byte)'e',
+                3, (byte)'c', (byte)'o', (byte)'m', 0, 0, 1, 0, 1 };
+            string via = null;
+            var watch = Stopwatch.StartNew();
+            foreach (string url in Engine.Doh)
+            {
+                bool reached;
+                if (Engine.AskHttps(url, q, q.Length, 3000, out reached) != null) { via = new Uri(url).Host; break; }
+            }
+            r.Add(via != null ? new[] { "ok", "Encrypted lookups reach the internet", "through " + via + " in " + watch.ElapsedMilliseconds + " ms" }
+                : new[] { "warn", "Encrypted lookups reach the internet", "blocked on this network; lookups will use the network's own DNS server instead" });
+
+            int adapters = DnsConfig.Describe().Count;
+            r.Add(adapters > 0 ? new[] { "ok", "Network connection found", adapters + " connected adapter(s)" }
+                : new[] { "warn", "Network connection found", "none right now; blocking starts when you connect" });
+            return r;
+        }
+
+        static string TryBind(IPAddress address)
+        {
+            try
+            {
+                using (var s = new Socket(address.AddressFamily, SocketType.Dgram, ProtocolType.Udp)) s.Bind(new IPEndPoint(address, 53));
+                var l = new TcpListener(address, 53);
+                l.Start(); l.Stop();
+                return null;
+            }
+            catch (Exception ex) { return ex.Message; }
+        }
+
+        // Names the program that holds port 53, so the message can say what to close.
+        static string PortOwner()
+        {
+            try
+            {
+                var psi = new ProcessStartInfo("netstat.exe", "-ano") { UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true };
+                using (var p = Process.Start(psi))
+                {
+                    string text = p.StandardOutput.ReadToEnd();
+                    foreach (string line in text.Split('\n'))
+                    {
+                        var parts = line.Split(new[] { ' ', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (parts.Length < 4 || !(parts[1].EndsWith(":53"))) continue;
+                        if (!parts[1].StartsWith("0.0.0.0") && !parts[1].StartsWith("127.0.0.1") && !parts[1].StartsWith("[::]") && !parts[1].StartsWith("[::1]")) continue;
+                        int pid;
+                        if (!int.TryParse(parts[parts.Length - 1], out pid)) continue;
+                        try { return "\"" + Process.GetProcessById(pid).ProcessName + "\""; } catch { return "another program (process " + pid + ")"; }
+                    }
+                }
+            }
+            catch { }
+            return "another program";
+        }
+
+        /// <summary>Stops before the administrator prompt if this PC isn't ready, and says why.</summary>
+        static bool ReadyOrExplain(bool quiet)
+        {
+            var problems = new List<string>();
+            foreach (var c in Preflight()) if (c[0] == "FAIL") problems.Add(c[1] + ": " + c[2]);
+            if (problems.Count == 0) return true;
+            Say(quiet, "Hib Remover Ads can't be installed yet. Nothing was changed.\n\n" + string.Join("\n\n", problems.ToArray()), MessageBoxIcon.Warning);
             return false;
         }
 
@@ -395,7 +516,12 @@ namespace Hib
                 i = a.IndexOf("--data");
                 if (i >= 0) Paths.Data = Path.GetFullPath(a[i + 1]);
                 Directory.CreateDirectory(Paths.User);
-                engine.Start();
+                try { engine.Start(); }
+                catch (Exception ex)
+                {
+                    File.WriteAllText(Path.Combine(Paths.Data, "failed"), ex.Message);
+                    return 2;
+                }
                 File.WriteAllText(Path.Combine(Paths.Data, "ready"), "1");
                 i = a.IndexOf("--seconds");
                 Thread.Sleep(i >= 0 ? int.Parse(a[i + 1]) * 1000 : Timeout.Infinite);
@@ -409,7 +535,11 @@ namespace Hib
 
             if (a.Contains("--install"))
             {
-                if (!IsAdmin()) return Elevate("--install" + (quiet ? " --quiet" : "") + (a.Contains("--no-open") ? " --no-open" : "")) ? 0 : 1;
+                if (!IsAdmin())
+                {
+                    if (!ReadyOrExplain(quiet)) return 1;
+                    return Elevate("--install" + (quiet ? " --quiet" : "") + (a.Contains("--no-open") ? " --no-open" : "")) ? 0 : 1;
+                }
                 string error;
                 try { error = Install(); } catch (Exception ex) { error = "Install failed: " + ex.Message; }
                 if (error != null) { Log.Write(error); Say(quiet, error, MessageBoxIcon.Error); return 1; }
@@ -441,8 +571,34 @@ namespace Hib
             }
             if (a.Contains("--test-extras")) return ExtrasTest.Run();
 
+            // "Is this PC ready?" Changes nothing, needs no administrator rights.
+            if (a.Contains("--check"))
+            {
+                bool ready = true;
+                foreach (var c in Preflight())
+                {
+                    Console.WriteLine(c[0] + "\t" + c[1] + "\t" + c[2]);
+                    if (c[0] == "FAIL") ready = false;
+                }
+                return ready ? 0 : 1;
+            }
+
+            // Prints what install and uninstall would do to the DNS setting of this PC, and does none of it.
+            if (a.Contains("--plan-dns"))
+            {
+                DnsConfig.DryRun = true;
+                foreach (string line in DnsConfig.Describe()) Console.WriteLine("adapter\t" + line);
+                DnsConfig.Apply(true, true);
+                foreach (string line in DnsConfig.Planned) Console.WriteLine("install\t" + line);
+                DnsConfig.Planned.Clear();
+                DnsConfig.Restore();
+                foreach (string line in DnsConfig.Planned) Console.WriteLine("uninstall\t" + line);
+                return 0;
+            }
+
             if (!ServiceInstalled())
             {
+                if (!ReadyOrExplain(false)) return 1;
                 if (MessageBox.Show(
                     "Block ads and trackers in every app on this PC?\n\n"
                     + "Hib Remover Ads will answer this PC's server lookups (DNS) and refuse the ones for ad servers. "

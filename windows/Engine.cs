@@ -126,7 +126,7 @@ namespace Hib
         long lastStatsQueries = -1;
 
         // Where lookups are passed on. Addresses, not names, so no lookup is needed to reach them.
-        static readonly string[] Doh = {
+        internal static readonly string[] Doh = {
             "https://1.1.1.1/dns-query", "https://1.0.0.1/dns-query", "https://9.9.9.9/dns-query" };
         int dohIndex;
         long dohDownUntil;
@@ -719,7 +719,7 @@ namespace Hib
             return r;
         }
 
-        static byte[] AskHttps(string url, byte[] q, int len, int timeout, out bool reached)
+        internal static byte[] AskHttps(string url, byte[] q, int len, int timeout, out bool reached)
         {
             reached = false;
             try

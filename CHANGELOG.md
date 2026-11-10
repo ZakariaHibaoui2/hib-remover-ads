@@ -9,7 +9,9 @@
 - A tray icon with today's count, on/off, pause for an hour, the most-blocked servers, and your own allow list.
 - The installer has a new box, ticked by default: "Also block ads in Windows apps". It asks for administrator permission once.
 - The block list refreshes itself once a week from this repository.
-- New test: `tests/test_windows.py` (43 checks).
+- The installer checks that the PC is ready before it asks for permission, and says in plain words what is in the way (for example, which program is using the DNS port).
+- The one-command install now offers the Windows app too.
+- New tests: `tests/test_windows.py` (43 checks) and `tests/test_install.py` (43 checks).
 
 ## 2.1.2
 
