@@ -23,7 +23,7 @@ jobs:
       - name: Checksums
         shell: pwsh
         run: |
-          Get-FileHash store/HibRemoverAds-Setup.exe, store/hib-remover-ads.zip -Algorithm SHA256 |
+          Get-FileHash store/HibRemoverAds-Setup.exe, store/HibRemoverAds-Windows.exe, store/hib-remover-ads.zip -Algorithm SHA256 |
             ForEach-Object { "$($_.Hash.ToLower())  $(Split-Path $_.Path -Leaf)" } |
             Set-Content -Encoding ascii store/SHA256SUMS.txt
           Get-Content store/SHA256SUMS.txt
@@ -37,5 +37,5 @@ jobs:
           $notes = ($notes -replace "^\S+\s*", "").Trim()
           $sums = Get-Content store/SHA256SUMS.txt -Raw
           $fence = '```'
-          $body = @($notes, "", "**Install:** download **HibRemoverAds-Setup.exe** (Windows) or **hib-remover-ads.zip** (any OS). Steps: https://github.com/${{ github.repository }}#install-in-one-minute", "", "**SHA-256**", $fence, $sums.Trim(), $fence) -join "`n"
-          gh release create "${{ github.ref_name }}" store/HibRemoverAds-Setup.exe store/hib-remover-ads.zip store/SHA256SUMS.txt --title "Hib Remover Ads $version" --notes "$body"
+          $body = @($notes, "", "**Install:** download **HibRemoverAds-Setup.exe** (Windows: the browser extension and the app that blocks ads in every program), **HibRemoverAds-Windows.exe** (only the Windows app) or **hib-remover-ads.zip** (the extension, any OS). Steps: https://github.com/${{ github.repository }}#install-in-one-minute", "", "**SHA-256**", $fence, $sums.Trim(), $fence) -join "`n"
+          gh release create "${{ github.ref_name }}" store/HibRemoverAds-Setup.exe store/HibRemoverAds-Windows.exe store/hib-remover-ads.zip store/SHA256SUMS.txt --title "Hib Remover Ads $version" --notes "$body"

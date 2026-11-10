@@ -2,6 +2,8 @@
 // Unpacks the extension to %LOCALAPPDATA%\Hib Remover Ads\extension, copies that
 // path, and opens the browser's extensions page. Browsers don't allow outside
 // programs to add extensions silently, so the last three clicks are the user's.
+// If the box is ticked, it also installs the Windows app (windows/), which blocks
+// ads in every program. That part asks for administrator permission.
 // Build: installer\build.cmd
 using System;
 using System.Collections.Generic;
@@ -17,8 +19,8 @@ using Microsoft.Win32;
 
 [assembly: AssemblyTitle("Hib Remover Ads Setup")]
 [assembly: AssemblyProduct("Hib Remover Ads")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.2.0.0")]
+[assembly: AssemblyFileVersion("2.2.0.0")]
 
 namespace HibSetup
 {
@@ -91,6 +93,7 @@ namespace HibSetup
         readonly Font bold = new Font("Segoe UI Semibold", 10.5f);
         readonly Panel page = new Panel();
         ComboBox browsers;
+        CheckBox windowsApp;
         float k = 1f;
         int S(int v) { return (int)Math.Round(v * k); }
         Browser chosen;
@@ -204,15 +207,21 @@ namespace HibSetup
             if (logo != null)
                 page.Controls.Add(new PictureBox { Image = logo, SizeMode = PictureBoxSizeMode.Zoom, Left = S(40), Top = S(40), Width = S(64), Height = S(64) });
             AddLabel("Hib Remover Ads", title, Theme.Foam, 120, 48);
-            AddLabel("Free ad blocker for YouTube and every website. Blocks video ads, banners, popups and trackers.",
+            AddLabel("Free ad blocker for YouTube, every website and every Windows app. Blocks video ads, banners, popups and trackers.",
                 body, Theme.Kelp, 172, 50);
+            windowsApp = new CheckBox { Checked = true, Left = S(40), Top = S(352), Width = S(480), Height = S(44), ForeColor = Theme.Foam,
+                BackColor = Color.Transparent, Font = body, CheckAlign = ContentAlignment.TopLeft, TextAlign = ContentAlignment.TopLeft,
+                Text = "Also block ads in Windows apps: Spotify, free games, Windows itself. Asks for administrator permission once." };
 
             var list = installed = FindBrowsers();
             if (list.Count == 0)
             {
-                AddLabel("No supported browser found. Install Chrome, Edge, Brave, Opera, Vivaldi or another Chromium browser, then run this again.",
-                    bold, Theme.Amber, 250, 50);
-                AddButton("Close", false, 40, 420, 140, delegate { Close(); });
+                AddLabel("No Chromium browser found (Chrome, Edge, Brave, Opera...), so the browser extension is skipped. The Windows app below still blocks ads in every program.",
+                    bold, Theme.Amber, 250, 70);
+                page.Controls.Add(windowsApp);
+                var only = AddButton("Install", true, 40, 410, 200, delegate { if (windowsApp.Checked) InstallWindowsApp(); Close(); });
+                AcceptButton = only;
+                AddButton("Cancel", false, 256, 410, 120, delegate { Close(); });
                 return;
             }
             AddLabel("Install it in", bold, Theme.Foam, 250, 24);
@@ -223,7 +232,8 @@ namespace HibSetup
             browsers.SelectedIndex = list.Count > 1 ? 0 : DefaultIndex(list);
             page.Controls.Add(browsers);
 
-            AddLabel("Installs to " + target, new Font("Segoe UI", 9f), Theme.Kelp, 330, 36);
+            AddLabel("Installs to " + target, new Font("Segoe UI", 9f), Theme.Kelp, 314, 34);
+            page.Controls.Add(windowsApp);
             var install = AddButton("Install", true, 40, 410, 200, delegate { Install(); });
             AcceptButton = install;
             ActiveControl = install;
@@ -256,9 +266,39 @@ namespace HibSetup
                     "\n\nClose the browser and run Setup again.", "Hib Remover Ads", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (windowsApp.Checked) InstallWindowsApp();
             CopyPath();
             OpenExtensionsPage();
             ShowSteps();
+        }
+
+        // Unpacks the Windows app and lets it install itself. It shows the administrator
+        // prompt, checks that it works before changing the DNS setting, and adds its own uninstaller.
+        void InstallWindowsApp()
+        {
+            try
+            {
+                string exe = Path.Combine(Path.GetDirectoryName(target), "HibRemoverAds-Windows.exe");
+                Directory.CreateDirectory(Path.GetDirectoryName(exe));
+                using (var s = Assembly.GetExecutingAssembly().GetManifestResourceStream("windows.exe"))
+                using (var f = File.Create(exe))
+                    s.CopyTo(f);
+                Cursor = Cursors.WaitCursor;
+                using (var p = Process.Start(new ProcessStartInfo(exe, "--install --no-open") { UseShellExecute = true }))
+                {
+                    p.WaitForExit();
+                    if (p.ExitCode == 0)
+                        Process.Start("explorer.exe", "\"" + Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Hib Remover Ads", "HibRemoverAds.exe") + "\"");
+                    else
+                        MessageBox.Show(this, "The Windows app wasn't installed (permission was declined, or it couldn't start). "
+                            + "Nothing was changed. You can run Setup again any time.", "Hib Remover Ads", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Couldn't install the Windows app: " + ex.Message, "Hib Remover Ads", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally { Cursor = Cursors.Default; }
         }
 
         void CopyPath()
@@ -314,12 +354,37 @@ namespace HibSetup
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern bool SetProcessDPIAware();
 
+        // For the tests: saves a picture of the first page (or of the last page with --steps) and exits.
+        static void Screenshot(string file, bool steps)
+        {
+            using (var form = new SetupForm())
+            {
+                form.StartPosition = FormStartPosition.Manual;
+                form.Location = new Point(-4000, -4000);
+                form.ShowInTaskbar = false;
+                form.Show();
+                if (steps)
+                {
+                    form.chosen = new Browser("Google Chrome", "chrome.exe", "chrome://extensions");
+                    form.ShowSteps();
+                }
+                Application.DoEvents();
+                using (var bmp = new Bitmap(form.Width, form.Height))
+                {
+                    form.DrawToBitmap(bmp, new Rectangle(0, 0, form.Width, form.Height));
+                    bmp.Save(file, System.Drawing.Imaging.ImageFormat.Png);
+                }
+            }
+        }
+
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             try { SetProcessDPIAware(); } catch { }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            int shot = Array.IndexOf(args, "--screenshot");
+            if (shot >= 0) { Screenshot(args[shot + 1], Array.IndexOf(args, "--steps") >= 0); return; }
             Application.Run(new SetupForm());
         }
     }

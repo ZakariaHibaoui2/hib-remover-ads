@@ -1,0 +1,24 @@
+# Servers that must keep working, added by hand. These are never blocked.
+
+# Spotify music, login and playlists
+spclient.wg.spotify.com
+apresolve.spotify.com
+login5.spotify.com
+audio-ak-spotify-com.akamaized.net
+audio4-ak-spotify-com.akamaized.net
+i.scdn.co
+dealer.spotify.com
+
+# Windows Update, Store, sign-in and time
+windowsupdate.com
+update.microsoft.com
+login.live.com
+login.microsoftonline.com
+storeedgefd.dsx.mp.microsoft.com
+time.windows.com
+msftconnecttest.com
+msftncsi.com
+
+# This project's own list updates
+raw.githubusercontent.com
+github.com

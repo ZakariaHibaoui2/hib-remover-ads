@@ -5,18 +5,33 @@
 # %LOCALAPPDATA%\Hib Remover Ads\extension, copies that path and opens your
 # browser's extensions page. Browsers don't let outside programs add
 # extensions, so you finish with Load unpacked.
+#
+# Then it offers the Windows app, which blocks ads in every program (Spotify,
+# free games, Windows itself). That part asks for administrator permission.
+#
+# For testing only (tests/test_install.py), three environment variables:
+#   HIB_SOURCE   folder or address to download from, instead of the latest release
+#   HIB_TARGET   folder to install into, instead of %LOCALAPPDATA%\Hib Remover Ads
+#   HIB_ANSWERS  answers to the questions, e.g. "browser=none;windows=no"
 
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$zipUrl = 'https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/hib-remover-ads.zip'
-$target = Join-Path $env:LOCALAPPDATA 'Hib Remover Ads\extension'
+$source = 'https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download'
+if ($env:HIB_SOURCE) { $source = $env:HIB_SOURCE.TrimEnd('/') }
+$folder = Join-Path $env:LOCALAPPDATA 'Hib Remover Ads'
+if ($env:HIB_TARGET) { $folder = $env:HIB_TARGET }
+$answers = @{}
+if ($env:HIB_ANSWERS) { $env:HIB_ANSWERS -split ';' | ForEach-Object { $k, $v = $_ -split '=', 2; $answers[$k.Trim()] = "$v".Trim() } }
+
+$zipUrl = "$source/hib-remover-ads.zip"
+$target = Join-Path $folder 'extension'
 $zip = Join-Path $env:TEMP 'hib-remover-ads.zip'
 
 Write-Host ''
 Write-Host '  Hib Remover Ads' -ForegroundColor Yellow
-Write-Host '  Free ad blocker for YouTube and every website' -ForegroundColor DarkGray
+Write-Host '  Free ad blocker for YouTube, every website and every Windows app' -ForegroundColor DarkGray
 Write-Host ''
 
 Write-Host '  Downloading the latest version...'
@@ -54,8 +69,10 @@ foreach ($b in $browsers) {
   }
 }
 
-Set-Clipboard -Value $target
-if ($found.Count -eq 0) {
+if ($answers['browser'] -eq 'none') { $found = @() } else { Set-Clipboard -Value $target }
+if ($answers['browser'] -eq 'none') {
+  Write-Host '  (test run: no browser opened)' -ForegroundColor DarkGray
+} elseif ($found.Count -eq 0) {
   Write-Host '  No supported browser found. Open your browser''s extensions page yourself.' -ForegroundColor Yellow
 } else {
   $picks = $found
@@ -79,3 +96,28 @@ Write-Host '    1. Turn on Developer mode (top right).'
 Write-Host '    2. Click Load unpacked.'
 Write-Host '    3. Press Ctrl+V in the folder box and click Select Folder. The path is already copied.'
 Write-Host ''
+
+# ---------- the Windows app: ads gone from every program, not only the browser ----------
+if ([Environment]::OSVersion.Version.Major -ge 10) {
+  $want = $answers['windows']
+  if (-not $want) {
+    Write-Host '  Also block ads in Windows apps (Spotify, free games, Windows itself)?' -ForegroundColor Yellow
+    Write-Host '  It asks for administrator permission once. Remove it any time from Settings > Apps.' -ForegroundColor DarkGray
+    $want = Read-Host '  Press Enter for yes, or type n for no'
+  }
+  if ($want -notmatch '^\s*n') {
+    $app = Join-Path $folder 'HibRemoverAds-Windows.exe'
+    Write-Host '  Downloading the Windows app...'
+    Invoke-WebRequest -Uri "$source/HibRemoverAds-Windows.exe" -OutFile $app -UseBasicParsing
+    # "check" is for the tests: it asks the app whether this PC is ready, and installs nothing.
+    $mode = if ($want -eq 'check') { '--check' } else { '--install' }
+    $run = Start-Process -FilePath $app -ArgumentList $mode -Wait -PassThru
+    if ($run.ExitCode -eq 0) {
+      if ($mode -eq '--check') { Write-Host '  This PC is ready for the Windows app.' -ForegroundColor Green }
+      else { Write-Host '  Done. Ads are now blocked in every app. Look for the Hib Remover Ads icon next to the clock.' -ForegroundColor Green }
+    } else {
+      Write-Host '  The Windows app was not installed, and nothing was changed. Run this again any time.' -ForegroundColor Yellow
+    }
+    Write-Host ''
+  }
+}
