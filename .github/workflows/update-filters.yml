@@ -23,12 +23,14 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Download and compile lists
         run: python tools/filterlists.py --fetch
+      - name: Download and compile the Windows app's list
+        run: python tools/hostlist.py
       - uses: peter-evans/create-pull-request@v6
         with:
           branch: update-filter-lists
           title: Update filter lists
           commit-message: Update filter lists
-          body: Weekly refresh of EasyList, EasyPrivacy, uBlock Origin, Liste FR and Liste AR. Merge, then tag a release.
+          body: Weekly refresh of EasyList, EasyPrivacy, uBlock Origin, Liste FR, Liste AR, and the Windows app's AdGuard DNS and HaGeZi lists. Merge, then tag a release. Installed Windows apps pick the new list up from main by themselves.
           add-paths: |
             src/rules/block.json
             src/rules/allow.json
@@ -36,3 +38,5 @@ jobs:
             src/content/generic.css
             src/scriptlets/config.js
             src/scriptlets/hosts.json
+            windows/lists/block.txt
+            windows/lists/allow.txt

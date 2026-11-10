@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hib Remover Ads: free ad blocker for Chrome and YouTube</title>
-<meta name="description" content="Hib Remover Ads is a free ad remover for Chrome, Edge, Brave and Opera. It blocks YouTube video ads, banners, popups, trackers and anti-adblock walls using EasyList and uBlock Origin filters.">
+<title>Hib Remover Ads: free ad blocker for Chrome, YouTube and Windows apps</title>
+<meta name="description" content="Hib Remover Ads is a free ad remover for Chrome, Edge, Brave, Opera and every Windows app. It blocks YouTube video ads, banners, popups and trackers, and ads in Spotify, free games and Windows itself.">
 <meta name="keywords" content="hib remover ads, hib remove ads, hibremoverads, hib adblock, ad remover, ads remover, ad blocker, adblock, youtube ad blocker, chrome extension, free ad blocker">
 <link rel="canonical" href="https://zakariahibaoui2.github.io/hib-remover-ads/">
 <meta property="og:title" content="Hib Remover Ads: free ad blocker">
-<meta property="og:description" content="Blocks YouTube video ads, banners, popups and trackers. Free and open source.">
+<meta property="og:description" content="Blocks YouTube video ads, banners, popups and trackers, and ads in Windows apps like Spotify. Free and open source.">
 <meta property="og:image" content="https://zakariahibaoui2.github.io/hib-remover-ads/og.png">
 <meta property="og:url" content="https://zakariahibaoui2.github.io/hib-remover-ads/">
 <meta name="twitter:card" content="summary_large_image">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Hib Remover Ads","alternateName":["Hib Remove Ads","HibRemoverAds","Hib Ad Blocker"],"url":"https://zakariahibaoui2.github.io/hib-remover-ads/","downloadUrl":"https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest","author":{"@type":"Person","name":"Zakaria Hibaoui","url":"https://github.com/ZakariaHibaoui2"},"applicationCategory":"BrowserApplication","operatingSystem":"Windows; Chrome, Edge, Brave, Opera","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free ad blocker that removes YouTube video ads, banners, popups and trackers."}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Hib Remover Ads","alternateName":["Hib Remove Ads","HibRemoverAds","Hib Ad Blocker"],"url":"https://zakariahibaoui2.github.io/hib-remover-ads/","downloadUrl":"https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest","author":{"@type":"Person","name":"Zakaria Hibaoui","url":"https://github.com/ZakariaHibaoui2"},"applicationCategory":"BrowserApplication","operatingSystem":"Windows; Chrome, Edge, Brave, Opera","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free ad blocker that removes YouTube video ads, banners, popups and trackers in the browser, and ads in Windows apps such as Spotify and free games."}
 </script>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}
@@ -216,6 +216,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <a class="brand" href="./"><img src="icon.png" alt="">Hib Remover Ads</a>
   <nav>
     <a href="#proof">Results</a>
+    <a href="#windows">Windows apps</a>
     <a href="#install">Install</a>
     <a href="#questions">Questions</a>
     <a class="get" href="#install">Download</a>
@@ -229,7 +230,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <img class="fallback" src="og.png" alt="Hib Remover Ads popup showing ads blocked on a page">
       <div class="hero-copy">
         <h1><span>Hib</span><span>Remover</span><span>Ads</span></h1>
-        <p class="lede">A free ad blocker for YouTube and every other website. No account, no tracking, nothing to pay.</p>
+        <p class="lede">A free ad blocker for YouTube, every other website, and now every Windows app. No account, no tracking, nothing to pay.</p>
         <div class="cta">
           <a class="btn" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
@@ -237,7 +238,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           </a>
           <a class="btn ghost" href="#install">Other ways to install</a>
         </div>
-        <p class="meta">Version 2.0 · Works in Chrome, Edge, Brave and Opera</p>
+        <p class="meta">Version 2.2 · Chrome, Edge, Brave, Opera, and apps on Windows 10 and 11</p>
       </div>
       <p class="readout" aria-live="polite"><span>Ads on this page</span><b id="count">9</b></p>
       <p class="hint" id="hint"><i></i>Scroll, or click an ad</p>
@@ -274,6 +275,31 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     </div>
   </section>
 
+  <section id="windows">
+    <div class="wrap install-grid">
+      <div>
+        <h2>New: ads gone from every Windows app</h2>
+        <p class="intro">An extension only sees the browser. Hib Remover Ads for Windows works one level lower, so Spotify, free games and Windows itself are covered too. Tick one box in the installer.</p>
+        <ul class="lists">
+          <li><b>Every program at once</b><span>When any app asks where an ad server is, the answer is "nowhere". 326,850 ad and tracking servers are on the list, refreshed weekly.</span></li>
+          <li><b>Instant</b><span>A blocked ad is answered in 0.16 ms, a repeated lookup in 0.16 ms, a brand-new one in about 50 ms. In our test, 50 of 50 app ad servers were blocked and 36 of 36 real servers kept working.</span></li>
+          <li><b>Spotify</b><span>Banner ads and tracking are blocked. Audio ads come from Spotify's music servers, so they are muted for their length instead. Spotify is not modified.</span></li>
+          <li><b>Ads built into Windows</b><span>Start menu suggestions, lock-screen ads, File Explorer promotions and tips are switched off. One switch each.</span></li>
+          <li><b>Can't break your internet</b><span>It tests itself before changing anything and Windows keeps spare servers. Uninstalling puts your settings back exactly as they were.</span></li>
+          <li><b>Private</b><span>Lookups leave your PC encrypted. No account, no statistics, no history.</span></li>
+        </ul>
+      </div>
+      <div>
+        <img src="assets/windows-app.png" width="393" height="577" loading="lazy" style="width:100%;max-width:393px;height:auto;border-radius:14px;display:block;margin:0 auto 20px" alt="The Hib Remover Ads window on Windows: 1,843 ads and trackers blocked today in every app, the most-blocked ad servers, and switches for Spotify audio ads and Windows ads">
+        <div class="card alt">
+          <h3>Only want the Windows app?</h3>
+          <p>2.5 MB, for Windows 10 and 11. It asks for administrator permission once. Remove it any time from Settings, Apps.</p>
+          <a class="btn ghost" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Windows.exe">Download HibRemoverAds-Windows.exe</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="install">
     <div class="wrap install-grid">
       <div>
@@ -293,7 +319,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         </div>
         <div class="card alt">
           <h3>Windows installer</h3>
-          <p>1.6 MB. Windows may warn you first: click More info, then Run anyway.</p>
+          <p>4.3 MB. Sets up the browser extension and, if you leave the box ticked, the Windows app that blocks ads in every program. Windows may warn you first: click More info, then Run anyway.</p>
           <a class="btn ghost" href="https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe">Download HibRemoverAds-Setup.exe</a>
         </div>
         <div class="card alt">
@@ -309,6 +335,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="wrap">
       <h2>Questions</h2>
       <p class="intro">Something not working? Open an issue on <a href="https://github.com/ZakariaHibaoui2/hib-remover-ads/issues">GitHub</a> with the site's address.</p>
+      <details>
+        <summary>Does it remove ads in Spotify and other Windows apps?</summary>
+        <p>Yes, with the Windows app (one tick box in the installer). It blocks the ad and tracking servers that apps call, in every program. Spotify's audio ads come from the same servers as the music, so they can't be blocked; the app mutes Spotify while one plays. Apps that send ads from their own content servers, like the YouTube or Facebook apps, can't be filtered this way.</p>
+      </details>
       <details>
         <summary>Is it really free?</summary>
         <p>Yes. There is no paid version and no account. The code is open on GitHub under the GPL-3.0 license.</p>

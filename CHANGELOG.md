@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.2.0
+
+- **New: Hib Remover Ads for Windows.** It blocks ads and trackers in every program on the PC, not only in the browser: Spotify, free games, uTorrent, Microsoft apps, and browsers that have no extension. It answers the PC's server lookups (DNS) and refuses the ones for 326,850 ad and tracking servers. Other lookups are passed on encrypted and remembered, so repeats are instant.
+- It can't break your internet: it tests itself before it changes the DNS setting, Windows keeps spare servers to fall back on, and stopping or uninstalling it puts the setting back exactly as it was.
+- Mutes Spotify while it plays an audio ad. Spotify sends audio ads from its music servers, so they can't be blocked. Spotify itself is not modified.
+- Switches off six kinds of ads built into Windows (Start menu, lock screen, File Explorer, tips, Settings, advertising ID). Each one has its own switch.
+- A tray icon with today's count, on/off, pause for an hour, the most-blocked servers, and your own allow list.
+- The installer has a new box, ticked by default: "Also block ads in Windows apps". It asks for administrator permission once.
+- The block list refreshes itself once a week from this repository.
+- New test: `tests/test_windows.py` (43 checks).
+
 ## 2.1.2
 
 - No more "ad blocker detected" walls on sites that test for a blocker, such as Yalla Shoot / korahlive.online. A page that loads a test image from an ad server now gets a blank image instead of an error, so its check passes, and the ad server is still never contacted.

@@ -54,6 +54,32 @@ jobs:
           print(f"ok: {total} static rules, {len(list((src / '_locales').iterdir()))} languages")
           PY
 
+      - name: Windows app block list is sane
+        run: |
+          python - <<'PY'
+          import pathlib, re
+          lists = pathlib.Path("windows/lists")
+          block = set(lists.joinpath("block.txt").read_text().split())
+          allow = set(lists.joinpath("allow.txt").read_text().split())
+          assert 100_000 < len(block) < 2_000_000, len(block)
+          ok = re.compile(r"^[a-z0-9._-]+$")
+          assert all(ok.match(d) for d in block | allow), "unexpected character in a list"
+          for must_block in ["doubleclick.net", "adeventtracker.spotify.com", "applovin.com", "ads.msn.com"]:
+              assert must_block in block, must_block
+          def blocked(name):
+              parts = name.split(".")
+              for i in range(len(parts) - 1):
+                  d = ".".join(parts[i:])
+                  if d in allow: return False
+                  if d in block: return True
+              return False
+          for must_work in ["spclient.wg.spotify.com", "apresolve.spotify.com", "open.spotify.com", "login.live.com",
+                            "download.windowsupdate.com", "www.google.com", "www.youtube.com", "github.com",
+                            "raw.githubusercontent.com", "web.whatsapp.com", "discord.com", "store.steampowered.com"]:
+              assert not blocked(must_work), must_work
+          print(f"ok: {len(block)} blocked domains, {len(allow)} allowed")
+          PY
+
       - name: No remote code
         run: |
           ! grep -rnE "\beval\(|new Function\(|https?://[^\"' ]+\.js" src --include=*.js --include=*.html \

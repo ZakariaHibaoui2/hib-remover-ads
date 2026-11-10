@@ -1,0 +1,44 @@
+# Extra ad and tracking servers used by Windows apps, added by hand.
+# One domain per line. A domain also covers its subdomains.
+
+# Spotify (ads, ad tracking, crash reports; music and login use other servers)
+adeventtracker.spotify.com
+ads-fa.spotify.com
+analytics.spotify.com
+log.spotify.com
+crashdump.spotify.com
+adstudio-assets.scdn.co
+audio-ads.spotify.com
+
+# Ad networks inside free apps and games
+applovin.com
+applvn.com
+unityads.unity3d.com
+adcolony.com
+vungle.com
+chartboost.com
+inmobi.com
+ironsrc.com
+supersonicads.com
+mopub.com
+tapjoy.com
+startappservice.com
+adtilt.com
+
+# uTorrent / BitTorrent ads
+utorrent-ads.bittorrent.com
+cdn.bitmedianetwork.com
+bench.utorrent.com
+
+# Ads built into Windows and Microsoft apps
+ads.msn.com
+adnexus.net
+adsdk.microsoft.com
+ads1.msads.net
+ads1.msn.com
+rad.msn.com
+flex.msn.com
+a.ads1.msn.com
+a.ads2.msn.com
+live.rads.msn.com
+ads.microsoft.com

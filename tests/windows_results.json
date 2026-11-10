@@ -1,0 +1,228 @@
+{
+ "date": "2026-11-10",
+ "summary": {
+  "ad_servers_blocked": "50/50",
+  "real_servers_working": "36/36",
+  "blocked_answer_ms": 0.06,
+  "first_lookup_ms": 42,
+  "repeat_lookup_ms": 0.11,
+  "block_list": 326850
+ },
+ "checks": [
+  {
+   "check": "starts and loads the block list",
+   "ok": true,
+   "detail": "0.25 s"
+  },
+  {
+   "check": "Spotify",
+   "ok": true,
+   "detail": "7/7"
+  },
+  {
+   "check": "Google ads (used inside most free apps)",
+   "ok": true,
+   "detail": "9/9"
+  },
+  {
+   "check": "Ad networks in free apps and games",
+   "ok": true,
+   "detail": "10/10"
+  },
+  {
+   "check": "Windows and Microsoft apps",
+   "ok": true,
+   "detail": "7/7"
+  },
+  {
+   "check": "Other apps",
+   "ok": true,
+   "detail": "17/17"
+  },
+  {
+   "check": "Spotify music and login",
+   "ok": true,
+   "detail": "8/8"
+  },
+  {
+   "check": "Windows",
+   "ok": true,
+   "detail": "6/6"
+  },
+  {
+   "check": "Everyday sites and apps",
+   "ok": true,
+   "detail": "22/22"
+  },
+  {
+   "check": "subdomains of a blocked server are blocked too",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "the name comes back spelled as it was asked",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "IPv6 lookups get '::'",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "other record types get an empty answer",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "blocked over TCP too",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "real lookups work over TCP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "listens on IPv6 (::1)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "a name that doesn't exist says so",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "an answer too big for UDP is retried over TCP",
+   "ok": true,
+   "detail": "17 records over TCP"
+  },
+  {
+   "check": "a blocked ad server is answered instantly",
+   "ok": true,
+   "detail": "median 0.06 ms, slowest of 300: 0.15 ms"
+  },
+  {
+   "check": "a first lookup (encrypted, over the internet) is quick",
+   "ok": true,
+   "detail": "median 42 ms, slowest 45 ms"
+  },
+  {
+   "check": "a repeated lookup is instant",
+   "ok": true,
+   "detail": "median 0.11 ms, slowest of 300: 0.26 ms"
+  },
+  {
+   "check": "2,000 lookups from 40 programs at once",
+   "ok": true,
+   "detail": "23,706 lookups per second"
+  },
+  {
+   "check": "garbage packets don't stop it",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "turned off: ad servers resolve again",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "turned on: blocked again",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "paused for an hour: ad servers resolve",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "a server you allow resolves",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "the others stay blocked",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "removed from your allow list: blocked again",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "counts what it blocked",
+   "ok": true,
+   "detail": "1896 blocked of 2714 lookups"
+  },
+  {
+   "check": "lists the most-blocked servers",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "has a full block list",
+   "ok": true,
+   "detail": "326,850 servers"
+  },
+  {
+   "check": "lookups left this PC encrypted",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "the log holds no names of sites you visited",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "tells ads from songs by the title of the Spotify window",
+   "ok": true,
+   "detail": "11/11"
+  },
+  {
+   "check": "finds the Spotify window",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "the Windows volume mixer mutes one program and unmutes it",
+   "ok": true,
+   "detail": "1 audio stream(s) of this test"
+  },
+  {
+   "check": "Windows ads: Suggested apps and promotions in the Start menu",
+   "ok": true,
+   "detail": "switches off and back on"
+  },
+  {
+   "check": "Windows ads: Ads and tips on the lock screen",
+   "ok": true,
+   "detail": "switches off and back on"
+  },
+  {
+   "check": "Windows ads: Promotions inside File Explorer",
+   "ok": true,
+   "detail": "switches off and back on"
+  },
+  {
+   "check": "Windows ads: \"Tips and suggestions\" notifications",
+   "ok": true,
+   "detail": "switches off and back on"
+  },
+  {
+   "check": "Windows ads: Suggested content in the Settings app",
+   "ok": true,
+   "detail": "switches off and back on"
+  },
+  {
+   "check": "Windows ads: Advertising ID and ads based on your activity",
+   "ok": true,
+   "detail": "switches off and back on"
+  }
+ ]
+}

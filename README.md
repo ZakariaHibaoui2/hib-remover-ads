@@ -4,8 +4,9 @@
 
 # Hib Remover Ads
 
-**A free, open-source ad blocker for Chrome, Edge, Brave and Opera.**<br>
-Removes YouTube video ads, banners, popups, trackers and "turn off your ad blocker" walls, and makes pages load faster.
+**A free, open-source ad blocker for Chrome, Edge, Brave, Opera, and now every Windows app.**<br>
+Removes YouTube video ads, banners, popups, trackers and "turn off your ad blocker" walls in the browser.<br>
+New in 2.2: blocks ads in Spotify, free games and Windows itself.
 
 [![Download for Windows](https://img.shields.io/badge/Download-Windows%20installer-f3b23c?style=for-the-badge&logo=windows&logoColor=10272b&labelColor=f3b23c)](https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe)
 [![Download zip](https://img.shields.io/badge/Download-zip%20(any%20OS)-183a3f?style=for-the-badge&logo=googlechrome&logoColor=e4f0ec)](https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/hib-remover-ads.zip)
@@ -16,7 +17,7 @@ Removes YouTube video ads, banners, popups, trackers and "turn off your ad block
 [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-e4f0ec?labelColor=10272b)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/ZakariaHibaoui2/hib-remover-ads?style=flat&color=f3b23c&labelColor=10272b)](https://github.com/ZakariaHibaoui2/hib-remover-ads/stargazers)
 
-[Website](https://zakariahibaoui2.github.io/hib-remover-ads/) · [Install](#install-in-one-minute) · [Results](#tested-on-real-websites) · [Privacy](PRIVACY.md) · [Report an ad that got through](https://github.com/ZakariaHibaoui2/hib-remover-ads/issues/new?template=ad-got-through.yml)
+[Website](https://zakariahibaoui2.github.io/hib-remover-ads/) · [Install](#install-in-one-minute) · [Windows apps](#new-block-ads-in-every-windows-app) · [Results](#tested-on-real-websites) · [Privacy](PRIVACY.md) · [Report an ad that got through](https://github.com/ZakariaHibaoui2/hib-remover-ads/issues/new?template=ad-got-through.yml)
 
 <br>
 
@@ -52,6 +53,47 @@ Removes YouTube video ads, banners, popups, trackers and "turn off your ad block
 </tr>
 </table>
 
+## New: block ads in every Windows app
+
+<table>
+<tr>
+<td width="58%" valign="top">
+
+A browser extension can only see the browser. **Hib Remover Ads for Windows** works one level lower, so it covers every program on the PC:
+
+- **Every app, no setup per app.** Spotify, free games, uTorrent, Microsoft apps, and browsers that have no extension. When a program asks where an ad server is, the answer is "nowhere", so the ad never downloads.
+- **326,850 ad and tracking servers** on the block list, from AdGuard DNS filter and HaGeZi Pro, refreshed every week.
+- **Instant.** A blocked ad server is answered in 0.16 ms. A lookup you made before is answered in 0.16 ms from memory. A brand-new lookup takes about 50 ms, encrypted.
+- **Spotify audio ads are muted.** Spotify sends them from its music servers, so nothing can block them without stopping the music. The app mutes Spotify for the length of the ad and unmutes it for the next song. Spotify itself is not modified.
+- **Ads built into Windows, off.** Start menu suggestions, lock-screen ads, File Explorer promotions, "tips", Settings suggestions and the advertising ID. One switch each.
+- **Can't break your internet.** It tests itself before it changes anything. Windows keeps spare DNS servers, so if the app ever stops, lookups carry on without it. Uninstalling puts your DNS setting back exactly as it was.
+- **Private.** Your lookups leave the PC encrypted (DNS over HTTPS). No account, no statistics, no history. See [PRIVACY.md](PRIVACY.md#windows-app).
+
+**Get it:** run [HibRemoverAds-Setup.exe](https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe) and leave **"Also block ads in Windows apps"** ticked. It asks for administrator permission once. Only want the Windows app? Download [HibRemoverAds-Windows.exe](https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Windows.exe). Remove it any time from **Settings > Apps**.
+
+</td>
+<td width="42%" valign="top" align="center">
+
+<img src="docs/assets/windows-app.png" width="330" alt="The Hib Remover Ads window on Windows: 1,843 ads and trackers blocked today in every app, a list of the most-blocked ad servers, and switches for Spotify audio ads and the ads built into Windows">
+
+</td>
+</tr>
+</table>
+
+Tested with [`tests/test_windows.py`](tests/test_windows.py), 43 checks:
+
+| What was checked | Result |
+|---|---|
+| Ad servers that Windows apps call (Spotify, Google ads, AppLovin, Unity, Vungle, MSN ads, 50 in all) | **50 of 50 blocked** |
+| Servers that must keep working (Spotify music and login, Windows Update, Store, 36 in all) | **36 of 36 work** |
+| Answering a blocked ad server | 0.16 ms |
+| Answering a lookup made before | 0.16 ms |
+| A first lookup, encrypted over the internet | 48 ms (median, measured from Morocco) |
+| 2,000 lookups from 40 programs at once | about 10,000 per second, no errors |
+| On, off, pause, allow list, IPv6, TCP, damaged packets | all pass |
+
+**What it can't do.** It blocks an ad when the ad comes from an ad server. Apps that send ads from the same servers as their content can't be told apart by name: Spotify's audio ads (muted instead), and the ads inside the YouTube, Facebook and Instagram apps. In the browser, the extension handles YouTube. A VPN, or an app that brings its own DNS, goes around it.
+
 ## Install in one minute
 
 Hib Remover Ads isn't on the Chrome Web Store yet, so you load it yourself. You only do this once.
@@ -71,7 +113,7 @@ Supported: Chrome, Edge, Brave, Opera, Opera GX, Opera Air, Vivaldi, Yandex, Chr
 ### Windows installer
 
 1. Download **[HibRemoverAds-Setup.exe](https://github.com/ZakariaHibaoui2/hib-remover-ads/releases/latest/download/HibRemoverAds-Setup.exe)** and run it. If Windows says *"Windows protected your PC"*, click **More info**, then **Run anyway**. The installer isn't signed with a paid certificate; its full source is in [`installer/Setup.cs`](installer/Setup.cs).
-2. Pick your browser and click **Install**. The extension is unpacked to `%LOCALAPPDATA%\Hib Remover Ads\extension`, the folder path is copied, and your browser opens its extensions page.
+2. Pick your browser and click **Install**. Leave **"Also block ads in Windows apps"** ticked to cover Spotify, games and Windows itself (it asks for administrator permission). The extension is unpacked to `%LOCALAPPDATA%\Hib Remover Ads\extension`, the folder path is copied, and your browser opens its extensions page.
 3. Turn on **Developer mode** (top right), click **Load unpacked**, press **Ctrl+V** in the folder box and click **Select Folder**.
 
 ### Mac, Linux or by hand
@@ -119,6 +161,7 @@ Results vary by country and over time; these were measured from Morocco in Octob
 | Popup | Per-page, weekly and all-time counts, pause per site, global switch, prefilled "report a site" link. | [`src/popup/`](src/popup) |
 | Click-to-remove | A picker you start from the popup. Hides what you click and saves a selector for that site only. | [`src/content/zapper.js`](src/content/zapper.js) |
 | Languages | English, French and Arabic. | [`src/_locales/`](src/_locales) |
+| Windows app | A local DNS server for the whole PC: refuses lookups for ad servers, passes the rest on over HTTPS, and remembers answers. Also mutes Spotify audio ads and switches off the ads built into Windows. | [`windows/`](windows) |
 
 Permissions and why each is needed are listed in [PRIVACY.md](PRIVACY.md#permissions).
 
@@ -127,7 +170,8 @@ Permissions and why each is needed are listed in [PRIVACY.md](PRIVACY.md#permiss
 ```sh
 python tools/filterlists.py --fetch   # download the filter lists and compile them (needs Python + Playwright)
 node tools/build.mjs                  # compile the curated list in tools/filters.mjs
-python installer/build.py             # store/hib-remover-ads.zip and store/HibRemoverAds-Setup.exe (Windows)
+python tools/hostlist.py              # download and compile the Windows app's block list
+python installer/build.py             # the zip, HibRemoverAds-Windows.exe and HibRemoverAds-Setup.exe in store/ (Windows)
 ```
 
 Tests:
@@ -140,6 +184,7 @@ python tests/test_features.py      # click-to-remove, weekly savings, report lin
 python tests/test_arabic_sites.py  # 45 Arabic, Moroccan and French sites with and without the extension
 python tests/test_real_sites.py    # ad-heavy sites with and without the extension
 python tests/test_performance.py   # load time, CPU and memory with and without the extension
+python tests/test_windows.py       # the Windows app: 43 checks, changes no Windows setting
 ```
 
 A [weekly workflow](.github/workflows/update-filters.yml) refreshes the filter lists and opens a pull request when they change.
@@ -160,6 +205,6 @@ If Hib Remover Ads saves you time, **[give it a star](https://github.com/Zakaria
 
 Made by [Zakaria Hibaoui](https://github.com/ZakariaHibaoui2). Licensed under [GPL-3.0](LICENSE).
 
-Filter lists by the [EasyList](https://easylist.to/) authors, [uBlock Origin](https://github.com/uBlockOrigin/uAssets) contributors, Liste FR and Liste AR maintainers, used under GPL-3.0. Scriptlet behaviour follows uBlock Origin's. Fonts: [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) and [Figtree](https://github.com/erikdkennedy/figtree), SIL Open Font License.
+Filter lists by the [EasyList](https://easylist.to/) authors, [uBlock Origin](https://github.com/uBlockOrigin/uAssets) contributors, Liste FR and Liste AR maintainers, used under GPL-3.0. The Windows app's list is built from [AdGuard DNS filter](https://github.com/AdguardTeam/AdGuardSDNSFilter) and [HaGeZi Pro](https://github.com/hagezi/dns-blocklists), both GPL-3.0. Scriptlet behaviour follows uBlock Origin's. Fonts: [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) and [Figtree](https://github.com/erikdkennedy/figtree), SIL Open Font License.
 
-Hib Remover Ads is an independent project and isn't affiliated with Google, YouTube, uBlock Origin or EasyList.
+Hib Remover Ads is an independent project and isn't affiliated with Google, YouTube, Spotify, Microsoft, Cloudflare, uBlock Origin, AdGuard, HaGeZi or EasyList.
